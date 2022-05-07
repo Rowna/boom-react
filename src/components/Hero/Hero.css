@@ -75,12 +75,12 @@
     .subtitle {
       position: relative;
     }
-    .is-primary {
+    .letsshop {
       width: 90%;
     }
   }
-  .is-primary {
-    background-color: #df485b;
+  .letsshop {
+    background-color: #df485b !important;
     font-family: "Sofia";
     font-size: 1.3rem;
     width: 100%;

@@ -35,7 +35,7 @@ export default function Hero() {
           </p>
 
           {/* --- Button --- */}
-          <a className="button is-primary" href="/catalog">
+          <a className="button letsshop is-primary" href="/catalog">
             Let's shop
           </a>
         </div>
