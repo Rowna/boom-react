@@ -1,0 +1,38 @@
+.singup {
+  background-color: #df485b !important;
+}
+.logo {
+  font-family: "Sofia";
+  font-size: 1.5rem;
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+.header-menu {
+  display: flex;
+}
+.sel {
+  color: hsl(0deg, 0%, 4%) !important;
+}
+.imge {
+  width: 28px;
+  height: 28px;
+}
+.navbar-btn {
+  padding: 3px;
+}
+.navbar-brand {
+  padding: 0;
+}
+.navbar-container {
+  margin-left: 2rem;
+}
+@media only screen and (max-width: 1024px) {
+  .nav-itm {
+    justify-content: flex-end;
+    margin-left: auto;
+  }
+}
+@media only screen and (min-width: 1023px) {
+  .nav-itm {
+    display: none;
+  }
+}
