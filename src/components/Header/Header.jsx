@@ -80,6 +80,7 @@ export default function Header() {
                   <>
                     <a
                       className="button singup is-primary"
+                      data-v-header-f421
                       href="/signup"
                     >
                       <strong>Sign up</strong>

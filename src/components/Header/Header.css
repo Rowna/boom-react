@@ -1,5 +1,5 @@
-.singup {
-  background-color: #df485b !important;
+.singup[data-v-header-f421] {
+  background-color: #df485b;
 }
 .logo {
   font-family: "Sofia";
@@ -24,6 +24,7 @@
 }
 .navbar-container {
   margin-left: 2rem;
+  justify-content: space-between;
 }
 @media only screen and (max-width: 1024px) {
   .nav-itm {

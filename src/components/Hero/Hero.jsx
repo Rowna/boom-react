@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <div>
       {/* <h2 className="is-title is-4">Hier ist die Landing Page!</h2> */}
-      <div className="base-container">
+      <div className="base-container" data-v-f4231f1g>
         {/* --- Image fürs Handy --- */}
         <div className="img-container">
           <img className="img" src="images/1.jpeg" alt="Prince" />
@@ -35,7 +35,7 @@ export default function Hero() {
           </p>
 
           {/* --- Button --- */}
-          <a className="button letsshop is-primary" href="/catalog">
+          <a className="button letsshop is-primary" href="/catalog" data-v-f4231f1a>
             Let's shop
           </a>
         </div>

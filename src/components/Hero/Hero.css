@@ -37,7 +37,7 @@
     padding-top: 5rem;
   }
   @media only screen and (min-width: 1024px) {
-    .base-container {
+    .base-container[data-v-f4231f1g] {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -79,8 +79,9 @@
       width: 90%;
     }
   }
-  .letsshop {
-    background-color: #df485b !important;
+  .letsshop[data-v-f4231f1a] {
+    background-color: #df485b;
+    justify-content: center;
     font-family: "Sofia";
     font-size: 1.3rem;
     width: 100%;
