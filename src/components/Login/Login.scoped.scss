@@ -1,0 +1,98 @@
+.base-container[data-v-f4231f1d] {
+  background-color: rgb(240, 235, 235);
+  border-top-right-radius: 8%;
+  border-bottom-left-radius: 10%;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px,
+    rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+  padding: 2rem 2rem;
+  max-height: fit-content;
+  max-width: 800px;
+  width: 600px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@media only screen and (max-width: 700px) {
+  .base-container[data-v-f4231f1d] {
+    width: 300px;
+    padding: 5px 5px;
+    margin: 10px;
+  }
+}
+.form[data-v-f4231f1d] {
+  padding: 2rem 1.5rem 0 1.5rem;
+}
+.boom-title[data-v-f4231f1d] {
+  align-items: center;
+  color: #000;
+  font-family: "Sofia";
+  font-size: 1.5rem;
+  position: relative;
+  margin-bottom: 2.7rem;
+}
+.boom-title::after {
+  position: absolute;
+  content: "Hi there! Nice to have you!";
+  color: #9c9898;
+  width: 100%;
+  font-family: "Patrick Hand";
+  font-weight: normal;
+  font-size: 0.9rem;
+  left: 3.2rem;
+  top: 36px;
+}
+.form-container[data-v-f4231f1d] {
+  margin: 3.5rem 0 2rem 0;
+  text-align: left;
+  color: #000;
+}
+label[data-v-f4231f1d] {
+  padding-bottom: 2px !important;
+  margin-top: 1.8rem;
+  font-family: inherit;
+  padding: 10px calc(calc(0.75em - 2px) + 0.375em);
+}
+.button[data-v-f4231f1d],
+.para-contianer[data-v-f4231f1d] {
+  padding: 1rem 1.5rem;
+}
+.btn[data-v-f4231f1d] {
+  margin-top: 1rem;
+  font-family: "Sofia";
+  background: #db4e61;
+  color: rgb(31, 28, 28);
+  width: 100%;
+  justify-content: center
+  
+}
+.para-contianer[data-v-f4231f1d] {
+  display: flex;
+  gap: 5px;
+  justify-content: flex-end;
+}
+
+.para-contianer__title[data-v-f4231f1d] {
+  color: rgb(77, 75, 75);
+  text-align: right;
+  font-family: "Patrick Hand";
+}
+.para-contianer__title:hover,
+.form-container__pass:hover,
+.para-contianer__title2 {
+  cursor: pointer;
+  color: #db4e61;
+}
+.para-contianer__title2[data-v-f4231f1d] {
+  color: #df485b;
+  font-family: "Patrick Hand";
+}
+// .para-contianer__line[data-v-f4231f1d] {
+//   color: rgb(31, 28, 28) !important;
+// }
+.form-container__pass[data-v-f4231f1d] {
+  padding: 1.5rem 1rem;
+  color: rgb(77, 75, 75);
+  font-size: 10px;
+  text-decoration: underline;
+}
