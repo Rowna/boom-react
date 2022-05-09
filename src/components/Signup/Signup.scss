@@ -1,0 +1,102 @@
+.base-container[data-v-signup4312] {
+  background-color: rgb(240, 235, 235);
+  border-top-right-radius: 8%;
+  border-bottom-left-radius: 10%;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px,
+    rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+  padding: 2rem 2rem;
+  max-height: fit-content;
+  max-width: 800px;
+  width: 600px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+@media only screen and (max-width: 700px) {
+  .base-container[data-v-signup4312] {
+    width: 300px;
+    padding: 5px 5px;
+    margin: 10px;
+  }
+}
+
+.form[data-v-signup4312] {
+  padding: 2rem 1.5rem;
+}
+.title-cont {
+  color: #000;
+  font-family: "Sofia";
+  font-size: 1.5rem;
+  margin-bottom: 0;
+  position: relative;
+  margin-bottom: 2.7rem;
+}
+.title-cont::after {
+  position: absolute;
+  content: "Hi there! Nice to see you!";
+  color: #9c9898;
+  width: 100%;
+  font-family: "Patrick Hand";
+  font-weight: normal;
+  font-size: 0.9rem;
+  left: 3.2rem;
+  top: 36px;
+}
+.form-container[data-v-signup4312] {
+  margin-top: 1.5rem;
+  text-align: left;
+  color: #000;
+}
+label[data-v-signup4312] {
+  padding-bottom: 2px !important;
+  /* margin-top: 15px; */
+  font-family: inherit;
+  padding: 10px calc(calc(0.75em - 2px) + 0.375em);
+}
+.error[data-v-signup4312] {
+  padding: 5px calc(calc(0.75em - 2px) + 0.375em);
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+.is-primary[data-v-signup4312] {
+  font-family: "Sofia";
+  /* background: #db4e61; */
+  color: rgb(31, 28, 28);
+  width: 100%;
+}
+.check[data-v-signup4312] {
+  border: #db4e61 2px solid;
+  background-color: #f8bbbb;
+  justify-content: center;
+  box-shadow: 8px 10px 30px 20px rgba(200, 193, 193, 0.5);
+}
+.sign-up[data-v-signup4312] {
+  box-shadow: #9c9898;
+  justify-content: center;
+  background-color: rgb(116, 195, 116) !important;
+}
+.input[data-v-signup4312] {
+  border: none !important;
+}
+.btn-contianer[data-v-signup4312] {
+  /* margin-top: 1.5rem; */
+  padding: 0 1.5rem 10px 1.5rem;
+}
+.para-contianer[data-v-signup4312] {
+  max-width: fit-content;
+  text-align: end;
+  float: right;
+  width: 250px;
+}
+.para__title[data-v-signup4312] {
+  color: rgb(77, 75, 75);
+  text-decoration: underline;
+  text-align: right;
+  font-family: "Patrick Hand";
+}
+.para__title:hover {
+  cursor: pointer;
+  color: #db4e61;
+}
