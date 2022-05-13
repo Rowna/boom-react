@@ -1,6 +1,6 @@
 import "./App.css";
 import "../src/main.scss";
-import { UserAuthContextProvider } from "./context/UserAuthContext";
+import { FirebaseContextProvider } from "./context/FirebaseContext";
 // import React, { useEffect } from "react";
 
 // import firebase_config from "./server/firebase_config";
@@ -24,16 +24,16 @@ function App() {
   // }, [])
 
   return (
-    <UserAuthContextProvider>
+    <FirebaseContextProvider>
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Index />} />
-          <Route path="catalog" element={<Catalog />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
+          <Route path="catalog" element={<Catalog />} />
         </Route>
       </Routes>
-    </UserAuthContextProvider>
+    </FirebaseContextProvider>
   );
 }
 
