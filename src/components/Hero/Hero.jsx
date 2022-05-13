@@ -35,7 +35,9 @@ export default function Hero() {
             clothes
           </p>
 
-          {/* --- Button  --- */}
+          {/* --- Button: so muss der Link aussehen, wenn er auf einen
+             Routen-Enpoint geht, z.B. '/catalog'  --- */}
+
           <Link to="/catalog">
             <button className="button letsshop is-primary" data-v-f4231f1a>
               Let's shop

@@ -3,12 +3,15 @@ import "./Header.css";
 import { useFirebase } from "../../context/FirebaseContext";
 import { fbAuth } from "../../server/firebase_config";
 import { doc, getDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   let { user, db } = useFirebase();
 
   let [logoutButton, setLogoutButton] = useState(false);
   let [fullUserName, setfullUserName] = useState("");
+
+  let navigate = useNavigate();
 
   // Falls der user neu eingeloggt ist ...
   if (user !== null) {
@@ -26,6 +29,13 @@ export default function Header() {
   }
 
   const logoutHandler = () => {
+    /* 
+      Es muss diese Zeilen in dieser Reihenfolge ausgeführt werden:
+      Weil: Wenn der User sich aussloggt, muss zurück geschehen, dass
+      der Route zum /hero/ geführt werden, und DANN die seite neue 
+      aufgeladen werden.
+    */
+    navigate("/");
     setLogoutButton(true);
     fbAuth
       // ist ASYNCHRON, d.h. die noetigen anpassungen im
@@ -35,6 +45,7 @@ export default function Header() {
         // beim signout wird die Seite neugeladet
         window.location.reload(true);
         user = fbAuth.currentUser;
+        // user = null;
       })
       .catch((error) => "Konnte nicht ausloggen: " + error.message);
   };

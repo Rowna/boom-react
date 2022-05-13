@@ -1,5 +1,11 @@
-.singup[data-v-header-f421] {
-  background-color: #df485b;
+.sign-up {
+  background-color: #df485b !important;
+  width: 100px ;
+  justify-content: center;
+}
+.login {
+  width: 100px;
+  justify-content: center;
 }
 .logo {
   font-family: "Sofia";
@@ -8,6 +14,9 @@
 }
 .header-menu {
   display: flex;
+}
+.buttons[data-v-header-f421] {
+  margin-bottom: 0rem;
 }
 .sel {
   color: hsl(0deg, 0%, 4%) !important;

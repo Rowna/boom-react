@@ -13,6 +13,7 @@ import Index from "./components/Index/Index";
 import Catalog from "./components/Catalog/Catalog";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
+import Hero from "./components/Hero/Hero";
 
 // Firebase 9
 // const fb = initializeApp(firebase_config);
@@ -28,6 +29,7 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Index />} />
+          <Route path="/" element={<Hero />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="catalog" element={<Catalog />} />
