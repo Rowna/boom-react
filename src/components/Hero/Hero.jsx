@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Hero.css";
 
 export default function Hero() {
@@ -34,10 +35,12 @@ export default function Hero() {
             clothes
           </p>
 
-          {/* --- Button --- */}
-          <a className="button letsshop is-primary" href="/catalog" data-v-f4231f1a>
-            Let's shop
-          </a>
+          {/* --- Button  --- */}
+          <Link to="/catalog">
+            <button className="button letsshop is-primary" data-v-f4231f1a>
+              Let's shop
+            </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFirebase } from "../../context/FirebaseContext";
 import { doc, setDoc } from "firebase/firestore";
 
@@ -12,12 +12,12 @@ export default function Signup() {
   //   // die einzelnen Attribute (Properties)
   // }
   // [signupState, dispatch] = useReducer(signupReducer, signupInitState)
-
   const [fullNameInput, setfullNameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [passWordInput, setPassWordInput] = useState("");
-
-
+  
+  const navigate = useNavigate(); 
+  
   // signUp aus useContext
   let { signUp, user, db } = useFirebase();
 
@@ -25,7 +25,7 @@ export default function Signup() {
   const [error, setError] = useState("");
 
   function FnUserEmailInput(e) {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     // setEmailInput: ist ASYNCHRON, AUFGESCHOBEN!
     // d.h. es wird sowieso erst nach Ende dieser Funktion ausgefuehrt.
     // deshalb steht es auch hier schon "ganz unten".
@@ -33,7 +33,7 @@ export default function Signup() {
   }
 
   function FnUserPasswordInput(e) {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     // setEmailInput: ist ASYNCHRON, AUFGESCHOBEN!
     // d.h. es wird sowieso erst nach Ende dieser Funktion ausgefuehrt.
     // deshalb steht es auch hier schon "ganz unten".
@@ -41,7 +41,7 @@ export default function Signup() {
   }
 
   function FnfullNameInput(e) {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     // setEmailInput: ist ASYNCHRON, AUFGESCHOBEN!
     // d.h. es wird sowieso erst nach Ende dieser Funktion ausgefuehrt.
     // deshalb steht es auch hier schon "ganz unten".
@@ -63,7 +63,12 @@ export default function Signup() {
       setDoc(doc(db, `/users/${user.uid}`, ""), {
         name: fullNameInput,
       });
-      <Link to="/catalog" />;
+      // hier muss noch das Redirect zu /catalog-route
+      // und nicht zu einem <Link> erfolgen. In react gibt es verschiedene 
+      // Möglichkeiten, ein Redirect vorzunehmen; Einzelheiten bei
+      // https://www.robinwieruch.de/react-router-redirect/
+      // Wir verwenden useNavigate() aus dem 'react-router-dom' paket
+      navigate("/catalog");
     } catch (error) {
       setError(error.message);
     }
@@ -140,7 +145,6 @@ export default function Signup() {
           data-v-signup4312
         >
           Sign Up
-          <Link to="/catalog" />
         </button>
         {/* {/if} */}
 
