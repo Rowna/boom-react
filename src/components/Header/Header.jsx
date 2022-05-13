@@ -1,31 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Header.css";
+import { useFirebase } from "../../context/FirebaseContext";
+import { fbAuth } from "../../server/firebase_config";
+import { doc, getDoc } from "firebase/firestore";
 
-import { doc, getDoc, getFirestore } from "firebase/firestore";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useState } from "react";
-
-// const Header = (props) => {}
 export default function Header() {
-  const fbAuth = getAuth();
-  //   let user = fbAuth.currentUser;
+  let { user, db } = useFirebase();
 
-  // let logoutButton = false;
   let [logoutButton, setLogoutButton] = useState(false);
-  let [fullUserName] = useState("");
-  let [user, setUser] = useState("");
+  let [fullUserName, setfullUserName] = useState("");
+
+  // Falls der user neu eingeloggt ist ...
+  if (user !== null) {
+    // wahren Benutzernamen aus '/firestore/users/$app.user.id' holen
+    getDoc(doc(db, `users/${user.uid}`))
+      .then((docsnapshot) => {
+        // setfullUserName = funktioinert nicht, weil setfullUserName eine
+        // function ist, die von useState() zurück gegeben wurde. (Z.11)
+        setfullUserName(docsnapshot.data().name);
+      })
+      .catch((error) => "Konnte den Username nicht laden:" + error.message);
+  } else {
+    user = null; // wird schon in Z.30 geklaert.
+    console.log("User is signed out! ");
+  }
 
   const logoutHandler = () => {
-    setLogoutButton = true;
+    setLogoutButton(true);
     fbAuth
       // ist ASYNCHRON, d.h. die noetigen anpassungen im
       // .then vornehmen.
       .signOut()
       .then(() => {
-        // location.reload();
-        // window.location.href = window.location.href;
-        setUser = fbAuth.currentUser;
-        // console.log("Ausgeloggt!");
+        // beim signout wird die Seite neugeladet
+        window.location.reload(true);
+        user = fbAuth.currentUser;
       })
       .catch((error) => "Konnte nicht ausloggen: " + error.message);
   };
@@ -40,6 +49,7 @@ export default function Header() {
           </a>
 
           {/* <!-- Mobile Version / If User nicht eingeloggt --> */}
+          {/* {!fbAuth.currentUser && !logoutButton ? ( */}
           {!fbAuth.currentUser && !logoutButton ? (
             <a
               href="/login"
@@ -73,16 +83,13 @@ export default function Header() {
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-end">
             <div className="navbar-item">
-              <div className="buttons">
+              <div className="buttons" data-v-header-f421>
                 {/* <!-- Desktop Version / If User nicht eingeloggt ist --> */}
                 {/* {#if !fbAuth.currentUser && !logoutButton} */}
+                {/* {!fbAuth.currentUser && !logoutButton ? ( */}
                 {!fbAuth.currentUser && !logoutButton ? (
                   <>
-                    <a
-                      className="button singup is-primary"
-                      data-v-header-f421
-                      href="/signup"
-                    >
+                    <a className="button sign-up is-primary" href="/signup">
                       <strong>Sign up</strong>
                     </a>
                     <a href="/login" className="button login is-light">
