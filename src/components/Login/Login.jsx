@@ -1,40 +1,50 @@
-import React from "react";
-import "./Login.scoped.scss";
-import { useState } from "react";
+import { React, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useFirebase } from "../../context/FirebaseContext";
 
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-const fbAuth = getAuth();
+import "./Login.scoped.scss";
 
 export default function Login() {
   // Hier ist das <Script>-Teil in Svelte
+
   // let userInput = { emailInput: "", passWordInput: "" };
   const [emailInput, setEmailInput] = useState("");
   const [passWordInput, setPassWordInput] = useState("");
+  // login aus useContext
+  let { logIn, user } = useFirebase();
 
-  let [fbUser, setFbUser] = useState({});
+  // Error-Message in SignUp definieren.
+  const [error, setError] = useState("");
 
-  function handleSubmit(event) {
+  const navigate = useNavigate();
+
+  async function handleSubmit(event) {
+    console.log("Login ist erfolgreich! ");
     event.preventDefault();
-    signInWithEmailAndPassword(fbAuth, emailInput, passWordInput)
-      .then((fbCredentials) => {
-        setFbUser = fbCredentials.user;
-      })
-      .catch((err) => {
-        console.log("Uh oh! Konnte nicht einloggen: " + err.message);
-      });
-    console.log("Logging in!");
+    setError("");
+    let fbCredentials = null;
+    let fbUser = null;
+
+    try {
+      fbCredentials = await logIn(emailInput, passWordInput);
+      fbUser = fbCredentials.user;
+      user = fbUser;
+      navigate("/catalog");
+    } catch (error) {
+      setError(error.message);
+    }
   }
 
-  function userEmailInput(e) {
-    console.log(e.target.value);
+  function FnUserEmailInput(e) {
+    // console.log(e.target.value);
     // setEmailInput: ist ASYNCHRON, AUFGESCHOBEN!
     // d.h. es wird sowieso erst nach Ende dieser Funktion ausgefuehrt.
     // deshalb steht es auch hier schon "ganz unten".
     setEmailInput(e.target.value);
   }
 
-  function userPassInput(e) {
-    console.log(e.target.value);
+  function FnUserPassInput(e) {
+    // console.log(e.target.value);
     // setPassWordInput: ist ASYNCHRON, AUFGESCHOBEN!
     // d.h. es wird sowieso erst nach Ende dieser Funktion ausgefuehrt.
     // deshalb steht es auch hier schon "ganz unten".
@@ -58,7 +68,7 @@ export default function Login() {
             className="input is-rounded"
             placeholder="Your E-Mail"
             value={emailInput}
-            onChange={userEmailInput}
+            onChange={FnUserEmailInput}
             // onChange={(e) => {setEmailInput(e.target.value)}}
             // bind:value={userInput.emailInput}
           />
@@ -70,7 +80,7 @@ export default function Login() {
             type="password"
             placeholder="Your Password"
             value={passWordInput}
-            onChange={userPassInput}
+            onChange={FnUserPassInput}
 
             // bind:value={userInput.passWordInput}
           />
@@ -85,6 +95,7 @@ export default function Login() {
           data-v-f4231f1d
         >
           Log In
+          <Link to="/catalog" />
         </button>
         <div className="para-contianer" data-v-f4231f1d>
           <p className="para-contianer__title" data-v-f4231f1d>
