@@ -52,7 +52,6 @@ export default function Header() {
 
   return (
     <>
-      {/* <!-- svelte-ignore a11y-no-redundant-roles --> */}
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand navbar-container">
           <a className="navbar-item logo" href="/">
