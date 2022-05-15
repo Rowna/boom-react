@@ -14,16 +14,9 @@ import Catalog from "./components/Catalog/Catalog";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import Hero from "./components/Hero/Hero";
-
-// Firebase 9
-// const fb = initializeApp(firebase_config);
+import Cart from "./components/Cart/Cart";
 
 function App() {
-  // useEffect(() => {
-  //   const app = initializeApp(firebase_config);
-  //   const fbAuth = getAuth()
-  // }, [])
-
   return (
     <FirebaseContextProvider>
       <Routes>
@@ -33,6 +26,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="catalog" element={<Catalog />} />
+          <Route path="cart" element={<Cart />} />
         </Route>
       </Routes>
     </FirebaseContextProvider>

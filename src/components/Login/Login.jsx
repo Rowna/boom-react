@@ -29,6 +29,7 @@ export default function Login() {
       fbCredentials = await logIn(emailInput, passWordInput);
       fbUser = fbCredentials.user;
       user = fbUser;
+      // navigate im JSX - Link im HTML
       navigate("/catalog");
     } catch (error) {
       setError(error.message);
