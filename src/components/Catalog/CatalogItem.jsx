@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 
@@ -14,13 +14,23 @@ export default function CatalogItem(props) {
   // brauchen wir hier eine Hilfsvariable.
   let imgURL = "images/" + props.article.img;
 
-  // let [modalVisible, setModalVisible] = useState(false);
+  let [modalVisible, setModalVisible] = useState(false);
 
-  function addToCartHandler() {}
+  function addToCartHandler() {
+    const userRef = doc(db, "users", user.uid);
+
+    let cartItem = {
+      id: props.article.id,
+      title: props.article.title,
+      desc: props.article.desc,
+      price: props.article.price,
+      img: props.article.img,
+    };
+  }
 
   function addToFavoritesHandler() {
-    // const userRef = doc(db, "users", );
-
+    console.log("added to Favorites!");
+    setModalVisible(true);
   }
 
   return (
@@ -38,7 +48,7 @@ export default function CatalogItem(props) {
                 data-v-cataIt4312
               />
             </p>
-            {/* </Link> */}
+            {/* <Link to="/SingleView"></Link> */}
           </figure>
 
           <footer className="card-footer" data-v-cataIt4312>
@@ -74,14 +84,17 @@ export default function CatalogItem(props) {
             )}
           </footer>
         </div>
-        <div className="card-content" data-v-cataIt4312>
-          <div className="media-content" data-v-cataIt4312>
-            <p className="title is-3 mc" data-v-cataIt4312>
+        <div className="card-content" >
+          <div className="media-content" >
+            <p className="title is-3 mc" >
               {props.article.title}
             </p>
           </div>
+          <div>
+            <p className="subtitle is-5 mc">{props.article.desc}</p>
+          </div>
           <br />
-          <div className="content" data-v-cataIt4312>
+          <div className="content" >
             <p className="subtitle is-5 cprice">
               Price: {props.article.price} €
             </p>
