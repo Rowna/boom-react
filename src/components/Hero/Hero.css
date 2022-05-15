@@ -44,7 +44,7 @@
       margin: 4rem 2rem 6rem;
     }
   }
-  .title {
+  .hero-title {
     position: relative;
     display: grid;
     grid-template-rows: 1fr 2rem;
@@ -55,24 +55,24 @@
     font-size: 1.5rem;
     margin: 1rem 0 0 0;
   }
-  .subtitle {
+  .hero-subtitle {
     position: absolute;
     width: 80%;
     left: 5%;
   }
   @media only screen and (min-width: 570px) {
-    .subtitle {
+    .hero-subtitle {
       left: 10%;
       font-size: 1.2rem;
     }
   }
   @media only screen and (min-width: 1024px) {
-    .title {
+    .hero-title {
       width: 90%;
       font-size: 2rem;
       margin: 1rem 0 1rem 0;
     }
-    .subtitle {
+    .hero-subtitle {
       position: relative;
     }
     .letsshop {

@@ -3,7 +3,8 @@ import "./Header.css";
 import { useFirebase } from "../../context/FirebaseContext";
 import { fbAuth } from "../../server/firebase_config";
 import { doc, getDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
 
 export default function Header() {
   let { user, db } = useFirebase();
@@ -56,6 +57,7 @@ export default function Header() {
         <div className="navbar-brand navbar-container">
           <a className="navbar-item logo" href="/">
             BOOM
+            <Link to="/hero"></Link>
           </a>
 
           {/* <!-- Mobile Version / If User nicht eingeloggt --> */}
@@ -76,6 +78,7 @@ export default function Header() {
           ) : (
             <div className="navbar-item nav-itm">
               <div className="navbar-end">
+
                 <a className="navbar-btn button is-white" href="/cart">
                   Cart
                 </a>

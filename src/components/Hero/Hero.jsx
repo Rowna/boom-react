@@ -29,8 +29,8 @@ export default function Hero() {
 
         {/* --- Infos --- */}
         <div className="info-container">
-          <h1 className="title">BOOM</h1>
-          <p className="subtitle is-6">
+          <h1 className="title hero-title">BOOM</h1>
+          <p className="subtitle hero-subtitle is-6">
             A Page takes you to kids Mode where you can find your kids favorite
             clothes
           </p>
