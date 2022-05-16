@@ -39,12 +39,12 @@ export default function CatalogItem(props) {
         <div className="card-image" data-v-cataIt4312>
           <figure className="image" data-v-cataIt4312>
             {/* <a className="cartSingle" href="/singleView/{article.id}"> */}
-            {/* <Link to={() => "/singleView/" + props.article.id }> */}
-            <p className="cartSingle">
-              <img
-                className="cartSingle img"
-                src={imgURL}
-                alt="article"
+            <Link to={"/singleview/" + props.article.id}>
+              <p className="cartSingle">
+                <img
+                  className="cartSingle img"
+                  src={imgURL}
+                  alt="article"
                 data-v-cataIt4312
               />
             </p>
