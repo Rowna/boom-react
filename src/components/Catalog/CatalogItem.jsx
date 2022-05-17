@@ -100,7 +100,7 @@ export default function CatalogItem(props) {
             </Link>
           </figure>
 
-          <footer className="card-footer ci-card-footer" data-v-catait4312>
+          <footer className="card-footer ci-card-footer">
             {user !== null ? (
               <>
                 <div
@@ -126,8 +126,17 @@ export default function CatalogItem(props) {
                 </div>
               </>
             ) : (
-              // {modalVisible : <Platzhalter /> : <></>}
-              <div className="card-foot container">You should log in!</div>
+              /* {modalVisible ? 
+                  (<Platzhalter />
+                  ) : (
+                  <></>
+                  )}
+              */
+             <Link className="ci-login" to="/login">
+                <div className="card-foot container">
+                    You should log in!
+                </div>
+             </Link>
             )}
           </footer>
         </div>
