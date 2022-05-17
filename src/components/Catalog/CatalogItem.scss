@@ -1,21 +1,21 @@
-.cartSingle[data-v-cataIt4312] {
+.cartSingle[data-v-catait4312] {
   background-color: #2faa22;
 }
 .cartSingle:hover {
   cursor: pointer;
 }
-.image[data-v-cataIt4312] {
+.image[data-v-catait4312] {
   position: relative;
 }
-.card-content[data-v-cataIt4312] {
+.ci-card-content {
   display: flex;
   align-items: center;
   flex-direction: column;
 }
-.subtitle {
+.mc, .cprice {
   padding-top: 10px;
 }
-.card-footer-item:hover {
+.ci-card-footer-item:hover {
   cursor: pointer;
   background-color: #f6919e;
 }
@@ -28,7 +28,7 @@
 .fav-img:hover {
   cursor: pointer;
 }
-.card-footer {
+.ci-card-footer {
   background-color: rgb(255, 255, 255);
   border-bottom: #e7e7e7 solid 0.2px;
   bottom: 0;
@@ -46,7 +46,7 @@
   text-align: center;
   width: auto;
 }
-.card-foot[data-v-cataIt4312] {
+.card-foot[data-v-catait4312] {
   width: 100%;
   text-align: center;
   padding: 10px;

@@ -62,6 +62,7 @@ export default function Signup() {
       user = fbCredentials.user;
       setDoc(doc(db, `/users/${user.uid}`, ""), {
         name: fullNameInput,
+        cart: [],
       });
       // hier muss noch das Redirect zu /catalog-route
       // und nicht zu einem <Link> erfolgen. In react gibt es verschiedene 

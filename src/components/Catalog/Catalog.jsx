@@ -13,6 +13,7 @@ export default function Catalog() {
   const [userCart, setUserCart] = useState([]);
 
   const navigate = useNavigate();
+  // Wegen Endlose schleife
   let elseCount = useRef(0);
 
   if (user !== null) {
