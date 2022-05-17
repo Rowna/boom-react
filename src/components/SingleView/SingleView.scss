@@ -1,0 +1,82 @@
+.sv-btns {
+  width: 100%;
+  margin-top: 1rem;
+//   display: flex;
+//   flex-direction: column;
+  text-align: center;
+}
+
+/* min heißt ab 1024 px */
+@media only screen and (min-width: 1024px) {
+  .singleview-base-container {
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 4rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    max-width: 1000px;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .singleview-base-container {
+    margin: 5rem 2rem 0 2rem;
+  }
+}
+
+@media only screen and (max-width: 690px) {
+  .sv-article-conatiner {
+    flex-direction: column;
+  }
+  .sv-img {
+    width: 300px;
+    height: 300px;
+  }
+  .sv-img-container {
+    border-bottom: solid 2px #f5f5efc4;
+  }
+}
+.singleview-title {
+  position: relative;
+  font-family: "Sofia";
+  font-size: 2.3rem;
+  color: #000;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+
+  grid-template-rows: 1fr 2rem;
+  margin: 2rem 0 2rem 0;
+}
+.sv-img-container,
+.desc-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.sv-img {
+  object-position: center;
+  width: 200px;
+  height: 200px;
+}
+
+.rate-btn,
+.gly-btn,
+.edit-btn {
+  width: 100%;
+  justify-content: center;
+}
+.rate-btn {
+  background-color: #6acc6a;
+}
+.gly-btn {
+  background-color: #df485b;
+  margin-bottom: 0;
+}
+.edit-btn {
+  background-color: rgb(109, 169, 237);
+  color: #000;
+}
