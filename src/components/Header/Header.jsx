@@ -5,7 +5,6 @@ import { fbAuth } from "../../server/firebase_config";
 import { doc, getDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 
-
 export default function Header() {
   let { user, db } = useFirebase();
 
@@ -55,33 +54,35 @@ export default function Header() {
     <>
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand navbar-container">
-          <a className="navbar-item logo" href="/">
-            BOOM
-            <Link to="/hero"></Link>
-          </a>
+          <div>
+            <Link to="/hero">
+              <p className="navbar-item logo">BOOM</p>
+            </Link>
+          </div>
 
           {/* <!-- Mobile Version / If User nicht eingeloggt --> */}
           {/* {!fbAuth.currentUser && !logoutButton ? ( */}
           {!fbAuth.currentUser && !logoutButton ? (
-            <a
-              href="/login"
-              role="button"
-              className="navbar-burger"
-              aria-label="menu"
-              aria-expanded="false"
-              data-target="navbarBasicExample"
-            >
-              <span aria-hidden="true" />
-              <span aria-hidden="true" />
-              <span aria-hidden="true" />
-            </a>
+            <Link to="/login">
+              <a
+                href="/#"
+                role="button"
+                className="navbar-burger"
+                aria-label="menu"
+                aria-expanded="false"
+                data-target="navbarBasicExample"
+              >
+                <span aria-hidden="true" />
+                <span aria-hidden="true" />
+                <span aria-hidden="true" />
+              </a>
+            </Link>
           ) : (
             <div className="navbar-item nav-itm">
               <div className="navbar-end">
-
-                <a className="navbar-btn button is-white" href="/cart">
-                  Cart
-                </a>
+                <Link to="/cart">
+                  <p className="navbar-btn button is-white">Cart</p>
+                </Link>
                 <div className="select is-white">
                   <select className="sel">
                     <option>{fullUserName}</option>
@@ -102,20 +103,24 @@ export default function Header() {
                 {/* {!fbAuth.currentUser && !logoutButton ? ( */}
                 {!fbAuth.currentUser && !logoutButton ? (
                   <>
-                    <a className="button sign-up is-primary" href="/signup">
-                      <strong>Sign up</strong>
-                    </a>
-                    <a href="/login" className="button login is-light">
-                      Log In
-                    </a>
+                    <Link to="/signup">
+                      <p className="button sign-up is-primary">
+                        <strong>Sign up</strong>
+                      </p>
+                    </Link>
+
+                    <Link to="/login">
+                      <p className="button login is-light">Log In</p>
+                    </Link>
                   </>
                 ) : (
                   <div className="header-menu">
-                    <div>
-                      <a className="button is-white" href="/cart">
-                        Shopping Cart
-                      </a>
-                    </div>
+                    <Link to="/cart">
+                      <div>
+                        <p className="button is-white">Shopping Cart</p>
+                      </div>
+                    </Link>
+
                     <a className="imge" href="/bookmark">
                       <img src="../images/herz.png" alt="Fav" />
                     </a>

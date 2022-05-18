@@ -56,14 +56,14 @@ export default function CartItem(props) {
   return (
     <>
       <div className="box card">
-        <div className="card-footer card-items">
+        <div className="card-footer ct-card-items">
           {/* <!-- <h2>Art-Nr: {article.id}</h2> --> */}
           <div className="card-footer-item article-img">
-            {/* <!-- => <a href="/singleView/{article.id}"> --> */}
 
-            <a href="/singleView/{props.article.id}">
+            {/* <p href="/singleView/{props.article.id}"> */}
+            <p>
               <img className="cartItem-imge" src={cartImgURL} alt="article" />
-            </a>
+            </p>
           </div>
 
           <div className="card-footer-item article-info">
@@ -81,9 +81,9 @@ export default function CartItem(props) {
             <div className="card-header price-container">
               <p className="card-header-title title is-4 amount">
                 Preis:
-                <a href="/" className="subtitle card-header-title is-5 price-a">
+                <p className="subtitle card-header-title is-5 price-a">
                   {props.article.price} €
-                </a>
+                </p>
               </p>
             </div>
 
@@ -97,29 +97,28 @@ export default function CartItem(props) {
                   className="article-qty card-header-title subtitle is-5"
                   onClick={decreaseHandler}
                 >
-                  <a
-                    href="/"
+                  <p
+                    
                     className="subtitle is-2 is-success is-outlined is-small minus-btn"
                   >
                     -
-                  </a>
+                  </p>
                 </p>
                 <div className="card-header-title">
-                  <a href="/" className="article-qty subtitle is-5 qty-a">
+                  <p className="article-qty subtitle is-5 qty-a">
                     {qty}
-                  </a>
+                  </p>
                 </div>
 
                 <p
                   className="article-qty card-header-title subtitle is-5"
                   onClick={increaseHandler}
                 >
-                  <a
-                    href="/"
+                  <p
                     className="subtitle is-2 is-success is-outlined is-small plus-btn"
                   >
                     +
-                  </a>
+                  </p>
                 </p>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFirebase } from "../../context/FirebaseContext";
 import { doc, setDoc } from "firebase/firestore";
 
@@ -150,9 +150,11 @@ export default function Signup() {
         {/* {/if} */}
 
         <div className="para-contianer" data-v-signup4312>
-          <a href="/login" className="para__title" data-v-signup4312>
-            Already have an Account?
-          </a>
+          <Link to="/login">
+            <p className="para__title" data-v-signup4312>
+              Already have an Account?
+            </p>
+          </Link>
         </div>
       </div>
     </div>

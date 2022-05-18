@@ -88,7 +88,7 @@ export default function CatalogItem(props) {
         <div className="card-image" data-v-catait4312>
           <figure className="image" data-v-catait4312>
             {/* <a className="cartSingle" href="/singleView/{article.id}"> */}
-            <Link to={"/singleview/" + props.article.id}>
+            <Link to={singleViewURL}>
               <p className="cartSingle">
                 <img
                   className="cartSingle img"
@@ -132,7 +132,7 @@ export default function CatalogItem(props) {
                   <></>
                   )}
               */
-             <Link className="ci-login" to="/login">
+              <Link className="ci-login" to="/login">
                 <div className="card-foot container">
                     You should log in!
                 </div>

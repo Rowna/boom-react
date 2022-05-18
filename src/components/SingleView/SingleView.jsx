@@ -93,13 +93,14 @@ export default function SingleView() {
               <div className="sv-btns card">
                 {/* {#if recAlreadyWritten} */}
                 <p className="rate-btn-container card-content">
-                  <a
-                    href="/"
+                  <Link to="">
+                  <p
                     className="button is-info edit-btn"
                     // onClick={EditRatingHandler}
                   >
                     Edit your Recension
-                  </a>
+                  </p>
+                  </Link>
                 </p>
 
                 {/* {#if platzhalterVisible}
@@ -110,7 +111,7 @@ export default function SingleView() {
                 <p className="rate-btn-container card-content">
                   <a
                     className="button is-info rate-btn"
-                    href="/"
+                    href="/#"
                     onClick={ratingHandler}
                   >
                     Write your Recension

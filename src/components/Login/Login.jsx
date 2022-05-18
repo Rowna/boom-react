@@ -29,7 +29,7 @@ export default function Login() {
       fbCredentials = await logIn(emailInput, passWordInput);
       fbUser = fbCredentials.user;
       user = fbUser;
-      // navigate im JSX - Link im HTML
+      // navigate() im JSX - <Link /> im HTML
       navigate("/catalog");
     } catch (error) {
       setError(error.message);
@@ -85,27 +85,30 @@ export default function Login() {
 
             // bind:value={userInput.passWordInput}
           />
-          <a href="/" className="form-container__pass" data-v-f4231f1d>
+          <a href="/#" className="form-container__pass" data-v-f4231f1d>
             Password forgotten? Choose New!
           </a>
         </div>
-
-        <button
-          onClick={handleSubmit}
-          className="button is-rounded is-primary btn"
-          data-v-f4231f1d
-        >
-          Log In
-          <Link to="/catalog" />
-        </button>
+        <Link to="/catalog">
+          <button
+            onClick={handleSubmit}
+            className="button is-rounded is-primary btn"
+            data-v-f4231f1d
+          >
+            Log In
+            {/* <Link to="/catalog" /> */}
+          </button>
+        </Link>
         <div className="para-contianer" data-v-f4231f1d>
           <p className="para-contianer__title" data-v-f4231f1d>
             Password forgotten?
           </p>
           <span>|</span>
-          <a className="para-contianer__title2" href="/signup" data-v-f4231f1d>
-            New Member?
-          </a>
+          <Link to="/signup">
+            <p className="para-contianer__title2" data-v-f4231f1d>
+              New Member?
+            </p>
+          </Link>
         </div>
       </div>
     </div>
