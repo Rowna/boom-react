@@ -38,15 +38,17 @@ export default function Cart() {
     // elseCount.current++;
     console.log("Bin gerade nicht eingeloggt.");
   }
-
-
-  // <CartBox subTotal={getSubTotal(articles)} />
-
   
   function getSubUpdate(amount) {
     // Das Problem mit den Rundungsfehlern aufheben!
     // ist die keinsmoeglich Double groesser als 1, also 1.00000
-    setSubtotal(Math.round((subtotal + amount + Number.EPSILON) * 100) / 100);
+    // in React hilft bei Endlosschleifen im Zusammenhang mit 
+    // State-Variablen eine anonyme Inline-Function, die den den neuen Wert
+    // fuer die State-Variable zurückgibt.
+    // problematisch:
+    // setSubtotal(Math.round((subtotal + amount + Number.EPSILON) * 100) / 100);
+    // besser:
+    setSubtotal(() => Math.round((subtotal + amount + Number.EPSILON) * 100) / 100);
   }
 /*
   // Die Cart leeren.
@@ -94,6 +96,7 @@ export default function Cart() {
           // if (cartItems && cartItems.length > 0) {
           // articlesExist.current = true;
           setArticles(shCartItems);
+          setSubtotal(getSubTotal(shCartItems))
         })
         .catch((error) => console.error("The Error is: " + error.message));
       // } else {
@@ -105,8 +108,12 @@ export default function Cart() {
     <>
       {articles && articles.length > 0 ? (
         <div className="card-box-container">
-          <CartList articles={articles} subtotal={getSubTotal(articles)}/>
-          <CartBox subtotal={getSubTotal(articles)} />
+          <CartList 
+             theArticles={articles} 
+             getSubUpdate={getSubUpdate}
+            //  theSubtotal={subtotal}
+          />
+          <CartBox theSubtotal={subtotal} />
         </div>
       ) : (
         <CartEmpty />

@@ -5,7 +5,7 @@ import { doc, updateDoc, deleteField, arrayUnion } from "firebase/firestore";
 import "./Cart.scss";
 import "./CartBox.scss";
 
-const CartBox = ({ subtotal }) => {
+const CartBox = ({ theSubtotal }) => {
 
   let { user, db } = useFirebase();
   let userRef = doc(db, "users", user.uid);
@@ -16,7 +16,7 @@ const CartBox = ({ subtotal }) => {
     console.log("FieldRemove()");
     // event.preventDefault();
     updateDoc(userRef, {
-      cart: deleteField(),
+      cart: [],
     });
 
     // window.location.reload(true);
@@ -35,7 +35,7 @@ const CartBox = ({ subtotal }) => {
       <div className="totals card">
         <div className="card-footer">
           <p className="card-footer-item title is-3 total">Subtotal:</p>
-          <p className="card-footer-item title is-5">{subtotal} €</p>
+          <p className="card-footer-item title is-5">{theSubtotal} €</p>
         </div>
 
         <div className="card-footer">
@@ -50,7 +50,7 @@ const CartBox = ({ subtotal }) => {
         <div className="card-footer">
           <p className="card-footer-item title is-4 total">Estimate Total:</p>
           <p className="card-footer-item title is-4">
-            <code>{subtotal} €</code>
+            <code>{theSubtotal} €</code>
           </p>
         </div>
       </div>
@@ -66,7 +66,7 @@ const CartBox = ({ subtotal }) => {
           </button>
         </p>
 
-        <Link to="/hero">
+        <Link to="/">
           <button
             className="button cb-delete-btn"
             onClick={clearCartHandler}
