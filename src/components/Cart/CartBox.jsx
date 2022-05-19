@@ -1,11 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useFirebase } from "../../context/FirebaseContext";
+import { doc, updateDoc, deleteField, arrayUnion } from "firebase/firestore";
 import "./Cart.scss";
-import "./CartItem.scss";
+import "./CartBox.scss";
 
-const CartBox = (props) => {
+const CartBox = ({ subtotal }) => {
+
+  let { user, db } = useFirebase();
+  let userRef = doc(db, "users", user.uid);
+
+
+
   function clearCartHandler() {
-    console.log("Cart soll geleert werden");
+    console.log("FieldRemove()");
+    // event.preventDefault();
+    updateDoc(userRef, {
+      cart: deleteField(),
+    });
+
+    // window.location.reload(true);
+    // updateDoc(userRef, {
+    //   cart: arrayUnion(),
+    // });
   }
 
   function executeHandler() {
@@ -18,7 +35,7 @@ const CartBox = (props) => {
       <div className="totals card">
         <div className="card-footer">
           <p className="card-footer-item title is-3 total">Subtotal:</p>
-          <p className="card-footer-item title is-5">{props.subtotal} €</p>
+          <p className="card-footer-item title is-5">{subtotal} €</p>
         </div>
 
         <div className="card-footer">
@@ -33,38 +50,36 @@ const CartBox = (props) => {
         <div className="card-footer">
           <p className="card-footer-item title is-4 total">Estimate Total:</p>
           <p className="card-footer-item title is-4">
-            <code>{props.subtotal} €</code>
+            <code>{subtotal} €</code>
           </p>
         </div>
       </div>
       <div className="box btns-container">
-        <div className="btns">
-          {/* Link setzen und executeHandler ist ein Modal beim Klicken */}
+        {/* Link setzen und executeHandler ist ein Modal beim Klicken */}
+
+        <p>
           <button
-            className="button is-primary pay-btn"
+            className="button is-primary cb-pay-btn"
             onClick={executeHandler}
           >
             Execute Order
           </button>
-        </div>
-      </div>
-      <div className="box btns-container">
-        <div className="btns">
-          <Link to="/catalog">
-            <button
-              className="button is-danger is-light delete-btn"
-              onClick={clearCartHandler}
-            >
-              Delelte all Articles
-            </button>
-          </Link>
+        </p>
 
-          <Link to="/catalog">
-            <button className="button gallery-btn is-primary">
-              Back to Gallery
-            </button>
-          </Link>
-        </div>
+        <Link to="/hero">
+          <button
+            className="button cb-delete-btn"
+            onClick={clearCartHandler}
+          >
+            Remove all Articles
+          </button>
+        </Link>
+
+        <Link to="/catalog">
+          <button className="button is-primary cb-gallery-btn">
+            Back to Gallery
+          </button>
+        </Link>
       </div>
     </>
   );

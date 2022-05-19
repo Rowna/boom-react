@@ -35,6 +35,9 @@
   text-align: center;
   gap: 10px;
 }
+.ci-article-qty {
+  margin-bottom: 0 !important;
+}
 @media only screen and (max-width: 690px) {
   .article-title {
     font-size: 1rem;
@@ -43,16 +46,16 @@
     font-size: 12px;
   }
 }
-.card-items {
+.ct-card-items {
   flex-direction: column;
 }
 @media only screen and (min-width: 300px) {
-  .card-items {
+  .ct-card-items {
     flex-direction: column !important;
   }
 }
 @media only screen and (min-width: 570px) {
-  .card-items {
+  .ct-card-items {
     flex-direction: row !important;
   }
 }
@@ -62,9 +65,16 @@
   /* align-items: flex-start; */
   flex-direction: column;
 }
+.ci-link-article-delete{
+  text-decoration: none !important;
+
+}
 .article-delete {
   margin-top: 5px;
   color: rgb(255, 255, 255);
+  width: 100%;
+  // text-align: center;
+  justify-content: center;
 }
 .article-delete:hover {
   cursor: pointer;

@@ -21,6 +21,7 @@ function App() {
   return (
     <FirebaseContextProvider>
       <Routes>
+        {/* Interne Links definieren */}
         <Route element={<Layout />}>
           <Route index element={<Index />} />
           <Route path="hero" element={<Hero />} />

@@ -7,6 +7,7 @@ import { useFirebase } from "../../context/FirebaseContext";
 
 export default function CartItem(props) {
   const { db, user } = useFirebase();
+  let svArticle = "/singleview/" + props.article.id;
   let elseCount = useRef(0);
 
   // Wichtig, um zu wissen ob der User null ist!
@@ -19,10 +20,12 @@ export default function CartItem(props) {
   // }
 
   let cartImgURL = "images/" + props.article.img;
+  // let cartImgURL = "images/" + articles.img;
 
   const [qty, setQty] = useState(1);
 
   const userRef = doc(db, "users", user.uid);
+
   let cartItem = {
     id: props.article.id,
     title: props.article.title,
@@ -32,17 +35,19 @@ export default function CartItem(props) {
   };
 
   function increaseHandler() {
+    console.log("Increase")
     if (elseCount.current === 0) {
       elseCount.current++;
       setQty(+1);
     }
-    props.getSubUpdate(props.article.price);
+    // getSubUpdate(props.article.price);
   }
 
   function decreaseHandler() {
+    console.log("Decrease")
     if (qty > 1) {
       setQty(+1);
-      props.getSubUpdate(-props.article.price);
+      // getSubUpdate(-props.article.price);
     }
   }
 
@@ -52,18 +57,17 @@ export default function CartItem(props) {
       cart: arrayRemove(cartItem),
     });
   }
-
+ 
   return (
     <>
-      <div className="box card">
+      <div className="box card ci-card">
         <div className="card-footer ct-card-items">
           {/* <!-- <h2>Art-Nr: {article.id}</h2> --> */}
           <div className="card-footer-item article-img">
-
             {/* <p href="/singleView/{props.article.id}"> */}
-            <p>
+            <Link to={svArticle}>
               <img className="cartItem-imge" src={cartImgURL} alt="article" />
-            </p>
+            </Link>
           </div>
 
           <div className="card-footer-item article-info">
@@ -88,35 +92,28 @@ export default function CartItem(props) {
             </div>
 
             <div className="card-header article-qty-container">
-              <p className="article-qty card-header-title subtitle is-5">
+              <p className="article-qty card-header-title subtitle is-5 ci-article-qty">
                 Qty:
               </p>
 
               <div className="amount-cont">
                 <p
-                  className="article-qty card-header-title subtitle is-5"
+                  className="article-qty card-header-title subtitle is-5 ci-article-qty"
                   onClick={decreaseHandler}
                 >
-                  <p
-                    
-                    className="subtitle is-2 is-success is-outlined is-small minus-btn"
-                  >
+                  <p className="subtitle is-2 is-success is-outlined is-small minus-btn">
                     -
                   </p>
                 </p>
                 <div className="card-header-title">
-                  <p className="article-qty subtitle is-5 qty-a">
-                    {qty}
-                  </p>
+                  <p className="article-qty subtitle is-5 qty-a">{qty}</p>
                 </div>
 
                 <p
                   className="article-qty card-header-title subtitle is-5"
                   onClick={increaseHandler}
                 >
-                  <p
-                    className="subtitle is-2 is-success is-outlined is-small plus-btn"
-                  >
+                  <p className="subtitle is-2 is-success is-outlined is-small plus-btn">
                     +
                   </p>
                 </p>
@@ -124,16 +121,14 @@ export default function CartItem(props) {
             </div>
           </div>
         </div>
-        <div className="card-footer">
-          <Link to="/catalog">
+          <Link to="/catalog" className="card-footer-item ci-link-article-delete">
             <p
               onClick={removeArtikelHandler}
-              className="button card-footer-item article-delete is-dark"
+              className="button article-delete is-dark"
             >
               Remove this Article
             </p>
           </Link>
-        </div>
       </div>
     </>
   );

@@ -4,7 +4,6 @@ import CartItem from "./CartItem";
 import "./Cart.scss";
 import "./CartItem.scss";
 
-
 export default function CartList({ articles, getSubUpdate }) {
   return (
     <>
