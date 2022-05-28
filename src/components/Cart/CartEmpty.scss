@@ -2,17 +2,20 @@
   margin-top: 5rem;
   text-align: center;
 }
-.gallery-btn {
+.ce-gallery-btn {
   background-color: #df485b;
   font-size: 1.3rem;
   border-radius: 10px;
+  color: rgb(255, 255, 255);
   width: 70%;
   margin: 0;
 }
 .box2 {
   display: flex;
   justify-content: center;
+  text-align: center;
+  text-decoration: none;
 }
-.btg {
-  color: black !important;
+.box2:hover {
+  box-shadow: none !important;
 }

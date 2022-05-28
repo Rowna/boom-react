@@ -35,7 +35,7 @@ const CartBox = ({ theSubtotal }) => {
       <div className="totals card">
         <div className="card-footer">
           <p className="card-footer-item title is-3 total">Subtotal:</p>
-          <p className="card-footer-item title is-5">{theSubtotal} €</p>
+          <p className="card-footer-item title is-4">{theSubtotal} €</p>
         </div>
 
         <div className="card-footer">
@@ -47,9 +47,9 @@ const CartBox = ({ theSubtotal }) => {
       </div>
       <div className="card">
         <br />
-        <div className="card-footer">
-          <p className="card-footer-item title is-4 total">Estimate Total:</p>
-          <p className="card-footer-item title is-4">
+        <div className="card-footer cb-estimate-total">
+          <p className="card-footer-item title is-4 cb-total">Estimate Total:</p>
+          <p className="card-footer-item title is-3">
             <code>{theSubtotal} €</code>
           </p>
         </div>

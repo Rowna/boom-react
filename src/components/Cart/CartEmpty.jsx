@@ -12,13 +12,9 @@ export default function CartEmpty() {
           </p>
         </div>
       </div>
-      <div className="box box2">
-        <button className="is-primary gallery-btn">
-          <Link to="/catalog">
-            <p className="btg">Back to Gallery</p>
-          </Link>
-        </button>
-      </div>
+      <Link to="/catalog" className="box box2">
+        <button className="is-primary ce-gallery-btn">Back to Gallery</button>
+      </Link>
     </>
   );
 }

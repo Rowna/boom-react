@@ -9,7 +9,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { doc, getDoc, updateDoc, deleteField } from "firebase/firestore";
 
 import { useFirebase } from "../../context/FirebaseContext";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 
 export default function Cart() {
   let { db, user } = useFirebase();
@@ -21,7 +21,7 @@ export default function Cart() {
 
   function getSubTotal(articles) {
     // Einzelpreise addieren, bevor ich ihre Summe zu subTotal addiere.
-    let initVal = 0;
+    // let initVal = 0;
     let prices = articles.map((article) => article.price);
     let articleSum = prices.reduce((prev, next) => prev + next, 0);
     return Math.round((articleSum + Number.EPSILON) * 100) / 100;

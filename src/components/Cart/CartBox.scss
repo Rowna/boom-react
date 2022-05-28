@@ -8,8 +8,11 @@
   margin-bottom: 1rem;
 }
 
-.total {
-  margin-bottom: 0;
+.cb-total {
+  margin-bottom: 0 !important;
+}
+.cb-estimate-total {
+  margin-bottom: 1.5rem;
 }
 .btns {
   display: flex;
@@ -27,7 +30,7 @@
 }
 .cb-pay-btn {
   margin-top: 1rem;
-  background-color: #6acc6a !important;
+  background-color: #73c073 !important;
 }
 .cb-delete-btn {
   color: rgb(134, 131, 131) !important;
@@ -42,4 +45,5 @@
   border-radius: 10px;
   margin-top: 1rem;
   justify-content: center;
+  background-color: #df485b !important;
 }

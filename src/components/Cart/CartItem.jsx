@@ -5,11 +5,11 @@ import "./CartItem.scss";
 import { arrayRemove, doc, updateDoc } from "firebase/firestore";
 import { useFirebase } from "../../context/FirebaseContext";
 
-export default function CartItem({article, getSubUpdate}) {
+export default function CartItem({ article, getSubUpdate }) {
   const { db, user } = useFirebase();
   let svArticle = "/singleview/" + article.id;
-  let elseCount = useRef(0);
-  const qtyRef = useRef();
+  // let elseCount = useRef(0);
+  // const qtyRef = useRef();
 
   // Wichtig, um zu wissen ob der User null ist!
   // if (user !== null && elseCount.current === 0) {
@@ -21,10 +21,8 @@ export default function CartItem({article, getSubUpdate}) {
   // }
 
   let cartImgURL = "images/" + article.img;
-  // let cartImgURL = "images/" + articles.img;
 
   const userRef = doc(db, "users", user.uid);
-
   let cartItem = {
     id: article.id,
     title: article.title,
@@ -36,7 +34,6 @@ export default function CartItem({article, getSubUpdate}) {
   let [qty, setQty] = useState(1);
 
   function decreaseHandler() {
-    console.log("Decrease");
     if (qty > 1) {
       // elseCount.current++;
       setQty(qty - 1);
@@ -46,54 +43,48 @@ export default function CartItem({article, getSubUpdate}) {
   }
 
   function increaseHandler() {
-    console.log("Increase");
     setQty(qty + 1);
-    console.log("Qty is " + qty)
+    console.log("Qty is " + qty);
     // if (elseCount.current === 0) {
-      // elseCount.current++;
-      getSubUpdate(article.price);
+    // elseCount.current++;
+    getSubUpdate(article.price);
     // }
   }
 
-  function removeArtikelHandler() {
+  function removeArticleHandler() {
     console.log("Article Removed!");
     updateDoc(userRef, {
       cart: arrayRemove(cartItem),
     });
+    // window.location.reload(true);
   }
 
   return (
     <>
       <div className="box card ci-card">
         <div className="card-footer ct-card-items">
-          {/* <!-- <h2>Art-Nr: {article.id}</h2> --> */}
           <div className="card-footer-item article-img">
-            {/* <p href="/singleView/{props.article.id}"> */}
             <Link to={svArticle}>
               <img className="cartItem-imge" src={cartImgURL} alt="article" />
             </Link>
           </div>
 
           <div className="card-footer-item article-info">
-            <div>
-              <h2 className="article-title title is-4">
-                {article.title}
-              </h2>
-            </div>
+            <h2 className="article-title title is-4">{article.title}</h2>
             <div>
               <p className="article-desc subtitle is-6">{article.desc}</p>
             </div>
           </div>
 
           <div className="card-footer-item article-amount">
-            <div className="card-header price-container">
-              <p className="card-header-title title is-4 amount">
-                Preis:
-                <p className="subtitle card-header-title is-5 price-a">
-                  {article.price} €
-                </p>
+            {/* <div className=" price-container"> */}
+            <div className="card-header-title title is-4 amount card-header">
+              Preis:
+              <p className="subtitle card-header-title is-5 price-a">
+                {article.price} €
               </p>
             </div>
+            {/* </div> */}
 
             <div className="card-header article-qty-container">
               <p className="article-qty card-header-title subtitle is-5 ci-article-qty">
@@ -103,12 +94,14 @@ export default function CartItem({article, getSubUpdate}) {
               <div className="amount-cont">
                 {/* Decrease Quantity */}
                 <div
-                  className="article-qty card-header-title subtitle is-5 ci-article-qty"
+                  className="article-qty-minus card-header-title subtitle is-5 ci-article-qty"
                   onClick={decreaseHandler}
                 >
-                  <p className="subtitle is-2 is-success is-outlined is-small minus-btn">
-                    -
-                  </p>
+                  <img
+                    className="subtitle is-2 is-success is-outlined is-small minus-btn"
+                    src="/images/minus.png"
+                    alt="pic"
+                  />
                 </div>
 
                 {/* Quantity ab 1 */}
@@ -118,25 +111,34 @@ export default function CartItem({article, getSubUpdate}) {
 
                 {/* Increase Quantity */}
                 <div
-                  className="article-qty card-header-title subtitle is-5"
+                  className="article-qty-plus card-header-title subtitle is-5"
                   onClick={increaseHandler}
                 >
-                  <p className="subtitle is-2 is-success is-outlined is-small plus-btn">
-                    +
-                  </p>
+                  <img
+                    className="subtitle is-2 is-success is-outlined is-small plus-btn"
+                    src="/images/plus.png"
+                    alt="pic"
+                  />
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <Link to="/catalog" className="card-footer-item ci-link-article-delete">
-          <p
-            onClick={removeArtikelHandler}
-            className="button article-delete is-dark"
+        <div className="card-footer">
+          <Link
+            to="/catalog"
+            className="button card-footer-item ci-gallery-btn is-primary ci-link-article-delete"
+          >
+            To Gallery
+          </Link>
+          <Link
+            to="/catalog"
+            className="button card-footer-item delete-btn"
+            onClick={removeArticleHandler}
           >
             Remove this Article
-          </p>
-        </Link>
+          </Link>
+        </div>
       </div>
     </>
   );
