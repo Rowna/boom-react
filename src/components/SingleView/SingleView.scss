@@ -1,9 +1,11 @@
 .sv-btns {
   width: 100%;
   margin-top: 1rem;
-//   display: flex;
-//   flex-direction: column;
+  box-shadow: none;
   text-align: center;
+}
+.sv-img-container {
+  margin-top: 1rem;
 }
 
 /* min heißt ab 1024 px */
@@ -35,7 +37,7 @@
     width: 300px;
     height: 300px;
   }
-  .sv-img-container {
+  .sv-left-container {
     border-bottom: solid 2px #f5f5efc4;
   }
 }
@@ -51,7 +53,7 @@
   grid-template-rows: 1fr 2rem;
   margin: 2rem 0 2rem 0;
 }
-.sv-img-container,
+.sv-left-container,
 .desc-container {
   display: flex;
   flex-direction: column;
@@ -70,11 +72,12 @@
   justify-content: center;
 }
 .rate-btn {
-  background-color: #6acc6a;
+  background-color: #73c073 !important;
 }
 .gly-btn {
   background-color: #df485b;
   margin-bottom: 0;
+  color: rgb(255, 255, 255);
 }
 .edit-btn {
   background-color: rgb(109, 169, 237);
