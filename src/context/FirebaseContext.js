@@ -30,7 +30,9 @@ export function FirebaseContextProvider({ children }) {
   function logOut() {
     return signOut(fbAuth);
   }
+  // act(() => {
 
+  // });
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(fbAuth, (currentUser) => {
       setUser(currentUser);

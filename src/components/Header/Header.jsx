@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Header.css";
+import "./Header.scss";
 import { useFirebase } from "../../context/FirebaseContext";
 import { fbAuth } from "../../server/firebase_config";
 import { doc, getDoc } from "firebase/firestore";
@@ -54,17 +54,15 @@ export default function Header() {
     <>
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand navbar-container">
-          <div>
-            <Link to="/hero">
-              <p className="navbar-item logo">BOOM</p>
-            </Link>
-          </div>
+          <Link to="/">
+            <p className="navbar-item logo">BOOM</p>
+          </Link>
 
           {/* <!-- Mobile Version / If User nicht eingeloggt --> */}
           {/* {!fbAuth.currentUser && !logoutButton ? ( */}
           {!fbAuth.currentUser && !logoutButton ? (
             <Link to="/login">
-              <a
+              <p
                 href="/#"
                 role="button"
                 className="navbar-burger"
@@ -75,7 +73,7 @@ export default function Header() {
                 <span aria-hidden="true" />
                 <span aria-hidden="true" />
                 <span aria-hidden="true" />
-              </a>
+              </p>
             </Link>
           ) : (
             <div className="navbar-item nav-itm">
@@ -97,10 +95,8 @@ export default function Header() {
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-end">
             <div className="navbar-item">
-              <div className="buttons" data-v-header-f421>
+              <div className="buttons">
                 {/* <!-- Desktop Version / If User nicht eingeloggt ist --> */}
-                {/* {#if !fbAuth.currentUser && !logoutButton} */}
-                {/* {!fbAuth.currentUser && !logoutButton ? ( */}
                 {!fbAuth.currentUser && !logoutButton ? (
                   <>
                     <Link to="/signup">
@@ -120,10 +116,11 @@ export default function Header() {
                         <p className="button is-white">Shopping Cart</p>
                       </div>
                     </Link>
-
-                    <a className="imge" href="/bookmark">
-                      <img src="../images/herz.png" alt="Fav" />
-                    </a>
+                    <Link to="/bookmark">
+                      <p className="imge">
+                        <img src="../images/herz.png" alt="Fav" />
+                      </p>
+                    </Link>
                     <div className="select is-white">
                       <select className="sel">
                         <option>{fullUserName}</option>

@@ -5,8 +5,7 @@ import "./Hero.css";
 export default function Hero() {
   return (
     <div>
-      {/* <h2 className="is-title is-4">Hier ist die Landing Page!</h2> */}
-      <div className="base-container" data-v-f4231f1g>
+      <div className="base-container">
         {/* --- Image fürs Handy --- */}
         <div className="img-container">
           <img className="img" src="images/1.jpeg" alt="Prince" />

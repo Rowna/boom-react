@@ -15,8 +15,9 @@
 .header-menu {
   display: flex;
 }
-.buttons[data-v-header-f421] {
+.buttons {
   margin-bottom: 0rem;
+  gap: 1rem;
 }
 .sel {
   color: hsl(0deg, 0%, 4%) !important;

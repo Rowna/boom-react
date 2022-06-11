@@ -72,7 +72,6 @@ export default function Catalog() {
         </div>
 
         <div className="catalog-container" data-v-catalog4312>
-          {/* Listenschleife mit articles.map((article) => { ... } ) in React */}
           {/*
            React benutzt Array.prototype.map, um in JSX eine Liste durchzugehen
            und jedes Element der alten Liste in ein neues JSX-Element zu verwandeln

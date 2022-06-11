@@ -1,7 +1,6 @@
-.base-container[data-v-f4231f1d] {
-  background-color: rgb(240, 235, 235);
-  border-top-right-radius: 8%;
-  border-bottom-left-radius: 10%;
+.login-base-container {
+  background-color: inherit;
+  border-radius: 3%;
   box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px,
     rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
   padding: 2rem 2rem;
@@ -14,7 +13,7 @@
   transform: translate(-50%, -50%);
 }
 @media only screen and (max-width: 700px) {
-  .base-container[data-v-f4231f1d] {
+  .login-base-container {
     width: 300px;
     padding: 5px 5px;
     margin: 10px;
@@ -23,15 +22,15 @@
 .form[data-v-f4231f1d] {
   padding: 2rem 1.5rem 0 1.5rem;
 }
-.boom-title[data-v-f4231f1d] {
-  align-items: center;
+.login-boom-title {
+  text-align: center !important;
   color: #000;
   font-family: "Sofia";
   font-size: 1.5rem;
   position: relative;
-  margin-bottom: 2.7rem;
+  margin: 3rem 0;
 }
-.boom-title::after {
+.login-boom-title::after {
   position: absolute;
   content: "Hi there! Nice to have you!";
   color: #9c9898;
@@ -87,9 +86,6 @@ label[data-v-f4231f1d] {
   color: #df485b;
   font-family: "Patrick Hand";
 }
-// .para-contianer__line[data-v-f4231f1d] {
-//   color: rgb(31, 28, 28) !important;
-// }
 .form-container__pass[data-v-f4231f1d] {
   padding: 1.5rem 1rem;
   color: rgb(77, 75, 75);

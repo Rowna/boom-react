@@ -1,12 +1,12 @@
 import React from "react";
 import "./Stars.scss";
 
-export default function Stars() {
+export default function Stars({ getRating }) {
 
 
-  function getRating() {
-    console.log("GetRating 5");
-  }
+  // function getRating() {
+  //   console.log("GetRating 5");
+  // }
 
 
   return (
@@ -34,9 +34,9 @@ export default function Stars() {
         </label>
 
         <span id="Bewertung" title="Keine Bewertung">
-          <label onClick={() => getRating(0)}>
+          <label className="cancel-container" onClick={() => getRating(0)}>
             {/* <input type="radio" name="bewertung" value="0" checked="checked" /> */}
-            <input type="radio" name="bewertung" value="0" />
+            <input className="cancel-btn" type="radio" name="bewertung" value="0"/>
             Cancel Rates
           </label>
         </span>
