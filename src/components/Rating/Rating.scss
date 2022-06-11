@@ -1,0 +1,25 @@
+.person-container {
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  flex-grow: 2;
+  margin-bottom: 0 !important;
+}
+.text-container {
+  flex-grow: 4;
+  margin-top: 0 !important;
+  align-items: flex-start;
+  text-align: center !important;
+}
+.stars {
+  color: rgb(182, 164, 48);
+  margin-top: 10px;
+}
+.stars::after {
+  content: " ★ ";
+}
+@media only screen and (min-width: 690px) {
+  .kunden-container {
+    flex-direction: row;
+  }
+}
