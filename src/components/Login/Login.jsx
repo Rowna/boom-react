@@ -1,25 +1,32 @@
-import { React, useState } from "react";
+import "./Login.scoped.scss";
+import React from "react";
+import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFirebase } from "../../context/FirebaseContext";
 
-import "./Login.scoped.scss";
-
 export default function Login() {
-  // Hier ist das <Script>-Teil in Svelte
-
-  // let userInput = { emailInput: "", passWordInput: "" };
-  const [emailInput, setEmailInput] = useState("");
-  const [passWordInput, setPassWordInput] = useState("");
-  // login aus useContext
   let { logIn, user } = useFirebase();
+  const navigate = useNavigate();
+
+  const [emailInput, setEmailInput] = useState("myriam@test.de");
+  const [passWordInput, setPassWordInput] = useState("myriam");
 
   // Error-Message in SignUp definieren.
   const [error, setError] = useState("");
 
-  const navigate = useNavigate();
+  const email = useRef();
+  const password = useRef();
+
+  function inputListener() {
+    let emailEingabe = email.current.value;
+    let pwEingabe = password.current.value;
+
+    setEmailInput(emailEingabe);
+    setPassWordInput(pwEingabe);
+  }
 
   async function handleSubmit(event) {
-    console.log("Login ist erfolgreich! ");
+    // console.log("Login ist erfolgreich! ");
     event.preventDefault();
     setError("");
     let fbCredentials = null;
@@ -36,6 +43,7 @@ export default function Login() {
     }
   }
 
+  /* 
   function FnUserEmailInput(e) {
     // console.log(e.target.value);
     // setEmailInput: ist ASYNCHRON, AUFGESCHOBEN!
@@ -51,44 +59,46 @@ export default function Login() {
     // deshalb steht es auch hier schon "ganz unten".
     setPassWordInput(e.target.value);
   }
+*/
 
   // Hier wird das Markup-Teil gerendert wie in Svelte
   return (
-    <div className="base-container card" data-v-f4231f1d>
-      <div className="form" data-v-f4231f1d>
-        <h1 className="boom-title is-medium" data-v-f4231f1d>
-          BOOM | Log In
-        </h1>
-        <div className="form-container" data-v-f4231f1d>
+    <div className="login-base-container card">
+      <div className="form">
+        <h1 className="login-boom-title is-medium">BOOM | Log In</h1>
+        <div className="form-container">
           <label htmlFor="email" data-v-f4231f1d>
             Your E-Mail
           </label>
           <input
             required
+            id="email"
+            ref={email}
             type="email"
             className="input is-rounded"
             placeholder="Your E-Mail"
             value={emailInput}
-            onChange={FnUserEmailInput}
-            // onChange={(e) => {setEmailInput(e.target.value)}}
-            // bind:value={userInput.emailInput}
+            // onChange={FnUserEmailInput}
+            onChange={inputListener}
           />
           <label htmlFor="password" data-v-f4231f1d>
             Your Password
           </label>
           <input
+            id="password"
+            ref={password}
             className="input is-rounded"
             type="password"
             placeholder="Your Password"
             value={passWordInput}
-            onChange={FnUserPassInput}
-
-            // bind:value={userInput.passWordInput}
+            // onChange={FnUserPassInput}
+            onChange={inputListener}
           />
-          <a href="/#" className="form-container__pass" data-v-f4231f1d>
+          <p className="form-container__pass" data-v-f4231f1d>
             Password forgotten? Choose New!
-          </a>
+          </p>
         </div>
+
         <Link to="/catalog">
           <button
             onClick={handleSubmit}
@@ -96,9 +106,9 @@ export default function Login() {
             data-v-f4231f1d
           >
             Log In
-            {/* <Link to="/catalog" /> */}
           </button>
         </Link>
+
         <div className="para-contianer" data-v-f4231f1d>
           <p className="para-contianer__title" data-v-f4231f1d>
             Password forgotten?

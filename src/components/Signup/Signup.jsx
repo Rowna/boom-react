@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useFirebase } from "../../context/FirebaseContext";
 import { doc, setDoc } from "firebase/firestore";
@@ -7,48 +7,143 @@ import { doc, setDoc } from "firebase/firestore";
 import "./Signup.scss";
 
 export default function Signup() {
-  // Hier ist das <Script>-Teil in Svelte
-  // const signupInitState = {
-  //   // die einzelnen Attribute (Properties)
-  // }
-  // [signupState, dispatch] = useReducer(signupReducer, signupInitState)
+  const navigate = useNavigate();
+  let { signUp, user, db } = useFirebase();
+
   const [fullNameInput, setfullNameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [passWordInput, setPassWordInput] = useState("");
-  
-  const navigate = useNavigate(); 
-  
-  // signUp aus useContext
-  let { signUp, user, db } = useFirebase();
+
+  const [fullNameError, setfullNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   // Error-Message in SignUp definieren.
+  const [isValid, setIsValid] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
   const [error, setError] = useState("");
 
-  function FnUserEmailInput(e) {
-    // console.log(e.target.value);
-    // setEmailInput: ist ASYNCHRON, AUFGESCHOBEN!
-    // d.h. es wird sowieso erst nach Ende dieser Funktion ausgefuehrt.
-    // deshalb steht es auch hier schon "ganz unten".
-    setEmailInput(e.target.value);
+  const fname = useRef();
+  const email = useRef();
+  const password = useRef();
+
+  // function FnfullNameInput(pValue) {
+  // console.log(e.target.value);
+  // setEmailInput: ist ASYNCHRON, AUFGESCHOBEN!
+  // d.h. es wird sowieso erst nach Ende dieser Funktion ausgefuehrt.
+  // deshalb steht es auch hier schon "ganz unten".
+  //   setfullNameInput(pValue.target.value);
+  // }
+
+  // Name Validierung durch RegEx
+  function nameValid(pFullname) {
+    var nameRegEx = /[A-Za-zäüö\\s\\-]{3,}\s[A-Za-züöä\\-]{3,}/g;
+    return nameRegEx.test(pFullname);
   }
 
-  function FnUserPasswordInput(e) {
-    // console.log(e.target.value);
-    // setEmailInput: ist ASYNCHRON, AUFGESCHOBEN!
-    // d.h. es wird sowieso erst nach Ende dieser Funktion ausgefuehrt.
-    // deshalb steht es auch hier schon "ganz unten".
-    setPassWordInput(e.target.value);
+  // function FnUserEmailInput(pValue) {
+  // console.log(e.target.value);
+  // setEmailInput: ist ASYNCHRON, AUFGESCHOBEN!
+  // d.h. es wird sowieso erst nach Ende dieser Funktion ausgefuehrt.
+  // deshalb steht es auch hier schon "ganz unten".
+  // setEmailInput(pValue.target.value);
+  // }
+
+  // Email Validierung durch RegEx
+  function emailValid(pMail) {
+    var mailRegEx = /^\w+@[a-zA-Z_]+\.[a-zA-Z]{2,}$/g;
+    return mailRegEx.test(pMail);
   }
 
-  function FnfullNameInput(e) {
-    // console.log(e.target.value);
-    // setEmailInput: ist ASYNCHRON, AUFGESCHOBEN!
-    // d.h. es wird sowieso erst nach Ende dieser Funktion ausgefuehrt.
-    // deshalb steht es auch hier schon "ganz unten".
-    setfullNameInput(e.target.value);
+  // function FnUserPasswordInput(pValue) {
+  // console.log(e.target.value);
+  // setEmailInput: ist ASYNCHRON, AUFGESCHOBEN!
+  // d.h. es wird sowieso erst nach Ende dieser Funktion ausgefuehrt.
+  // deshalb steht es auch hier schon "ganz unten".
+  // setPassWordInput(pValue.target.value);
+  // }
+
+  // Password Validierung durch RegEx
+  function passwordValid(pPassWord) {
+    let isLongEnough = pPassWord.length >= 8;
+    var passwordRegEx = /[A-Za-z-#\\?!=@$%^&\\*0-9]{8,}/g;
+    return isLongEnough && passwordRegEx.test(pPassWord);
+    // return isLongEnough;
   }
 
-  async function handleSubmit(event) {
+  // let nameIsValid = false;
+  const [nameIsValid, setNameIsValid] = useState(false);
+  const [emailIsValid, setEmailIsValid] = useState(false);
+  const [passwordIsValid, setPasswordIsValid] = useState(false);
+
+  function inputListener() {
+    let fullnameEingabe = fname.current.value;
+    let emailEingabe = email.current.value;
+    let pwEingabe = password.current.value;
+
+    if (!nameValid(fullNameInput)) {
+      setfullNameError("Your full name please! Exp: Max Muster");
+    } else {
+      setNameIsValid(true);
+      setfullNameError("");
+    }
+    if (!emailValid(emailInput)) {
+      setEmailError("Your E-Mail! Exp: mu@m.de");
+    } else {
+      setEmailIsValid(true);
+      setEmailError("");
+    }
+
+    if (!passwordValid(passWordInput)) {
+      setPasswordError("A strong Password! Exp: Ma&123");
+    } else {
+      setPasswordIsValid(true);
+      setPasswordError("");
+    }
+
+    if (nameIsValid && emailIsValid && passwordIsValid) {
+      setIsValid(true);
+    }
+    setfullNameInput(fullnameEingabe);
+    setEmailInput(emailEingabe);
+    setPassWordInput(pwEingabe);
+  }
+
+  /* 
+  function handelValidation(params) {
+    console.log("handelValidation");
+
+    // Validate Fullname
+    if (!nameValid(fullNameInput)) {
+    setfullNameError("Your full name please! Exp: Max Muster");
+    } else {
+    setNameIsValid(true);
+    setfullNameError("");
+    }
+
+    // Validate Email
+    if (!emailValid(emailInput)) {
+      setEmailError("Your E-Mail! Exp: mu@m.de");
+    } else {
+      setEmailIsValid(true);
+      setEmailError("");
+    }
+
+    // Validate Password
+    if (!passwordValid(passWordInput)) {
+      setPasswordError("A strong Password! Exp: Ma&123");
+    } else {
+      setPasswordIsValid(true);
+      setPasswordError("");
+    }
+
+    if (nameIsValid && emailIsValid && passwordIsValid) {
+      setIsValid(true);
+    }
+  }
+*/
+
+  async function submitHandler(event) {
     console.log("Signup Fn-Funktioinert!");
     event.preventDefault();
     setError("");
@@ -65,90 +160,101 @@ export default function Signup() {
         cart: [],
       });
       // hier muss noch das Redirect zu /catalog-route
-      // und nicht zu einem <Link> erfolgen. In react gibt es verschiedene 
+      // und nicht zu einem <Link> erfolgen. In react gibt es verschiedene
       // Möglichkeiten, ein Redirect vorzunehmen; Einzelheiten bei
       // https://www.robinwieruch.de/react-router-redirect/
-      // Wir verwenden useNavigate() aus dem 'react-router-dom' paket
+      // ich verwende useNavigate() aus dem 'react-router-dom' paket
       navigate("/catalog");
     } catch (error) {
       setError(error.message);
     }
   }
 
-  function handelValidation(params) {
-    console.log("handelValidation");
-  }
-
   // Hier wird das Markup-Teil gerendert wie in Svelte
   return (
-    <div className="base-container" data-v-signup4312>
-      {/* <div on:submit|preventDefault={handleSubmit} className="form"> */}
-      <div onSubmit={handleSubmit} className="form" data-v-signup4312>
-        <h1 className="title-cont is-medium">BOOM | Sign Up</h1>
+    <div className="signup-base-container" data-v-signup4312>
+      <div onSubmit={submitHandler} className="form" data-v-signup4312>
+        <h2 className="signup-boom-title is-medium">BOOM | Sign Up</h2>
+
         <div className="form-container" data-v-signup4312>
           <label htmlFor="name" data-v-signup4312>
             Full Name
           </label>
           <input
             required
+            id="name"
             type="text"
-            onChange={FnfullNameInput}
-            // bind:value={userInput.fullNameInput}
+            // onChange={FnfullNameInput}
             className="input is-rounded"
             placeholder="Your Full Name"
+            ref={fname}
+            onChange={inputListener}
             data-v-signup4312
           />
-          {/* <p className="error">{errors.fullName}</p> */}
+          <p className="error-message">{fullNameError}</p>
+
           <label htmlFor="email" data-v-signup4312>
             E-Mail
           </label>
           <input
             required
+            id="email"
+            ref={email}
             type="email"
-            // bind:value={userInput.emailInput}
-            onChange={FnUserEmailInput}
+            // onChange={FnUserEmailInput}
             className="input is-rounded"
             placeholder="Your E-Mail-Adress"
+            onChange={inputListener}
             data-v-signup4312
           />
-          {/* <p className="error">{errors.mail}</p> */}
+          <p className="error-message">{emailError}</p>
 
           <label htmlFor="password" data-v-signup4312>
             Password
           </label>
           <input
             required
+            ref={password}
+            id="password"
             type="password"
-            // bind:value={userInput.passWordInput}
-            onChange={FnUserPasswordInput}
+            // onChange={FnUserPasswordInput}
             className="input is-rounded"
             placeholder="A Strong Password"
+            onChange={inputListener}
             data-v-signup4312
           />
-          {/* <p className="error">{errors.passWord}</p> */}
+          <p className="error-message">{passwordError}</p>
         </div>
       </div>
-      <div className="btn-contianer" data-v-signup4312>
-        {/* {#if !isValid} */}
+      <div className="su-btn-contianer">
         <button
-          //   on:click|preventDefault={handelValidation}
-          onClick={handelValidation}
-          className="button is-rounded is-primary check"
-          data-v-signup4312
-        >
-          Check Entries
-        </button>
-        {/* {:else} */}
-        <button
-          // on:click|preventDefault={handleSubmit}
-          onClick={handleSubmit}
+          onClick={submitHandler}
           className="button is-rounded is-primary sign-up"
           data-v-signup4312
+          disabled={!isValid}
         >
           Sign Up
         </button>
-        {/* {/if} */}
+        {/* 
 
+        {!isValid ? (
+          <button
+            // onClick={handelValidation}
+            className="button is-rounded is-primary check"
+            data-v-signup4312
+          >
+            Check Entries
+          </button>
+        ) : (
+          <button
+            onClick={submitHandler}
+            className="button is-rounded is-primary sign-up"
+            data-v-signup4312
+          >
+            Sign Up
+          </button>
+        )}
+        */}
         <div className="para-contianer" data-v-signup4312>
           <Link to="/login">
             <p className="para__title" data-v-signup4312>
