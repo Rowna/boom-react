@@ -63,3 +63,9 @@ p.sternebewertung > label:hover ~ input:checked ~ label {
       0.1em 0.1em 0.2em rgba(0, 0, 0, 0.5);
   }
 }
+.cancel-container {
+  text-align: center;
+}
+.cancel-btn {
+  margin-right: 10px !important;
+}
