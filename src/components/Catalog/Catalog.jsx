@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { React, useEffect, useState, useRef } from "react";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import CatalogItem from "./CatalogItem";
 
@@ -16,23 +16,28 @@ export default function Catalog() {
   // Wegen Endlose schleife
   let elseCount = useRef(0);
 
-  if (user !== null) {
+  if (user !== null && user !== "") {
     console.log(`Habe die Email ${user.email}`);
   } else {
     console.log("Bin gerade nicht eingeloggt.");
   }
 
-  if (user) {
-    let userRef = doc(db, "users", user.uid);
-    getDoc(userRef)
-      .then((docsnapshot) => {
-        // setUserCart([ ...docsnapshot.data().cart]);
-        // console.log(docsnapshot.data());
-      })
-      .catch((error) => {
-        console.log("So eine Scheisse! " + error.message);
-      });
-  }
+  // Gegen Endlose Schleife und weil setUserCart eine ASYNC ist, wird aufgeschoben
+  useEffect(() => {
+    if (user) {
+      let userRef = doc(db, "users", user.uid);
+      getDoc(userRef)
+        .then((docsnapshot) => {
+          // console.log(docsnapshot.data());
+          // Update mit Inline-Funktion
+          // verhindert Endlosschleife.
+          setUserCart(() => [...docsnapshot.data().cart]);
+        })
+        .catch((error) => {
+          console.log("So eine Scheisse! " + error.message);
+        });
+    }
+  }, []);
 
   // Connector zur "articles"-Collecion erstellen mit Hilfe des firestore-connectors
   const fbArticles = collection(db, "articles");
@@ -73,11 +78,12 @@ export default function Catalog() {
 
         <div className="catalog-container" data-v-catalog4312>
           {/*
-           React benutzt Array.prototype.map, um in JSX eine Liste durchzugehen
-           und jedes Element der alten Liste in ein neues JSX-Element zu verwandeln
+          Listenschleife mit articles.map((article) => { ... } ) in React
+          React benutzt Array.prototype.map, um in JSX eine Liste durchzugehen
+          und jedes Element der alten Liste in ein neues JSX-Element zu verwandeln
           */}
           {docs.map((article) => (
-            // article ist das aktuelle Element, das geben wir an CatalogItem als prop weiter
+            // article ist das aktuelle Element, das gebe ich an CatalogItem als prop weiter
             <CatalogItem
               article={article}
               userCart={userCart}

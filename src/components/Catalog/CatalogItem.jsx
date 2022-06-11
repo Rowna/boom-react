@@ -15,14 +15,15 @@ import "./CatalogItem.scss";
 
 import { useFirebase } from "../../context/FirebaseContext";
 
-export default function CatalogItem(props) {
+export default  function CatalogItem(props) {
   let { db, user } = useFirebase();
   let [modalVisible, setModalVisible] = useState(false);
 
   // In Svelte konnte man {interpolation} auch so schreiben:
   // "{interpolation}" -- in React geht das nicht, deshalb
-  // brauchen wir hier eine Hilfsvariable.
+  // brauche ich hier eine Hilfsvariable.
   let imgURL = "images/" + props.article.img;
+  let singleViewURL = "/singleview/" + props.article.id;
 
   function isInCart() {
     for (let el of props.userCart) {
@@ -33,18 +34,11 @@ export default function CatalogItem(props) {
 
   // let cartImage = isInCart() ? "shopping-cart-filled" : "shopping-cart";
   // hier muss der Fehler behoben werden!
-  let [cartImage, setCartImage] = useState("shopping-cart.png");
+  let [cartImage, setCartImage]  =  useState(
+    isInCart() ? "shopping-cart-filled.png" : "shopping-cart.png"
+  );
+
   let cartImgURL = "images/" + cartImage;
-
-  if (isInCart()) {
-    setCartImage("shopping-cart-filled.png");
-  }
-
-  // Add to Favorite
-  function addToFavoritesHandler() {
-    console.log("added to Favorites!");
-    setModalVisible(true);
-  }
 
   async function addToCartHandler() {
     const userRef = doc(db, "users", user.uid);
@@ -81,6 +75,12 @@ export default function CatalogItem(props) {
       console.log("added to Shop!");
     }
   }
+
+    // Add to Favorite
+    function addToFavoritesHandler() {
+      console.log("added to Favorites!");
+      setModalVisible(true);
+    }
 
   return (
     <>
@@ -132,16 +132,14 @@ export default function CatalogItem(props) {
                   <></>
                   )}
               */
-              <Link className="ci-login" to="/login">
-                <div className="card-foot container">
-                    You should log in!
-                </div>
-             </Link>
+              <Link to="/login" className="ci-login" >
+                <div className="card-foot container">You should log in!</div>
+              </Link>
             )}
           </footer>
         </div>
         <div className="card-content ci-card-content">
-          <div className="media-content">
+          <div className="media-content ci-media-content">
             <p className="title is-3 mc">{props.article.title}</p>
           </div>
           <div>
