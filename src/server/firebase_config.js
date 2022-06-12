@@ -1,6 +1,7 @@
 // src/firebase_config.ts
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+// import { getAuth } from "firebase/auth";
+import { getAuth, connectAuthEmulator } from "firebase/auth";
 
 const firebase_config = {
   // meine firebase config object here
@@ -17,5 +18,8 @@ const firebase_config = {
 
 const app = initializeApp(firebase_config);
 export const fbAuth = getAuth(app);
+// export const fbAuth = getAuth();
+// firebaseApps previously initialized using initializeApp()
+connectAuthEmulator(fbAuth, "http://localhost:9099");
 
 export default app;
