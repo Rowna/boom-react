@@ -60,6 +60,7 @@ export default function Catalog() {
 
   return (
     <>
+      {/* Notification when the user login */}
       {user !== null ? (
         <div className="notification is-warning">
           <p>Bin eingeloggt als {user.email}</p>

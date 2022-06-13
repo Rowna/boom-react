@@ -155,7 +155,7 @@ export default function Signup() {
       // Update in FirebaseContext! => Update fuer alle "angeschlossenen" Components!
       // z.B. auch fuer Header und Catalog!
       user = fbCredentials.user;
-      setDoc(doc(db, `/users/${user.uid}`, ""), {
+      await setDoc(doc(db, `/users/${user.uid}`, ""), {
         name: fullNameInput,
         cart: [],
       });
