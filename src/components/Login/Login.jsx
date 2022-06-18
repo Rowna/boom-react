@@ -7,8 +7,9 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { storeCurrentUserToReduxStoreToLogin } from "../../Redux/actions/userActions"
 
-export default function Login() {
-  let { logIn, user } = useFirebase();
+
+ function Login({storeCurrentUserToReduxStoreToLogin}) { 
+  // let { logIn, user } = useFirebase();
   const navigate = useNavigate();
 
   const [emailInput, setEmailInput] = useState("rowan@test.com");
@@ -66,15 +67,6 @@ export default function Login() {
     //   setError(error.message);
     // }
   }
-
-  function FnUserPassInput(e) {
-    // console.log(e.target.value);
-    // setPassWordInput: ist ASYNCHRON, AUFGESCHOBEN!
-    // d.h. es wird sowieso erst nach Ende dieser Funktion ausgefuehrt.
-    // deshalb steht es auch hier schon "ganz unten".
-    setPassWordInput(e.target.value);
-  }
-*/
 
   // Hier wird das Markup-Teil gerendert wie in Svelte
   return (
@@ -139,3 +131,6 @@ export default function Login() {
     </div>
   );
 }
+
+// connect() ist eine Methode in Redux-react, sie verbindet  das aktuelle Component mit dem Redux-Store
+export default connect(null, {storeCurrentUserToReduxStoreToLogin})(Login);

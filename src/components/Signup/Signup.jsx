@@ -1,14 +1,12 @@
 import React from "react";
 import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useFirebase } from "../../context/FirebaseContext";
-import { doc, setDoc } from "firebase/firestore";
 
 import "./Signup.scss";
+import axios from "axios";
 
 export default function Signup() {
   const navigate = useNavigate();
-  let { signUp, user, db } = useFirebase();
 
   const [fullNameInput, setfullNameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
@@ -27,41 +25,17 @@ export default function Signup() {
   const email = useRef();
   const password = useRef();
 
-  // function FnfullNameInput(pValue) {
-  // console.log(e.target.value);
-  // setEmailInput: ist ASYNCHRON, AUFGESCHOBEN!
-  // d.h. es wird sowieso erst nach Ende dieser Funktion ausgefuehrt.
-  // deshalb steht es auch hier schon "ganz unten".
-  //   setfullNameInput(pValue.target.value);
-  // }
-
   // Name Validierung durch RegEx
   function nameValid(pFullname) {
     var nameRegEx = /[A-Za-zäüö\\s\\-]{3,}\s[A-Za-züöä\\-]{3,}/g;
     return nameRegEx.test(pFullname);
   }
 
-  // function FnUserEmailInput(pValue) {
-  // console.log(e.target.value);
-  // setEmailInput: ist ASYNCHRON, AUFGESCHOBEN!
-  // d.h. es wird sowieso erst nach Ende dieser Funktion ausgefuehrt.
-  // deshalb steht es auch hier schon "ganz unten".
-  // setEmailInput(pValue.target.value);
-  // }
-
   // Email Validierung durch RegEx
   function emailValid(pMail) {
     var mailRegEx = /^\w+@[a-zA-Z_]+\.[a-zA-Z]{2,}$/g;
     return mailRegEx.test(pMail);
   }
-
-  // function FnUserPasswordInput(pValue) {
-  // console.log(e.target.value);
-  // setEmailInput: ist ASYNCHRON, AUFGESCHOBEN!
-  // d.h. es wird sowieso erst nach Ende dieser Funktion ausgefuehrt.
-  // deshalb steht es auch hier schon "ganz unten".
-  // setPassWordInput(pValue.target.value);
-  // }
 
   // Password Validierung durch RegEx
   function passwordValid(pPassWord) {
@@ -71,7 +45,6 @@ export default function Signup() {
     // return isLongEnough;
   }
 
-  // let nameIsValid = false;
   const [nameIsValid, setNameIsValid] = useState(false);
   const [emailIsValid, setEmailIsValid] = useState(false);
   const [passwordIsValid, setPasswordIsValid] = useState(false);
@@ -109,65 +82,25 @@ export default function Signup() {
     setPassWordInput(pwEingabe);
   }
 
-  /* 
-  function handelValidation(params) {
-    console.log("handelValidation");
-
-    // Validate Fullname
-    if (!nameValid(fullNameInput)) {
-    setfullNameError("Your full name please! Exp: Max Muster");
-    } else {
-    setNameIsValid(true);
-    setfullNameError("");
-    }
-
-    // Validate Email
-    if (!emailValid(emailInput)) {
-      setEmailError("Your E-Mail! Exp: mu@m.de");
-    } else {
-      setEmailIsValid(true);
-      setEmailError("");
-    }
-
-    // Validate Password
-    if (!passwordValid(passWordInput)) {
-      setPasswordError("A strong Password! Exp: Ma&123");
-    } else {
-      setPasswordIsValid(true);
-      setPasswordError("");
-    }
-
-    if (nameIsValid && emailIsValid && passwordIsValid) {
-      setIsValid(true);
-    }
-  }
-*/
-
   async function submitHandler(event) {
     console.log("Signup Fn-Funktioinert!");
     event.preventDefault();
     setError("");
-    let fbCredentials = null;
 
-    try {
-      // signUp gibt eine "Payload" zurück, die fange ich in fbCredentials auf.
-      fbCredentials = await signUp(emailInput, passWordInput);
-      // Update in FirebaseContext! => Update fuer alle "angeschlossenen" Components!
-      // z.B. auch fuer Header und Catalog!
-      user = fbCredentials.user;
-      await setDoc(doc(db, `/users/${user.uid}`, ""), {
-        name: fullNameInput,
-        cart: [],
+    // axios schickt eine Rest-API-Abfrage in der Server
+    axios
+      .post("http://localhost:4000/user", {
+        type: "signup",
+        email: emailInput,
+        password: passWordInput,
+        userName: fullNameInput,
+        phoneNumber: "1234567890",
+      })
+      .then((res) => res.data)
+      .then((data) => {
+        navigate("/catalog");
+        alert(data.message);
       });
-      // hier muss noch das Redirect zu /catalog-route
-      // und nicht zu einem <Link> erfolgen. In react gibt es verschiedene
-      // Möglichkeiten, ein Redirect vorzunehmen; Einzelheiten bei
-      // https://www.robinwieruch.de/react-router-redirect/
-      // ich verwende useNavigate() aus dem 'react-router-dom' paket
-      navigate("/catalog");
-    } catch (error) {
-      setError(error.message);
-    }
   }
 
   // Hier wird das Markup-Teil gerendert wie in Svelte
@@ -184,7 +117,6 @@ export default function Signup() {
             required
             id="name"
             type="text"
-            // onChange={FnfullNameInput}
             className="input is-rounded"
             placeholder="Your Full Name"
             ref={fname}
@@ -201,7 +133,6 @@ export default function Signup() {
             id="email"
             ref={email}
             type="email"
-            // onChange={FnUserEmailInput}
             className="input is-rounded"
             placeholder="Your E-Mail-Adress"
             onChange={inputListener}
@@ -217,7 +148,6 @@ export default function Signup() {
             ref={password}
             id="password"
             type="password"
-            // onChange={FnUserPasswordInput}
             className="input is-rounded"
             placeholder="A Strong Password"
             onChange={inputListener}
@@ -235,26 +165,6 @@ export default function Signup() {
         >
           Sign Up
         </button>
-        {/* 
-
-        {!isValid ? (
-          <button
-            // onClick={handelValidation}
-            className="button is-rounded is-primary check"
-            data-v-signup4312
-          >
-            Check Entries
-          </button>
-        ) : (
-          <button
-            onClick={submitHandler}
-            className="button is-rounded is-primary sign-up"
-            data-v-signup4312
-          >
-            Sign Up
-          </button>
-        )}
-        */}
         <div className="para-contianer" data-v-signup4312>
           <Link to="/login">
             <p className="para__title" data-v-signup4312>
