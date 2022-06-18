@@ -6,21 +6,17 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { fbAuth } from "../server/firebase_config";
-// import { getFirestore } from "firebase/firestore";
-import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
-import { act } from "react-dom/test-utils";
+import { getFirestore } from "firebase/firestore";
 
 // So erzeugt man einen Context in einem React Component:
 const FirebaseContext = createContext();
+// const app = initializeApp(firebase_config);
 
 // So bindet man einen Context, der bereits erzeugt
 // wurde, in ein Component ein:
-export function FirebaseContextProvider({ children }) {
-  // currentUser
+ export function FirebaseContextProvider({ children }) {
   const [user, setUser] = useState("");
-  const db = getFirestore();
-  // firebaseApps previously initialized using initializeApp()
-  // connectFirestoreEmulator(db, 'localhost', 8080);
+   const db =  getFirestore();
 
   // function für Signup-Component
   function signUp(pEmail, pPassword) {
@@ -41,7 +37,7 @@ export function FirebaseContextProvider({ children }) {
       (currentUser) => {
         // act() informiert react-testing, dass eine state-variable rerendert wird.
         // act(() => {
-        setUser(currentUser);
+          setUser(currentUser);
         // });
         return () => {
           unsubscribe();
