@@ -1,54 +1,21 @@
-import React, { useEffect, useState } from "react";
 import "./Header.scss";
-import { useFirebase } from "../../context/FirebaseContext";
-import { fbAuth } from "../../server/firebase_config";
-import { doc, getDoc } from "firebase/firestore";
+import React from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { connect } from "react-redux";
+import { logoutAction } from "../../Redux/actions/userActions";
 
-export default function Header() {
-  let { user, db } = useFirebase();
-
+function Header({ userName, logoutAction, isAuthenticated }) {
   let [logoutButton, setLogoutButton] = useState(false);
   let [fullUserName, setfullUserName] = useState("");
 
   let navigate = useNavigate();
 
-  // Falls der user neu eingeloggt ist ...
-  if (user !== null) {
-    // wahren Benutzernamen aus '/firestore/users/$app.user.id' holen
-    getDoc(doc(db, `users/${user.uid}`))
-      .then((docsnapshot) => {
-        // setfullUserName = funktioinert nicht, weil setfullUserName eine
-        // function ist, die von useState() zurück gegeben wurde. (Z.11)
-        setfullUserName(docsnapshot.data().name);
-      })
-      .catch((error) => "Konnte den Username nicht laden:" + error.message);
-  } else {
-    user = null; // wird schon in Z.30 geklaert.
-    console.log("User is signed out! ");
-  }
-
-  const logoutHandler = () => {
-    /* 
-      Es muss diese Zeilen in dieser Reihenfolge ausgeführt werden:
-      Weil: Wenn der User sich aussloggt, muss zurück geschehen, dass
-      der Route zum /hero/ geführt werden, und DANN die seite neue 
-      aufgeladen werden.
-    */
+  function logoutHandler() {
     navigate("/");
     setLogoutButton(true);
-    fbAuth
-      // ist ASYNCHRON, d.h. die noetigen anpassungen im
-      // .then vornehmen.
-      .signOut()
-      .then(() => {
-        // beim signout wird die Seite neugeladet
-        window.location.reload(true);
-        user = fbAuth.currentUser;
-        // user = null;
-      })
-      .catch((error) => "Konnte nicht ausloggen: " + error.message);
-  };
+    logoutAction();
+  }
 
   return (
     <>
@@ -57,10 +24,22 @@ export default function Header() {
           <Link to="/">
             <p className="navbar-item logo">BOOM</p>
           </Link>
-
           {/* <!-- Mobile Version / If User nicht eingeloggt --> */}
-          {/* {!fbAuth.currentUser && !logoutButton ? ( */}
-          {!fbAuth.currentUser && !logoutButton ? (
+          {isAuthenticated ? (
+            <div className="navbar-item nav-itm">
+              <div className="navbar-end">
+                <Link to="/cart">
+                  <p className="navbar-btn button is-white">Cart</p>
+                </Link>
+                <div className="select is-white">
+                  <select className="sel">
+                    <option>{fullUserName}</option>
+                    <option onClick={logoutHandler}>Logout</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          ) : (
             <Link to="/login">
               <p
                 href="/#"
@@ -75,41 +54,13 @@ export default function Header() {
                 <span aria-hidden="true" />
               </p>
             </Link>
-          ) : (
-            <div className="navbar-item nav-itm">
-              <div className="navbar-end">
-                <Link to="/cart">
-                  <p className="navbar-btn button is-white">Cart</p>
-                </Link>
-                <div className="select is-white">
-                  <select className="sel">
-                    <option>{fullUserName}</option>
-                    <option onClick={logoutHandler}>Logout</option>
-                  </select>
-                </div>
-              </div>
-            </div>
           )}
         </div>
-
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-end">
             <div className="navbar-item">
               <div className="buttons">
-                {/* <!-- Desktop Version / If User nicht eingeloggt ist --> */}
-                {!fbAuth.currentUser && !logoutButton ? (
-                  <>
-                    <Link to="/signup">
-                      <p className="button sign-up is-primary">
-                        <strong>Sign up</strong>
-                      </p>
-                    </Link>
-
-                    <Link to="/login">
-                      <p className="button login is-light">Log In</p>
-                    </Link>
-                  </>
-                ) : (
+                {isAuthenticated ? (
                   <div className="header-menu">
                     <Link to="/cart">
                       <div>
@@ -123,11 +74,23 @@ export default function Header() {
                     </Link>
                     <div className="select is-white">
                       <select className="sel">
-                        <option>{fullUserName}</option>
+                        <option>{userName}</option>
                         <option onClick={logoutHandler}>Logout</option>
                       </select>
                     </div>
                   </div>
+                ) : (
+                  <>
+                    <Link to="/signup">
+                      <p className="button sign-up is-primary">
+                        <strong>Sign up</strong>
+                      </p>
+                    </Link>
+
+                    <Link to="/login">
+                      <p className="button login is-light">Log In</p>
+                    </Link>
+                  </>
                 )}
               </div>
             </div>
@@ -137,3 +100,18 @@ export default function Header() {
     </>
   );
 }
+
+// mapStateToProps ist eine function, mit der hole ich die variablen aus
+// Redux-Store (userRed) und verbinde sie mit dem Veriable im aktuellen Component
+// mapStateToProps is to point userName to the current Components props
+const mapStateToProps = (state) => {
+  return {
+    userName: state.userRed.userName,
+    isAuthenticated: state.userRed.token,
+  };
+};
+// connect() ist eine Methode in Redux-react, sie verbindet  das aktuelle Component mit dem Redux-Store
+export default connect(
+  mapStateToProps,
+  { logoutAction }
+)(Header);
