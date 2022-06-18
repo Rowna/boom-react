@@ -5,6 +5,7 @@
   "dependencies": {
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.27.2",
     "bulma": "^0.9.3",
     "craco-plugin-scoped-css": "^1.1.1",
     "firebase": "^9.8.1",
