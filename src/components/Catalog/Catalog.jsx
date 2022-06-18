@@ -1,79 +1,38 @@
-import { React, useEffect, useState, useRef } from "react";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import CatalogItem from "./CatalogItem";
-
-import { useFirebase } from "../../context/FirebaseContext";
+import React from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { connect } from "react-redux";
 
-export default function Catalog() {
-  // db-getFirestore() aus Context-API importiert
-  const { db, user } = useFirebase();
-
+function Catalog({ userId }) {
   let [docs, setDocs] = useState([]);
   const [userCart, setUserCart] = useState([]);
 
   const navigate = useNavigate();
   // Wegen Endlose schleife
-  let elseCount = useRef(0);
-
-  if (user !== null && user !== "") {
-    console.log(`Habe die Email ${user.email}`);
-  } else {
-    console.log("Bin gerade nicht eingeloggt.");
-  }
 
   // Gegen Endlose Schleife und weil setUserCart eine ASYNC ist, wird aufgeschoben
   useEffect(() => {
-    if (user) {
-      let userRef = doc(db, "users", user.uid);
-      getDoc(userRef)
-        .then((docsnapshot) => {
-          // console.log(docsnapshot.data());
-          // Update mit Inline-Funktion
-          // verhindert Endlosschleife.
-          setUserCart(() => [...docsnapshot.data().cart]);
-        })
-        .catch((error) => {
-          console.log("So eine Scheisse! " + error.message);
-        });
-    }
-  }, []);
-
-  // Connector zur "articles"-Collecion erstellen mit Hilfe des firestore-connectors
-  const fbArticles = collection(db, "articles");
-  getDocs(fbArticles)
-    .then((docsnapshot) => {
-      let theArticles = [];
-      docsnapshot.forEach((doc) => {
-        // die Daten aud dem Firebase-"document" , die drin stehen.
-        theArticles.push({ id: doc.id, ...doc.data() });
-        // console.dir(doc.data())
-      });
-      if (elseCount.current === 0) {
+    // get Articles aus dem Server, dafür muss der Server angeschaltet werden
+    axios
+      .get("http://localhost:4000/getArticles")
+      .then((res) => res.data)
+      // die Daten aus dem Server holen
+      .then((data) => {
         navigate("/catalog");
-        elseCount.current++;
-        setDocs(theArticles);
-        // console.dir(theArticles)
-      }
-    })
-    .catch((error) => console.error("The Error is: " + error.message));
+        setDocs(data.articles);
+      })
+      .catch((err) => {
+        console.error("The Error is: " + err.response.data.message);
+      });
+  }, []);
 
   return (
     <>
-      {/* Notification when the user login */}
-      {user !== null ? (
-        <div className="notification is-warning">
-          <p>Bin eingeloggt als {user.email}</p>
-        </div>
-      ) : (
-        <div className="notification is-danger">
-          <p>Hat mit dem Einloggen nicht geklappt!</p>
-        </div>
-      )}
-
       <div className="catalog" data-v-catalog4312>
         <div className="catalog-title">
-          <p>BOOM</p>
+          <h2>BOOM</h2>
           <p className="subtitle is-7">Discover Kids Gallery with Pics</p>
         </div>
 
@@ -86,9 +45,10 @@ export default function Catalog() {
           {docs.map((article) => (
             // article ist das aktuelle Element, das gebe ich an CatalogItem als prop weiter
             <CatalogItem
+              userId={userId}
+              key={article.id}
               article={article}
               userCart={userCart}
-              key={article.id}
             />
           ))}
         </div>
@@ -96,3 +56,14 @@ export default function Catalog() {
     </>
   );
 }
+// mapStateToProps ist eine function, mit der hole ich die variablen aus
+// Redux-Store (userRed) und verbinde sie mit dem Veriable im aktuellen Component
+// mapStateToProps is to point userName to the current Components props
+const mapStateToProps = (state) => {
+  return {
+    // für den Server.js ab zeile 78
+    userId: state.userRed.userId,
+  };
+};
+// connect() ist eine Methode in Redux-react, sie verbindet  das aktuelle Component mit dem Redux-Store
+export default connect(mapStateToProps)(Catalog);
