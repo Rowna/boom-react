@@ -7,7 +7,7 @@ import { logoutAction } from "../../Redux/actions/userActions";
 
 function Header({ userName, logoutAction, isAuthenticated }) {
   let [logoutButton, setLogoutButton] = useState(false);
-  let [fullUserName, setfullUserName] = useState("");
+  // let [fullUserName, setfullUserName] = useState("");
 
   let navigate = useNavigate();
 
@@ -33,7 +33,7 @@ function Header({ userName, logoutAction, isAuthenticated }) {
                 </Link>
                 <div className="select is-white">
                   <select className="sel">
-                    <option>{fullUserName}</option>
+                    <option>{userName}</option>
                     <option onClick={logoutHandler}>Logout</option>
                   </select>
                 </div>

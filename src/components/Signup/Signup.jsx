@@ -18,7 +18,7 @@ export default function Signup() {
 
   // Error-Message in SignUp definieren.
   const [isValid, setIsValid] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(true);
+  // const [isDisabled, setIsDisabled] = useState(true);
   const [error, setError] = useState("");
 
   const fname = useRef();
@@ -87,7 +87,8 @@ export default function Signup() {
     event.preventDefault();
     setError("");
 
-    // axios schickt eine Rest-API-Abfrage in der Server
+    // axios schickt eine Request an den Server.js
+    // body dieser Request: {type, email, password...}
     axios
       .post("http://localhost:4000/user", {
         type: "signup",
@@ -96,6 +97,7 @@ export default function Signup() {
         userName: fullNameInput,
         phoneNumber: "1234567890",
       })
+      // der Server gibt zurück einen Response
       .then((res) => res.data)
       .then((data) => {
         navigate("/catalog");

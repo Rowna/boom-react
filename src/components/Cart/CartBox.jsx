@@ -1,28 +1,23 @@
+import axios from "axios";
 import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { useFirebase } from "../../context/FirebaseContext";
-import { doc, updateDoc, deleteField, arrayUnion } from "firebase/firestore";
 import "./Cart.scss";
 import "./CartBox.scss";
 
-const CartBox = ({ theSubtotal }) => {
-
-  let { user, db } = useFirebase();
-  let userRef = doc(db, "users", user.uid);
-
-
-
+const CartBox = ({ theSubtotal, userId }) => {
   function clearCartHandler() {
-    console.log("FieldRemove()");
-    // event.preventDefault();
-    updateDoc(userRef, {
-      cart: [],
-    });
-
-    // window.location.reload(true);
-    // updateDoc(userRef, {
-    //   cart: arrayUnion(),
-    // });
+    axios
+      // delete "/cart" at userId "$"{userId}
+      .delete(`http://localhost:4000/cart/${userId}`)
+      .then((res) => res.data)
+      .then((data) => {
+        window.location.reload(true);
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log("Error:" + error.message);
+      });
   }
 
   function executeHandler() {
@@ -48,7 +43,9 @@ const CartBox = ({ theSubtotal }) => {
       <div className="card">
         <br />
         <div className="card-footer cb-estimate-total">
-          <p className="card-footer-item title is-4 cb-total">Estimate Total:</p>
+          <p className="card-footer-item title is-4 cb-total">
+            Estimate Total:
+          </p>
           <p className="card-footer-item title is-3">
             <code>{theSubtotal} €</code>
           </p>
@@ -66,11 +63,8 @@ const CartBox = ({ theSubtotal }) => {
           </button>
         </p>
 
-        <Link to="/">
-          <button
-            className="button cb-delete-btn"
-            onClick={clearCartHandler}
-          >
+        <Link to="/catalog">
+          <button className="button cb-delete-btn" onClick={clearCartHandler}>
             Remove all Articles
           </button>
         </Link>
@@ -85,4 +79,15 @@ const CartBox = ({ theSubtotal }) => {
   );
 };
 
-export default CartBox;
+// mapStateToProps ist eine function, mit der hole ich die variablen aus
+// Redux-Store (userRed) und verbinde sie mit dem Veriable im aktuellen Component
+// mapStateToProps is to point userName to the current Components props
+const mapStateToProps = (state) => {
+  return {
+    userName: state.userRed.userName,
+    isAuthenticated: state.userRed.token,
+    userId: state.userRed.userId,
+  };
+};
+// connect() ist eine Methode in Redux-react, sie verbindet  das aktuelle Component mit dem Redux-Store
+export default connect(mapStateToProps)(CartBox);

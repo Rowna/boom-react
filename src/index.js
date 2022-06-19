@@ -14,7 +14,7 @@ import thunk from "redux-thunk";
 import decode from "jwt-decode";
 import { userLoggedIn } from "./Redux/actions/userActions";
 import setAuthorizationHeader from "./setAuthorizationHeader"
-// mit store haben wir die store initialisert aus creatsStore()
+// mit store habe ich die store initialisert aus creatsStore()
 const store = createStore(
   // in dieser Datei definiere ich alle Store-Dateien für alle Components z.B. wie userRed, ...
   combineReducers,

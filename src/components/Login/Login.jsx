@@ -2,14 +2,11 @@ import "./Login.scoped.scss";
 import React from "react";
 import { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import { useFirebase } from "../../context/FirebaseContext";
 import axios from "axios";
 import { connect } from "react-redux";
-import { storeCurrentUserToReduxStoreToLogin } from "../../Redux/actions/userActions"
+import { storeCurrentUserToReduxStoreToLogin } from "../../Redux/actions/userActions";
 
-
- function Login({storeCurrentUserToReduxStoreToLogin}) { 
-  // let { logIn, user } = useFirebase();
+function Login({ storeCurrentUserToReduxStoreToLogin }) {
   const navigate = useNavigate();
 
   const [emailInput, setEmailInput] = useState("rowan@test.com");
@@ -33,9 +30,9 @@ import { storeCurrentUserToReduxStoreToLogin } from "../../Redux/actions/userAct
     // console.log("Login ist erfolgreich! ");
     event.preventDefault();
     setError("");
-    // let fbCredentials = null;
-    // let fbUser = null;
-
+    // das ist eine Request = Anfrgae/Abfrage an den Server.js
+    // diese Request hat eine URI = "http://localhost:4000/user" und
+    // einen Body nämlich {type, email und password}
     axios
       .post("http://localhost:4000/user", {
         type: "login",
@@ -43,29 +40,18 @@ import { storeCurrentUserToReduxStoreToLogin } from "../../Redux/actions/userAct
         password: passWordInput,
       })
       // then holt mir die data aus axios und dieser antwort "Payload" habe ich an das nächste then() weitergegeben
+      // Der Server hat einen Response zurückgegeben nach findOne()
       .then((res) => res.data)
       .then((data) => {
         navigate("/catalog");
-       // alert(data.message);
-       console.log(data);
-        // localStorage.setItem("user", JSON.stringify(data.user));
+        console.log(data);
         storeCurrentUserToReduxStoreToLogin(data.user);
         // console.log(data.user);
       })
-      .catch((err) => {
+      .catch((error) => {
         // message vom Server, wenn die daten im Server nicht gefunden werden
-        alert(err.response.data.message);
+        alert(error.response.data.message);
       });
-
-    // try {
-    //   fbCredentials = await logIn(emailInput, passWordInput);
-    //   fbUser = fbCredentials.user;
-    //   user = fbUser;
-    //   // navigate() im JSX - <Link /> im HTML
-    //   navigate("/catalog");
-    // } catch (error) {
-    //   setError(error.message);
-    // }
   }
 
   // Hier wird das Markup-Teil gerendert wie in Svelte
@@ -133,4 +119,7 @@ import { storeCurrentUserToReduxStoreToLogin } from "../../Redux/actions/userAct
 }
 
 // connect() ist eine Methode in Redux-react, sie verbindet  das aktuelle Component mit dem Redux-Store
-export default connect(null, {storeCurrentUserToReduxStoreToLogin})(Login);
+export default connect(
+  null,
+  { storeCurrentUserToReduxStoreToLogin }
+)(Login);
