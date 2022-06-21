@@ -1,28 +1,17 @@
-import { React, useState, useRef, useEffect } from "react";
+import axios from "axios";
+import React from "react";
+import { useState } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 import "./CartItem.scss";
 
-import { arrayRemove, doc, updateDoc } from "firebase/firestore";
-import { useFirebase } from "../../context/FirebaseContext";
-
-export default function CartItem({ article, getSubUpdate }) {
-  const { db, user } = useFirebase();
+function CartItem({ article, getSubUpdate, userId, removeitem }) {
+  // let { db, user } = useFirebase();
   let svArticle = "/singleview/" + article.id;
-  // let elseCount = useRef(0);
-  // const qtyRef = useRef();
-
-  // Wichtig, um zu wissen ob der User null ist!
-  // if (user !== null && elseCount.current === 0) {
-  //   console.log(`Habe die Email ${user.email}`);
-  //   elseCount.current++;
-  // } else {
-  //   console.log("Bin gerade nicht eingeloggt.");
-  //   elseCount.current++;
-  // }
 
   let cartImgURL = "images/" + article.img;
 
-  const userRef = doc(db, "users", user.uid);
   let cartItem = {
     id: article.id,
     title: article.title,
@@ -50,21 +39,32 @@ export default function CartItem({ article, getSubUpdate }) {
     getSubUpdate(article.price);
     // }
   }
-
   function removeArticleHandler() {
     console.log("Article Removed!");
-    updateDoc(userRef, {
-      cart: arrayRemove(cartItem),
-    });
-    // window.location.reload(true);
+    axios
+      .get(
+        // abfragen "removeFromCart" where cartId =
+        // zwei Requests/Abfragen zum Server 
+        "http://localhost:4000/removeFromCart?cartId=" + cartItem.id +
+          "&userId=" + userId
+      )
+      .then((res) => res.data)
+      .then((data) => {
+        toast.success(data.message)
+       removeitem(cartItem.id)
+      })
+      .catch((error) => {
+        console.log("Error:" + error.message);
+      });
   }
 
   return (
     <>
-      <div className="box card ci-card">
+      <div className="box card">
         <div className="card-footer ct-card-items">
           <div className="card-footer-item article-img">
             <Link to={svArticle}>
+              {/* cartItem-imge´wegen Globale-Variablen siehe Svelte Zeile 73 */}
               <img className="cartItem-imge" src={cartImgURL} alt="article" />
             </Link>
           </div>
@@ -77,14 +77,12 @@ export default function CartItem({ article, getSubUpdate }) {
           </div>
 
           <div className="card-footer-item article-amount">
-            {/* <div className=" price-container"> */}
             <div className="card-header-title title is-4 amount card-header">
               Preis:
               <p className="subtitle card-header-title is-5 price-a">
                 {article.price} €
               </p>
             </div>
-            {/* </div> */}
 
             <div className="card-header article-qty-container">
               <p className="article-qty card-header-title subtitle is-5 ci-article-qty">
@@ -124,22 +122,35 @@ export default function CartItem({ article, getSubUpdate }) {
             </div>
           </div>
         </div>
+
         <div className="card-footer">
           <Link
             to="/catalog"
-            className="button card-footer-item ci-gallery-btn is-primary ci-link-article-delete"
+            className="button card-footer-item ci-gallery-btn is-primary"
           >
             To Gallery
           </Link>
-          <Link
-            to="/catalog"
+          <p
+            // to="/catalog"
             className="button card-footer-item delete-btn"
             onClick={removeArticleHandler}
           >
             Remove this Article
-          </Link>
+          </p>
         </div>
       </div>
     </>
   );
 }
+// mapStateToProps ist eine function, mit der hole ich die variablen aus
+// Redux-Store (userRed) und verbinde sie mit dem Veriable im aktuellen Component
+// mapStateToProps is to point userName to the current Components props
+const mapStateToProps = (state) => {
+  return {
+    userId: state.userRed.userId,
+    userName: state.userRed.userName,
+    isAuthenticated: state.userRed.token,
+  };
+};
+// connect() ist eine Methode in Redux-react, sie verbindet  das aktuelle Component mit dem Redux-Store
+export default connect(mapStateToProps)(CartItem);

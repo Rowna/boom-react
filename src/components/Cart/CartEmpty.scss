@@ -10,11 +10,15 @@
   width: 70%;
   margin: 0;
 }
+.ce-gallery-btn:hover {
+  // box-shadow: none !important;
+  cursor: pointer;
+}
 .box2 {
   display: flex;
   justify-content: center;
   text-align: center;
-  text-decoration: none;
+  text-decoration: none !important;
 }
 .box2:hover {
   box-shadow: none !important;
