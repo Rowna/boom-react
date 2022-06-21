@@ -21,6 +21,7 @@ export default function userRed(state = initState, action = {}) {
 
         userName: action.payload.user.userName,
         email: action.payload.user.email,
+        // token wird für isAuthenticated benötigt
         token: action.payload.user.token,
         userId: action.payload.user.userId,
       };

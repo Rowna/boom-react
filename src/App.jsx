@@ -11,10 +11,14 @@ import Signup from "./components/Signup/Signup";
 import Hero from "./components/Hero/Hero";
 import Cart from "./components/Cart/Cart";
 import Modal from "./containers/Modal";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <FirebaseContextProvider>
+    <>
+      {/* <FirebaseContextProvider>*/}
+      <ToastContainer autoClose={1500} />
       <Routes>
         {/* Interne Links definieren */}
         <Route element={<Layout />}>
@@ -28,7 +32,8 @@ function App() {
           <Route path="modal" element={<Modal />} />
         </Route>
       </Routes>
-    </FirebaseContextProvider>
+      {/* </FirebaseContextProvider> */}
+    </>
   );
 }
 

@@ -7,7 +7,7 @@ export const storeCurrentUserToReduxStoreToLogin = (user) => (dispatch) => {
 };
 
 export const userLoggedIn = (user) => {
-    console.log(user);
+    // console.log(user);
   return {
     type: "LOGIN",
     payload: {
