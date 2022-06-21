@@ -12,8 +12,8 @@ export default function RatingContainer({ recommendations }) {
       </div>
         <>
         <div className="card">
-            {recommendations.map((recom) => (
-            <Rating key={recom.id} recom={recom} />
+            {recommendations.map((recom, index) => (
+            <Rating key={index} recom={recom} />
             ))}
         </div>
         </>
