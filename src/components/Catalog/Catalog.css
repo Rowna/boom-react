@@ -35,7 +35,7 @@
   margin: 1rem 3rem;
   row-gap: 3rem;
 }
-/*  Ab 670px wird es 1fr 1fr gelten */
+/* min-width bedeutet: Ab 670px wird es 1fr 1fr gelten */
 @media only screen and (min-width: 670px) {
   .catalog-container {
     grid-template-columns: 1fr 1fr;

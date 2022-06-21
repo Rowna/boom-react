@@ -1,30 +1,21 @@
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  updateDoc,
-  arrayRemove,
-  arrayUnion,
-} from "firebase/firestore";
 
 import "./Catalog.css";
 import "./CatalogItem.scss";
 
-import { useFirebase } from "../../context/FirebaseContext";
+import { connect } from "react-redux";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-export default  function CatalogItem(props) {
-  let { db, user } = useFirebase();
+function CatalogItem(props) {
   let [modalVisible, setModalVisible] = useState(false);
 
   // In Svelte konnte man {interpolation} auch so schreiben:
   // "{interpolation}" -- in React geht das nicht, deshalb
   // brauche ich hier eine Hilfsvariable.
   let imgURL = "images/" + props.article.img;
-  let singleViewURL = "/singleview/" + props.article.id;
-
+  let singleViewURL = "/singleview/" + props.article._id;
   function isInCart() {
     for (let el of props.userCart) {
       if (el.id === props.article.id) return true;
@@ -34,53 +25,103 @@ export default  function CatalogItem(props) {
 
   // let cartImage = isInCart() ? "shopping-cart-filled" : "shopping-cart";
   // hier muss der Fehler behoben werden!
-  let [cartImage, setCartImage]  =  useState(
+  let [cartImage, setCartImage] = useState(
     isInCart() ? "shopping-cart-filled.png" : "shopping-cart.png"
   );
 
   let cartImgURL = "images/" + cartImage;
 
   async function addToCartHandler() {
-    const userRef = doc(db, "users", user.uid);
-
     let cartItem = {
-      id: props.article.id,
+      id: props.article._id,
       title: props.article.title,
       desc: props.article.desc,
       price: props.article.price,
       img: props.article.img,
     };
+    // console.log(cartItem);
 
-    // Wenn dieser Artikel schon im Cart liegt ...
     if (cartImage.indexOf("filled") >= 0) {
-      // eine article.id aus dem "cart"-Array entfernen
-      // let articleRef = doc(db, "users", "cart");
-      // arrayRemove((articleRef), where(article.id, "=", ""))
-      await updateDoc(userRef, {
-        // cart: deleteField(),
-        cart: arrayRemove(cartItem),
-      });
-      // Cart-Icon updaten
-      setCartImage("shopping-cart.png");
-      console.log("Removed from Shop!");
-      // cart-image sieht "leer" aus
+      axios
+        .get(
+          // abfragen "removeFromCart" where cartId =
+          "http://localhost:4000/removeFromCart?cartId=" +
+            cartItem.id +
+            "&userId=" +
+            props.userId
+        )
+        .then((res) => res.data)
+        .then((data) => {
+          toast.success(data.message);
+          setCartImage("shopping-cart.png");
+        })
+        .catch((error) => {
+          toast.error("Error:" + error.message);
+        });
     } else {
-      // Artikel liegt noch nicht im Cart
-      await updateDoc(userRef, {
-        cart: arrayUnion(cartItem),
-      });
-
-      // Cart-Icon updaten
-      setCartImage("shopping-cart-filled.png");
-      console.log("added to Shop!");
+      axios
+        .post("http://localhost:4000/addToCart", {
+          // key: in body request zum server
+          // value: catItem im Client Frontend
+          cartItem: cartItem,
+          userId: props.userId,
+        })
+        // wenn ich eine Payload vom Server zurück bekomme, geht es
+        // hier weiter.
+        .then((res) => res.data)
+        .then((data) => {
+          // Cart-Icon updaten
+          setCartImage("shopping-cart-filled.png");
+          toast.success(data.message);
+        })
+        .catch((error) => {
+          toast.error(error.response.data.message);
+        });
     }
   }
 
-    // Add to Favorite
-    function addToFavoritesHandler() {
-      console.log("added to Favorites!");
-      setModalVisible(true);
-    }
+  // async function addToCartHandlerFB() {
+
+  //   const userRef = doc(db, "users", user.uid);
+
+  //   let cartItem = {
+  //     id: props.article.id,
+  //     title: props.article.title,
+  //     desc: props.article.desc,
+  //     price: props.article.price,
+  //     img: props.article.img,
+  //   };
+
+  //   // Wenn dieser Artikel schon im Cart liegt ...
+  //   if (cartImage.indexOf("filled") >= 0) {
+  //     // eine article.id aus dem "cart"-Array entfernen
+  //     // let articleRef = doc(db, "users", "cart");
+  //     await updateDoc(userRef, {
+  //       // cart: deleteField(),
+  //       cart: arrayRemove(cartItem),
+  //     });
+  //     // Cart-Icon updaten
+  //     setCartImage("shopping-cart.png");
+  //     console.log("Removed from Shop!");
+  //     // cart-image sieht "leer" aus
+  //   } else {
+  //     // Artikel liegt noch nicht im Cart
+  //     await updateDoc(userRef, {
+  //       cart: arrayUnion(cartItem),
+  //     });
+
+  //     // Cart-Icon updaten
+  //     setCartImage("shopping-cart-filled.png");
+  //     console.log("added to Shop!");
+  //   }
+  // }
+
+  // Add to Favorite
+
+  function addToFavoritesHandler() {
+    console.log("added to Favorites!");
+    setModalVisible(true);
+  }
 
   return (
     <>
@@ -101,7 +142,7 @@ export default  function CatalogItem(props) {
           </figure>
 
           <footer className="card-footer ci-card-footer">
-            {user !== null ? (
+            {props.isAuthenticated ? (
               <>
                 <div
                   className="card-footer-item ci-card-footer-item"
@@ -109,7 +150,6 @@ export default  function CatalogItem(props) {
                 >
                   <img
                     className="cart-img"
-                    // src="images/shopping-cart.png"
                     src={cartImgURL}
                     alt="shopping-cart"
                   />
@@ -126,13 +166,7 @@ export default  function CatalogItem(props) {
                 </div>
               </>
             ) : (
-              /* {modalVisible ? 
-                  (<Platzhalter />
-                  ) : (
-                  <></>
-                  )}
-              */
-              <Link to="/login" className="ci-login" >
+              <Link to="/login" className="ci-login">
                 <div className="card-foot container">You should log in!</div>
               </Link>
             )}
@@ -156,3 +190,15 @@ export default  function CatalogItem(props) {
     </>
   );
 }
+// mapStateToProps ist eine function, mit der hole ich die variablen aus
+// Redux-Store (userRed) und verbinde sie mit dem Veriable im aktuellen Component
+// mapStateToProps is to point userName to the current Components props
+const mapStateToProps = (state) => {
+  return {
+    userId: state.userRed.userId,
+    userName: state.userRed.userName,
+    isAuthenticated: state.userRed.token,
+  };
+};
+// connect() ist eine Methode in Redux-react, sie verbindet  das aktuelle Component mit dem Redux-Store
+export default connect(mapStateToProps)(CatalogItem);

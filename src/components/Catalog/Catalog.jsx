@@ -5,17 +5,17 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { connect } from "react-redux";
 
-function Catalog({ userId }) {
+function Catalog({ userId, isAuthenticated }) {
   let [docs, setDocs] = useState([]);
   const [userCart, setUserCart] = useState([]);
 
   const navigate = useNavigate();
-  // Wegen Endlose schleife
 
   // Gegen Endlose Schleife und weil setUserCart eine ASYNC ist, wird aufgeschoben
   useEffect(() => {
-    // get Articles aus dem Server, dafür muss der Server angeschaltet werden
+    // get Articles aus dem Server
     axios
+      // etwas aus dem Server auslesen/abfragen ".get()"
       .get("http://localhost:4000/getArticles")
       .then((res) => res.data)
       // die Daten aus dem Server holen
@@ -24,9 +24,42 @@ function Catalog({ userId }) {
         setDocs(data.articles);
       })
       .catch((err) => {
-        console.error("The Error is: " + err.response.data.message);
+        console.log("The Error is: " + err.response.data.message);
       });
+
+    // Shopping-Cart-Icon auf Catalog updaten
+    /* 
+    if (isAuthenticated) {
+      axios
+        .get("http://localhost:4000/getArticlesFromMyCart?userId=" + userId)
+        .then((res) => res.data)
+        // die Daten aus dem Server holen
+        .then((data) => {
+          // console.log(data.shCartItems);
+          setUserCart(data.shCartItems);
+        })
+        .catch((err) => {
+          console.log("The Error is: " + err.response.data.message);
+        });
+    }
+    */
   }, []);
+
+  /*
+  if (user) {
+      let userRef = doc(db, "users", user.uid);
+      getDoc(userRef)
+        .then((docsnapshot) => {
+          // console.log(docsnapshot.data());
+          // Update mit Inline-Funktion
+          // verhindert Endlosschleife.
+          setUserCart(() => [...docsnapshot.data().cart]);
+        })
+        .catch((error) => {
+          console.log("So eine Scheisse! " + error.message);
+        });
+    }
+  */
 
   return (
     <>
@@ -62,6 +95,7 @@ function Catalog({ userId }) {
 const mapStateToProps = (state) => {
   return {
     // für den Server.js ab zeile 78
+    isAuthenticated: state.userRed.token,
     userId: state.userRed.userId,
   };
 };
