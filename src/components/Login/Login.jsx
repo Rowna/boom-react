@@ -9,8 +9,8 @@ import { storeCurrentUserToReduxStoreToLogin } from "../../Redux/actions/userAct
 function Login({ storeCurrentUserToReduxStoreToLogin }) {
   const navigate = useNavigate();
 
-  const [emailInput, setEmailInput] = useState("rowan@test.com");
-  const [passWordInput, setPassWordInput] = useState("rowan12345");
+  const [emailInput, setEmailInput] = useState("max@test.de");
+  const [passWordInput, setPassWordInput] = useState("max12345");
 
   // Error-Message in SignUp definieren.
   const [error, setError] = useState("");

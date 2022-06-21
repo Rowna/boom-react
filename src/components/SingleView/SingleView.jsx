@@ -1,30 +1,28 @@
 import { React, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
-import { useFirebase } from "../../context/FirebaseContext";
 
 import "./SingleView.scss";
 import RatingContainer from "../Rating/RatingContainer";
 import Platzhalter from "../../containers/Platzhalter";
 import Stars from "../../containers/Stars/Stars";
 import Modal from "../../containers/Modal";
+import axios from "axios";
+import { connect } from "react-redux";
+import { toast } from "react-toastify";
 
-export default function SingleView() {
-  let { db, user } = useFirebase();
+function SingleView({ isAuthenticated, userName, userId }) {
   // vgl. die Erklaerungen in App.jsx zu 'singleview/:artID'
-  let artID = useParams().artID;
+  let { artID } = useParams();
   let [article, setArticle] = useState({});
-  let [recommendations, setRecommendations] = useState(null);
   let [recAlreadyWritten, setRecAlreadyWritten] = useState(false);
   let [modalVisible, setModalVisible] = useState(false);
   let [platzhalterVisible, setPlatzhalterVisible] = useState(false);
-  let articleRef = doc(db, "articles", artID);
   let imgURL = "/images/" + article.img;
 
   function fnRecAlreadyWritten(pRecommendations) {
     if (pRecommendations && pRecommendations.length > 0) {
       for (let el of pRecommendations) {
-        if (el.userId === user.uid) return true;
+        if (el.userId === userId) return true;
         // console.dir(el.userId === user.uid);
         //  return recommendations.indexOf((el) => el.userId === user.uid) === -1;
       }
@@ -33,8 +31,41 @@ export default function SingleView() {
       return false;
     }
   }
-
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+  // console.log(article);
+  // let articleRef = doc(db, "articles", artID);
+  const getArticleById = (id) => {
+    axios
+      // get article where articleId = artID
+      .get("http://localhost:4000/getArticleById?articleId=" + id)
+      .then((res) => res.data)
+      // response comming from the server
+      .then((data) => {
+        setArticle(data.article);
+        setRecAlreadyWritten(fnRecAlreadyWritten(data.article.recommendations));
+      })
+      .catch((err) => {
+        console.log("The Error is: " + err.response.data.message);
+      });
+  };
   useEffect(() => {
+    getArticleById(artID);
+
+    // axios
+    // // get article where articleId = artID
+    // .get("http://localhost:4000/getRecommendations" )
+    // .then((res) => res.data)
+    // // response comming from the server
+    // .then((data) => {
+    //   setRecommendations(data.recommendations);
+    // })
+    // .catch((err) => {
+    //   console.log("The Error is: " + err.response.data.message);
+    // });
+    //}
+    /*  
     getDoc(articleRef)
       .then((docsnapshot) => {
         let theArticle = null;
@@ -61,12 +92,15 @@ export default function SingleView() {
       .catch((error) => {
         console.log("So eine Scheisse! " + error.message);
       });
-  }, [user]);
+      */
+  }, [artID]);
 
   function ratingHandler() {
-    // Ab jetzt ist Modal zu sehen
-    setModalVisible(true);
-    console.log("ratingHandler");
+    if (isAuthenticated) {
+      setModalVisible(true);
+    } else {
+      toast.error("you should login");
+    }
   }
 
   function EditRatingHandler() {
@@ -75,7 +109,19 @@ export default function SingleView() {
   }
   return (
     <>
-      <div>{modalVisible ? <Modal isVisible={modalVisible} /> : <></>}</div>
+      {modalVisible && (
+        <Modal
+          updateArticle={(articleId) => getArticleById(articleId)}
+          isAuthenticated={isAuthenticated}
+          userName={userName}
+          userId={userId}
+          articleId={article._id}
+          isVisible={modalVisible}
+          closeModal={closeModal}
+          showModal={modalVisible}
+        />
+      )}
+
       <div className="singleview-title">
         <p>BOOM</p>
         <p className="subtitle is-7">
@@ -88,15 +134,11 @@ export default function SingleView() {
           <div className="card-footer sv-article-conatiner">
             <div className="card-footer-item sv-left-container">
               <div className="sv-img-container">
-                <img
-                  className="sv-img"
-                  src={imgURL}
-                  alt="Bild"
-                />
+                <img className="sv-img" src={imgURL} alt="Bild" />
               </div>
 
               <div className="card-footer-item sv-sterne">
-                <Stars />
+                <Stars stars={4} />
               </div>
             </div>
 
@@ -149,8 +191,8 @@ export default function SingleView() {
 
         {/* <RatingContainer recommendations={recommendations} /> */}
 
-        {recommendations && recommendations.length > 0 ? (
-          <RatingContainer recommendations={recommendations} />
+        {article.recommendations && article.recommendations.length > 0 ? (
+          <RatingContainer recommendations={article.recommendations} />
         ) : (
           <></>
         )}
@@ -158,3 +200,17 @@ export default function SingleView() {
     </>
   );
 }
+
+// mapStateToProps ist eine function, mit der hole ich die variablen aus
+// Redux-Store (userRed) und verbinde sie mit dem Veriable im aktuellen Component
+// mapStateToProps is to point userName to the current Components props
+const mapStateToProps = (state) => {
+  return {
+    // für den Server.js ab zeile 78
+    isAuthenticated: state.userRed.token,
+    userId: state.userRed.userId,
+    userName: state.userRed.userName,
+  };
+};
+// connect() ist eine Methode in Redux-react, sie verbindet  das aktuelle Component mit dem Redux-Store
+export default connect(mapStateToProps)(SingleView);
