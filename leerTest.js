@@ -30,65 +30,12 @@ describe("Catalog Page", () => {
 
 
 
-  
-  it("has a user full name input field", () => {
-    // Schritt 1: Das Component rendern
-    render(
-      <FirebaseContextProvider>
-        <Signup />
-      </FirebaseContextProvider>,
-      { wrapper: MemoryRouter }
-    );
-    const userTextElement = screen.queryByPlaceholderText("Your Full Name");
-    expect(userTextElement).toBeInTheDocument();
-  });
-
-  it("has an email input field", () => {
-    render(
-      <FirebaseContextProvider>
-        <Signup />
-      </FirebaseContextProvider>,
-      { wrapper: MemoryRouter }
-    );
-    const userMailElement = screen.queryByPlaceholderText(
-      "Your E-Mail-Adress"
-    );
-    expect(userMailElement).toBeInTheDocument();
-  });
-
-  it("has to password input fields", () => {
-    const { container } = render(
-      <FirebaseContextProvider>
-        <Signup />
-      </FirebaseContextProvider>,
-      { wrapper: MemoryRouter }
-    );
-    const pwField = container.querySelector("#password");
-    const pwLabel = screen.getByLabelText("Password");
-    expect(pwField.type).toBe("password");
-    expect(pwLabel).toBeInTheDocument();
-  });
-
-  it("has a button for submitting", () => {
-    render(
-      <FirebaseContextProvider>
-        <Signup />
-      </FirebaseContextProvider>,
-      { wrapper: MemoryRouter }
-    );
-    const formButton = screen.getByRole("button");
-    expect(formButton.textContent).toBe("Sign Up");
-    expect(formButton).toBeDisabled();
-  });
-});
 
 
 describe("On Interaktion Level", () => {
   it("sends data to the backend", () => {
     render(
-      <FirebaseContextProvider>
-        <Signup />
-      </FirebaseContextProvider>,
+        <Signup />,
       { wrapper: MemoryRouter }
     );
     const fNameInput = screen.getByPlaceholderText("Your Full Name");
