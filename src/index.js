@@ -6,21 +6,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 // Folgende Zeile werden für Redux benötigt
-import { composeWithDevTools } from "redux-devtools-extension";
-import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
-import combineReducers from "./Redux/combineReducers";
-import thunk from "redux-thunk";
 import decode from "jwt-decode";
 import { userLoggedIn } from "./Redux/actions/userActions";
 import setAuthorizationHeader from "./setAuthorizationHeader"
 // mit store habe ich die store initialisert aus creatsStore()
-const store = createStore(
-  // in dieser Datei definiere ich alle Store-Dateien für alle Components z.B. wie userRed, ...
-  combineReducers,
-  // connect Redux mit der Browser
-  composeWithDevTools(applyMiddleware(thunk))
-);
+import store from "./Redux/store"
 
 // Problem:
 // user will logged out automatically after refreching the page
@@ -32,7 +23,7 @@ const store = createStore(
 if (localStorage.reactJWT) {
   const payload = decode(localStorage.reactJWT);
 
-  store.dispatch(
+  store().dispatch(
     userLoggedIn({
       token: localStorage.reactJWT,
       userId: payload.userId,
@@ -46,7 +37,7 @@ if (localStorage.reactJWT) {
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 ReactDOM.render(
   <BrowserRouter>
-    <Provider store={store}>
+    <Provider store={store()}>
       <App />
     </Provider>
   </BrowserRouter>,

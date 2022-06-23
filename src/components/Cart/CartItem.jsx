@@ -149,7 +149,7 @@ const mapStateToProps = (state) => {
   return {
     userId: state.userRed.userId,
     userName: state.userRed.userName,
-    isAuthenticated: state.userRed.token,
+    token: state.userRed.token,
   };
 };
 // connect() ist eine Methode in Redux-react, sie verbindet  das aktuelle Component mit dem Redux-Store

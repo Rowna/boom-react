@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+// كل شي متعلق بالبروبس لازم عرفه بالتيست
 function CatalogItem(props) {
   let [modalVisible, setModalVisible] = useState(false);
 
@@ -16,15 +17,17 @@ function CatalogItem(props) {
   // brauche ich hier eine Hilfsvariable.
   let imgURL = "images/" + props.article.img;
   let singleViewURL = "/singleview/" + props.article._id;
+
   function isInCart() {
     for (let el of props.userCart) {
-      if (el.id === props.article.id) return true;
+      if (el.id === props.article._id) return true;
     }
     return false;
   }
 
   // let cartImage = isInCart() ? "shopping-cart-filled" : "shopping-cart";
   // hier muss der Fehler behoben werden!
+
   let [cartImage, setCartImage] = useState(
     isInCart() ? "shopping-cart-filled.png" : "shopping-cart.png"
   );
@@ -142,7 +145,7 @@ function CatalogItem(props) {
           </figure>
 
           <footer className="card-footer ci-card-footer">
-            {props.isAuthenticated ? (
+            {props.token ? (
               <>
                 <div
                   className="card-footer-item ci-card-footer-item"
@@ -182,7 +185,7 @@ function CatalogItem(props) {
 
           <div className="content">
             <p className="subtitle is-5 cprice">
-              Price: <strong>{props.article.price}</strong> €
+              Price:<strong>{props.article.price}</strong> €
             </p>
           </div>
         </div>
@@ -197,7 +200,7 @@ const mapStateToProps = (state) => {
   return {
     userId: state.userRed.userId,
     userName: state.userRed.userName,
-    isAuthenticated: state.userRed.token,
+    token: state.userRed.token,
   };
 };
 // connect() ist eine Methode in Redux-react, sie verbindet  das aktuelle Component mit dem Redux-Store

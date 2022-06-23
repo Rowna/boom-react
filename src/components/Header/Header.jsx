@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutAction } from "../../Redux/actions/userActions";
 
-function Header({ userName, logoutAction, isAuthenticated }) {
+function Header({ userName, logoutAction, token }) {
   let [logoutButton, setLogoutButton] = useState(false);
   // let [fullUserName, setfullUserName] = useState("");
 
@@ -25,7 +25,7 @@ function Header({ userName, logoutAction, isAuthenticated }) {
             <p className="navbar-item logo">BOOM</p>
           </Link>
           {/* <!-- Mobile Version / If User nicht eingeloggt --> */}
-          {isAuthenticated ? (
+          {token ? (
             <div className="navbar-item nav-itm">
               <div className="navbar-end">
                 <Link to="/cart">
@@ -60,7 +60,7 @@ function Header({ userName, logoutAction, isAuthenticated }) {
           <div className="navbar-end">
             <div className="navbar-item">
               <div className="buttons">
-                {isAuthenticated ? (
+                {token ? (
                   <div className="header-menu">
                     <Link to="/cart">
                       <div>
@@ -107,7 +107,7 @@ function Header({ userName, logoutAction, isAuthenticated }) {
 const mapStateToProps = (state) => {
   return {
     userName: state.userRed.userName,
-    isAuthenticated: state.userRed.token,
+    token: state.userRed.token,
   };
 };
 // connect() ist eine Methode in Redux-react, sie verbindet  das aktuelle Component mit dem Redux-Store

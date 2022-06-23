@@ -10,7 +10,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { toast } from "react-toastify";
 
-function SingleView({ isAuthenticated, userName, userId }) {
+function SingleView({ token, userName, userId }) {
   // vgl. die Erklaerungen in App.jsx zu 'singleview/:artID'
   let { artID } = useParams();
   let [article, setArticle] = useState({});
@@ -96,7 +96,7 @@ function SingleView({ isAuthenticated, userName, userId }) {
   }, [artID]);
 
   function ratingHandler() {
-    if (isAuthenticated) {
+    if (token) {
       setModalVisible(true);
     } else {
       toast.error("you should login");
@@ -112,7 +112,7 @@ function SingleView({ isAuthenticated, userName, userId }) {
       {modalVisible && (
         <Modal
           updateArticle={(articleId) => getArticleById(articleId)}
-          isAuthenticated={isAuthenticated}
+          token={token}
           userName={userName}
           userId={userId}
           articleId={article._id}
@@ -207,7 +207,7 @@ function SingleView({ isAuthenticated, userName, userId }) {
 const mapStateToProps = (state) => {
   return {
     // für den Server.js ab zeile 78
-    isAuthenticated: state.userRed.token,
+    token: state.userRed.token,
     userId: state.userRed.userId,
     userName: state.userRed.userName,
   };

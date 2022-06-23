@@ -11,7 +11,7 @@ export default function ModalGlobal({
   userName,
   artID,
   userId,
-  isAuthenticated,
+  token,
   articleId,
   updateArticle,
   closeModal,
@@ -46,7 +46,7 @@ export default function ModalGlobal({
       createdAt: Date.now(), // :BigInt: Millisekunden seit 1.1.1970 00:00 Uhr GMT
       username: userName, // userFullName muss noch aus FS geholt werden dazu ab zeile: 41
     };
-    if (isAuthenticated) {
+    if (token) {
       // left =  key = request zum Server
       // right = value = den werte vom Frontend
       axios

@@ -1,11 +1,11 @@
-import CatalogItem from "./CatalogItem";
 import React from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CatalogItem from "./CatalogItem";
 import axios from "axios";
 import { connect } from "react-redux";
 
-function Catalog({ userId, isAuthenticated }) {
+function Catalog({ userId, token }) {
   let [docs, setDocs] = useState([]);
   const [userCart, setUserCart] = useState([]);
 
@@ -29,7 +29,7 @@ function Catalog({ userId, isAuthenticated }) {
 
     // Shopping-Cart-Icon auf Catalog updaten
     /* 
-    if (isAuthenticated) {
+    if (token) {
       axios
         .get("http://localhost:4000/getArticlesFromMyCart?userId=" + userId)
         .then((res) => res.data)
@@ -44,22 +44,6 @@ function Catalog({ userId, isAuthenticated }) {
     }
     */
   }, []);
-
-  /*
-  if (user) {
-      let userRef = doc(db, "users", user.uid);
-      getDoc(userRef)
-        .then((docsnapshot) => {
-          // console.log(docsnapshot.data());
-          // Update mit Inline-Funktion
-          // verhindert Endlosschleife.
-          setUserCart(() => [...docsnapshot.data().cart]);
-        })
-        .catch((error) => {
-          console.log("So eine Scheisse! " + error.message);
-        });
-    }
-  */
 
   return (
     <>
@@ -95,7 +79,7 @@ function Catalog({ userId, isAuthenticated }) {
 const mapStateToProps = (state) => {
   return {
     // für den Server.js ab zeile 78
-    isAuthenticated: state.userRed.token,
+    token: state.userRed.token,
     userId: state.userRed.userId,
   };
 };

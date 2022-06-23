@@ -95,13 +95,16 @@ export default function Signup() {
         email: emailInput,
         password: passWordInput,
         userName: fullNameInput,
-        phoneNumber: "1234567890",
       })
       // der Server gibt zurück einen Response
       .then((res) => res.data)
       .then((data) => {
         navigate("/catalog");
         alert(data.message);
+      })
+      .catch((error) => {
+        // message vom Server, wenn die daten im Server nicht gefunden werden
+        alert(error.response.data.message);
       });
   }
 
@@ -149,6 +152,7 @@ export default function Signup() {
             required
             ref={password}
             id="password"
+            name="password"
             type="password"
             className="input is-rounded"
             placeholder="A Strong Password"

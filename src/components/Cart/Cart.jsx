@@ -9,7 +9,7 @@ import { React, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 
-function Cart({ isAuthenticated, userId }) {
+function Cart({ token, userId }) {
   // const [modalVisible, setModalVisible] = useState(false);
   let [articles, setArticles] = useState([]);
   let [subtotal, setSubtotal] = useState(0);
@@ -43,7 +43,7 @@ function Cart({ isAuthenticated, userId }) {
   */
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (token) {
       axios
         .get("http://localhost:4000/getArticlesFromMyCart?userId=" + userId)
         .then((res) => res.data)
@@ -74,7 +74,7 @@ function Cart({ isAuthenticated, userId }) {
 // mapStateToProps is to point userName to the current Components props
 const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.userRed.token,
+    token: state.userRed.token,
     userId: state.userRed.userId,
   };
 };

@@ -1,6 +1,6 @@
 // import "./App.css";
 import "../src/main.scss";
-import { FirebaseContextProvider } from "./context/FirebaseContext";
+// import { FirebaseContextProvider } from "./context/FirebaseContext";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./containers/Layout";
 import Index from "./components/Index/Index";

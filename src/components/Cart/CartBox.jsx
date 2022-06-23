@@ -85,7 +85,7 @@ const CartBox = ({ theSubtotal, userId }) => {
 const mapStateToProps = (state) => {
   return {
     userName: state.userRed.userName,
-    isAuthenticated: state.userRed.token,
+    token: state.userRed.token,
     userId: state.userRed.userId,
   };
 };
