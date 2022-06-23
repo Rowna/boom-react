@@ -4,19 +4,18 @@ import CartItem from "./CartItem";
 import "./Cart.scss";
 import "./CartItem.scss";
 
-export default function CartList({ theArticles, getSubUpdate, removeitem }) {
-  return (
-    <>
-      {theArticles.map((article) => (
-        <CartItem
-        removeitem={removeitem}
-          key={article.id}
-          article={article}
-          getSubUpdate={getSubUpdate}
-        />
-      ))}
+class CartList extends React.Component {
 
-      
-    </>
-  );
+  render() {
+    return this.props.theArticles.map((article) => (
+      <CartItem
+        removeitem={this.props.removeitem}
+        key={article.id}
+        article={article}
+        getSubUpdate={this.props.getSubUpdate}
+      />
+    ));
+  }
 }
+
+export default CartList;
