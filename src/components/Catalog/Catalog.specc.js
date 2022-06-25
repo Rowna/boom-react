@@ -15,7 +15,6 @@ const render = (component) =>
       <Provider store={store()}>{component}</Provider>
     </BrowserRouter>
   );
-
 describe("Catalog Seite", () => {
   describe("Catalog Page", () => {
     test("has a header", () => {
@@ -88,15 +87,10 @@ describe("Catalog Seite", () => {
     /* 
     it("has shopping icon", () => {
       const { getByAltText } = render(
-        <CatalogItem
-          article={{}}
-          userCart={[]}
-          userId={{}}
-        />
+        <CatalogItem article={{}} userCart={[]} userId={{}} />
       );
-      const artPrice = getByAltText("shopping-cart");
-      expect(artPrice).toBeInTheDocument();
-    });
-    */
+      const artCartIcon = getByAltText("shopping-cart");
+      expect(artCartIcon).toBeInTheDocument();
+    });*/
   });
 });

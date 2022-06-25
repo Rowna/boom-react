@@ -58,8 +58,14 @@ function Cart({ token, userId }) {
     <>
       {articles && articles.length > 0 ? (
         <div className="card-box-container">
-                                      {/* filter für removeArtikel vom Frontend */}
-          <CartList removeitem={(id) => setArticles(articles.filter(item => item.id !== id))} theArticles={articles} getSubUpdate={getSubUpdate} />
+          {/* filter für removeArtikel vom Frontend */}
+          <CartList
+            removeitem={(id) =>
+              setArticles(articles.filter((item) => item.id !== id))
+            }
+            theArticles={articles}
+            getSubUpdate={getSubUpdate}
+          />
           <CartBox theSubtotal={subtotal} />
         </div>
       ) : (

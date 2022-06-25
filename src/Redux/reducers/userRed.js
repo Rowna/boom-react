@@ -5,7 +5,7 @@ export const initState = {
   userId: "",
   userName: "",
   email: "",
- token: "",
+  token: "",
 };
 // export function reducer(state = initialState, action) {
 export function userRed(state = initState, action = {}) {

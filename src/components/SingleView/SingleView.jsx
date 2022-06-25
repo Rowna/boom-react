@@ -34,8 +34,7 @@ function SingleView({ token, userName, userId }) {
   const closeModal = () => {
     setModalVisible(false);
   };
-  // console.log(article);
-  // let articleRef = doc(db, "articles", artID);
+
   const getArticleById = (id) => {
     axios
       // get article where articleId = artID
@@ -65,34 +64,6 @@ function SingleView({ token, userName, userId }) {
     //   console.log("The Error is: " + err.response.data.message);
     // });
     //}
-    /*  
-    getDoc(articleRef)
-      .then((docsnapshot) => {
-        let theArticle = null;
-        if (docsnapshot.exists()) {
-          theArticle = { ...docsnapshot.data() };
-          // console.dir(fnRecAlreadyWritten(theArticle.recommendations));
-          setRecommendations(theArticle.recommendations);
-          // hier muss ich noch pruefen, ob es eine
-          // recommendation mit der aktuellen userID
-          // vorhanden ist. Wenn sie vorhanden ist,
-          // muss
-          setArticle(theArticle);
-          // Ich wollte vermeiden, dass State-Variablen von
-          // einander abhängig werden, wenn sie nämlich abhängig sind
-          // kann man sich nicht mehr darauf verlassen, dass sie den
-          // richtigen Wert haben, wenn sie gebraucht werden.
-          // ODER: Man kann einfach ein extra ".then()" unter dieses ".then()"
-          // anfügen, um die Reihenfolge der State-Setter zu kontrollieren.
-          setRecAlreadyWritten(fnRecAlreadyWritten(theArticle.recommendations));
-        } else {
-          throw new Error("Nix passendes gefunden!");
-        }
-      })
-      .catch((error) => {
-        console.log("So eine Scheisse! " + error.message);
-      });
-      */
   }, [artID]);
 
   function ratingHandler() {

@@ -83,44 +83,6 @@ function CatalogItem(props) {
     }
   }
 
-  // async function addToCartHandlerFB() {
-
-  //   const userRef = doc(db, "users", user.uid);
-
-  //   let cartItem = {
-  //     id: props.article.id,
-  //     title: props.article.title,
-  //     desc: props.article.desc,
-  //     price: props.article.price,
-  //     img: props.article.img,
-  //   };
-
-  //   // Wenn dieser Artikel schon im Cart liegt ...
-  //   if (cartImage.indexOf("filled") >= 0) {
-  //     // eine article.id aus dem "cart"-Array entfernen
-  //     // let articleRef = doc(db, "users", "cart");
-  //     await updateDoc(userRef, {
-  //       // cart: deleteField(),
-  //       cart: arrayRemove(cartItem),
-  //     });
-  //     // Cart-Icon updaten
-  //     setCartImage("shopping-cart.png");
-  //     console.log("Removed from Shop!");
-  //     // cart-image sieht "leer" aus
-  //   } else {
-  //     // Artikel liegt noch nicht im Cart
-  //     await updateDoc(userRef, {
-  //       cart: arrayUnion(cartItem),
-  //     });
-
-  //     // Cart-Icon updaten
-  //     setCartImage("shopping-cart-filled.png");
-  //     console.log("added to Shop!");
-  //   }
-  // }
-
-  // Add to Favorite
-
   function addToFavoritesHandler() {
     console.log("added to Favorites!");
     setModalVisible(true);
