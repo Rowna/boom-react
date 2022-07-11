@@ -6,7 +6,7 @@ import combineReducers from "./combineReducers";
 
 import thunk from "redux-thunk";
 
-const store = () =>
+const store = 
   createStore(
     // in dieser Datei definiere ich alle Store-Dateien für alle Components z.B. wie userRed, ...
     combineReducers,

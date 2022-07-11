@@ -14,15 +14,15 @@ export default function Hero() {
         {/* --- Image für Bildschirm --- */}
         <div className="base-images">
           <div className="images up">
-            <img className="img-item" src="images/6.jpeg" alt="" />
+            <img className="img-item" src="images/6.jpeg" alt="firstImg" />
           </div>
 
           <div className="images middle">
-            <img className="img-item" src="images/2.jpeg" alt="" />
+            <img className="img-item" src="images/2.jpeg" alt="secondImg" />
           </div>
 
           <div className="images down">
-            <img className="img-item" src="images/1.jpeg" alt="" />
+            <img className="img-item" src="images/1.jpeg" alt="thirdImg" />
           </div>
         </div>
 

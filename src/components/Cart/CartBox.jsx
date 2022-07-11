@@ -4,8 +4,13 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./Cart.scss";
 import "./CartBox.scss";
+import { useState } from "react";
+import ModalBuy from "../../containers/ModalBuy";
+import { toast } from "react-toastify";
 
-const CartBox = ({ theSubtotal, userId }) => {
+const CartBox = ({ theSubtotal, userId, token }) => {
+  const [modalBuy, setModalBuy] = useState(false);
+
   function clearCartHandler() {
     axios
       // delete "/cart" at userId "$"{userId}
@@ -19,10 +24,17 @@ const CartBox = ({ theSubtotal, userId }) => {
         console.log("Error:" + error.message);
       });
   }
+  const closeModalBuy = () => {
+    setModalBuy(false);
+  };
 
   function executeHandler() {
     // Modal aufrufen! Dort steht das Bestellformular
-    console.log("Schicke die Bestellung ab!");
+    if (token) {
+      setModalBuy(true);
+    } else {
+      toast.error("you should login");
+    }
   }
 
   return (
@@ -53,6 +65,7 @@ const CartBox = ({ theSubtotal, userId }) => {
       </div>
       <div className="box btns-container">
         {/* Link setzen und executeHandler ist ein Modal beim Klicken */}
+        {modalBuy ? <ModalBuy closModal={closeModalBuy} /> : <></>}
 
         <p>
           <button

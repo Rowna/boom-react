@@ -105,7 +105,7 @@ function SingleView({ token, userName, userId }) {
           <div className="card-footer sv-article-conatiner">
             <div className="card-footer-item sv-left-container">
               <div className="sv-img-container">
-                <img className="sv-img" src={imgURL} alt="Bild" />
+                <img className="sv-img" src={imgURL} alt="svImage" />
               </div>
 
               <div className="card-footer-item sv-sterne">

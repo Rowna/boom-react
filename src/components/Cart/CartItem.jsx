@@ -13,7 +13,7 @@ function CartItem({ article, getSubUpdate, userId, removeitem }) {
   let cartImgURL = "images/" + article.img;
 
   let cartItem = {
-    id: article.id,
+    _id: article.id,
     title: article.title,
     desc: article.desc,
     price: article.price,
@@ -39,19 +39,22 @@ function CartItem({ article, getSubUpdate, userId, removeitem }) {
     getSubUpdate(article.price);
     // }
   }
+  // hier soll ich beim Server cartItem._id überprüfen, 
+  // weil der Artikel wird im Mongo nicht gelöscht
+  
   function removeArticleHandler() {
     console.log("Article Removed!");
     axios
       .get(
         // abfragen "removeFromCart" where cartId =
         // zwei Requests/Abfragen zum Server 
-        "http://localhost:4000/removeFromCart?cartId=" + cartItem.id +
+        "http://localhost:4000/removeFromCart?cartId=" + cartItem._id +
           "&userId=" + userId
       )
       .then((res) => res.data)
       .then((data) => {
         toast.success(data.message)
-       removeitem(cartItem.id)
+       removeitem(cartItem._id)
       })
       .catch((error) => {
         console.log("Error:" + error.message);

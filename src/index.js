@@ -23,7 +23,7 @@ import store from "./Redux/store"
 if (localStorage.reactJWT) {
   const payload = decode(localStorage.reactJWT);
 
-  store().dispatch(
+  store.dispatch(
     userLoggedIn({
       token: localStorage.reactJWT,
       userId: payload.userId,
@@ -37,7 +37,7 @@ if (localStorage.reactJWT) {
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 ReactDOM.render(
   <BrowserRouter>
-    <Provider store={store()}>
+    <Provider store={store}>
       <App />
     </Provider>
   </BrowserRouter>,
