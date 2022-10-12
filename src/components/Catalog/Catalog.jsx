@@ -25,8 +25,7 @@ function Catalog({ userId, token }) {
       })
       .catch((err) => {
         console.log("The Error is: " + err.response.data.message);
-      });
-
+      }); 
     // Shopping-Cart-Icon auf Catalog updaten
     /* 
     if (token) {
@@ -84,4 +83,5 @@ const mapStateToProps = (state) => {
   };
 };
 // connect() ist eine Methode in Redux-react, sie verbindet  das aktuelle Component mit dem Redux-Store
+// The connect() function connects a React component to a Redux store
 export default connect(mapStateToProps)(Catalog);
