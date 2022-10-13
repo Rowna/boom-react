@@ -1,0 +1,27 @@
+.item-container {
+  margin: 1.2rem 1.2rem;
+}
+.item-title {
+  position: relative;
+  font-family: "Sofia";
+  font-size: 2.3rem;
+  color: #000;
+  text-align: center;
+  display: grid;
+  justify-items: center;
+  grid-template-rows: 1fr 2rem;
+}
+@media only screen and (min-width: 670px) {
+  .item-title {
+    position: relative;
+  }
+}
+
+.item-subtitle {
+  color: #9c9898;
+  font-family: "Patrick Hand";
+  font-size: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}

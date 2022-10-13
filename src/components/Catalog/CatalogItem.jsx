@@ -17,6 +17,8 @@ function CatalogItem(props) {
   // brauche ich hier eine Hilfsvariable.
   let imgURL = "images/" + props.article.img;
   let singleViewURL = "/singleview/" + props.article._id;
+  // let singleItemURL = "/ItemsView/" + props.article._id;
+  
 
   function isInCart() {
     for (let el of props.userCart) {
@@ -95,6 +97,7 @@ function CatalogItem(props) {
           <figure className="image" data-v-catait4312>
             {/* <a className="cartSingle" href="/singleView/{article.id}"> */}
             <Link to={singleViewURL}>
+            {/* <Link to="/itemview"> */}
               <p className="cartSingle">
                 <img
                   className="cartSingle img"

@@ -27,9 +27,11 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="catalog" element={<Catalog />} />
-          <Route path="itemview" element={<ItemsView />} />
-
-          <Route path="singleview/:artID" element={<SingleView />} />
+          {/* <Route path="itemview" element={<ItemsView />} /> */}
+          
+          {/* Element wird in <Reviews> geaendert */}
+          {/* <Route path="reviews/:artID" element={<SingleView />} />  */}
+          <Route path="singleview/:artID" element={<ItemsView />} />
           <Route path="cart" element={<Cart />} />
           <Route path="modal" element={<Modal />} />
         </Route>
