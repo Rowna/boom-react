@@ -27,7 +27,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="catalog" element={<Catalog />} />
-          <Route path="itemview" element={<ItemsView />} />
+          {/* <Route path="itemview" element={<ItemsView />} /> */}
 
           <Route path="singleview/:artID" element={<SingleView />} />
           <Route path="cart" element={<Cart />} />
