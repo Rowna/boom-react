@@ -2,6 +2,7 @@ import "../src/main.scss";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Route, Routes } from "react-router-dom";
+import  SingleItemGallery from "./components/Item/SingleItemGallery"
 
 import {
   Layout,
@@ -12,7 +13,7 @@ import {
   SingleView,
   Cart,
   Modal,
-  ItemsView,
+  ProductReviewerRoute,
 } from "./components/index";
 
 function App() {
@@ -27,13 +28,15 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="catalog" element={<Catalog />} />
-          {/* <Route path="itemview" element={<ItemsView />} /> */}
           
           {/* Element wird in <Reviews> geaendert */}
-          {/* <Route path="reviews/:artID" element={<SingleView />} />  */}
-          <Route path="singleview/:artID" element={<ItemsView />} />
+          <Route path="reviews/:artID" element={<SingleView />} /> 
+          <Route path="singleview/:artID" element={<ProductReviewerRoute />} />
           <Route path="cart" element={<Cart />} />
           <Route path="modal" element={<Modal />} />
+          <Route path="singleitem" element={<SingleItemGallery />} />
+
+          
         </Route>
       </Routes>
     </>

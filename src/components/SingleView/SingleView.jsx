@@ -14,10 +14,11 @@ function SingleView({ token, userName, userId }) {
   // vgl. die Erklaerungen in App.jsx zu 'singleview/:artID'
   let { artID } = useParams();
   let [article, setArticle] = useState({});
+  console.log(article)
   let [recAlreadyWritten, setRecAlreadyWritten] = useState(false);
   let [modalVisible, setModalVisible] = useState(false);
   let [platzhalterVisible, setPlatzhalterVisible] = useState(false);
-  let imgURL = "/images/" + article.img;
+  let imgURL = "/uploads/" + article.img;
 
   function fnRecAlreadyWritten(pRecommendations) {
     if (pRecommendations && pRecommendations.length > 0) {
@@ -49,6 +50,7 @@ function SingleView({ token, userName, userId }) {
         console.log("The Error is: " + err.response.data.message);
       });
   };
+  // هون بدنا نحصل على الايدي من خلال بناء الصفحة وتحديها بالايدي من اليوز بارامس
   useEffect(() => {
     getArticleById(artID);
 

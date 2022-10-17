@@ -8,4 +8,4 @@ export { default as Hero } from "./Hero/Hero";
 export { default as Catalog } from "./Catalog/Catalog";
 export { default as SingleView } from "./SingleView/SingleView";
 export { default as Cart } from "./Cart/Cart";
-export { default as ItemsView } from "./Item/ItemsView";
+export { default as ProductReviewerRoute } from "./ProductReviewer/ProductReviewerRoute";
