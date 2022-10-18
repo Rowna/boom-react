@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 
 function Catalog({ userId, token }) {
   let [docs, setDocs] = useState([]);
-  console.log(docs)
+  // console.log(docs)
   const [userCart, setUserCart] = useState([]); 
 
   const navigate = useNavigate();

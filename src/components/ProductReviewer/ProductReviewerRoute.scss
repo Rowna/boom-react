@@ -2,6 +2,7 @@
   margin: 1.2rem 1.2rem;
   background-color: white;
   display: flex;
+  gap: 1rem;
 }
 .item-container_title {
   position: relative;
@@ -41,11 +42,53 @@
 .color-btn,
 .size-btn {
   background-color: transparent;
+  border-radius: 10px;
+
 }
 .card-footer-item:not(:last-child) {
   border-right: 0;
 }
 .images-btn {
   display: flex;
+  flex-direction: column;  
+}
+.carousel {
+  width: 100%;
+  max-width: 500px;
+}
+.carousel-btns {
+  text-align: center;
+  margin: 10px 0;
+}
+.carousel-btn_back,
+.carousel-btn_next {
+  margin: 0 2rem;
+  // border-color: transparent;
+  border-radius: 10px;
+
+}
+.images-info {
+  display: flex;
   flex-direction: column;
+  gap: 3rem;
+}
+.add-btn {
+  width: 50%;
+  justify-content: center;
+  margin: 10px;
+  background-color: transparent !important;
+  border: 1px solid rgb(212, 207, 207) !important;
+  color: rgb(28, 26, 26) !important;
+  text-decoration: none !important;
+  box-shadow: rgba(123, 123, 179, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(87, 132, 177, 0.35) 0px -2px 6px 0px inset;
+    border-radius: 6px;
+  }
+.add-toCart_btn {
+  background-color: #df485b !important;
+  color: #fff !important;
+  justify-content: center;
+  font-size: 1rem;
+  width: 100%;
 }

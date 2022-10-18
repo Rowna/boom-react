@@ -5,6 +5,15 @@ import { useParams } from "react-router-dom";
 import "./ProductReviewerRoute.scss";
 import { useNavigate } from "react-router-dom";
 
+import {
+  CarouselProvider,
+  Slider,
+  Slide,
+  ButtonBack,
+  ButtonNext,
+} from "pure-react-carousel";
+import "pure-react-carousel/dist/react-carousel.es.css";
+
 function ProductReviewerRoute() {
   let { artID } = useParams();
 
@@ -39,18 +48,37 @@ function ProductReviewerRoute() {
           Select favorite colors and sizes for ur Kids
         </p>
       </div>
+      {/* {item.title} */}
 
       {item && (
         <div className="items-container box">
-          {/* {item.title} */}
-          <div className="images-container">
-            {item.images &&
-              item.images.map((image, id) => (
-                <figure className="image is-128x128">
-                  <img key={id} src={image && image} alt="article" />
-                </figure>
-              ))}
-          </div>
+          {/* Carousel ab hier */}
+          <CarouselProvider
+            naturalSlideWidth={100}
+            naturalSlideHeight={125}
+            totalSlides={4}
+            dragEnabled="true"
+          >
+            <Slider>
+              <div className="images-container">
+                {item.images &&
+                  item.images.map((image, id) => (
+                    <Slide key={id} className="image">
+                      <img src={image && image} alt="article" />
+                    </Slide>
+                  ))}
+              </div>
+              <div className="imgs">
+                {/* <img src={item.images && item.images[0]} alt="article" /> */}
+              </div>
+            </Slider>
+
+            <div className="carousel-btns">
+              <ButtonBack className="button carousel-btn_back">Back</ButtonBack>
+              <ButtonNext className="button carousel-btn_next">Next</ButtonNext>
+            </div>
+          </CarouselProvider>
+
           <div className="images-info">
             <div className="card-footer image-color">
               <div className="card-footer-item color-div">
@@ -83,12 +111,12 @@ function ProductReviewerRoute() {
             </div>
             <div className="card-footer images-btn">
               <div className="card-footer-item">
-                <a href="/" className="button card-footer-item">
-                  add to Card
+                <a href="/" className="button card-footer-item add-btn add-toCart_btn">
+                  add to Cart
                 </a>
               </div>
               <div className="card-footer-item">
-                <a href="/" className="button card-footer-item">
+                <a href="/" className="button card-footer-item add-btn">
                   add to Favorite
                 </a>
               </div>
