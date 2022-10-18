@@ -1,7 +1,9 @@
-.item-container {
+.items-container {
   margin: 1.2rem 1.2rem;
+  background-color: white;
+  display: flex;
 }
-.item-title {
+.item-container_title {
   position: relative;
   font-family: "Sofia";
   font-size: 2.3rem;
@@ -12,7 +14,7 @@
   grid-template-rows: 1fr 2rem;
 }
 @media only screen and (min-width: 670px) {
-  .item-title {
+  .item-container_title {
     position: relative;
   }
 }
@@ -24,4 +26,26 @@
   position: absolute;
   top: 50%;
   left: 50%;
+}
+.image-color,
+.image-size {
+  flex-direction: column;
+}
+.color-div,
+.size-div,
+.description-div,
+.colors,
+.sizes {
+  justify-content: left;
+}
+.color-btn,
+.size-btn {
+  background-color: transparent;
+}
+.card-footer-item:not(:last-child) {
+  border-right: 0;
+}
+.images-btn {
+  display: flex;
+  flex-direction: column;
 }
