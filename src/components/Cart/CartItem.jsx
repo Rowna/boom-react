@@ -7,10 +7,9 @@ import { toast } from "react-toastify";
 import "./CartItem.scss";
 
 function CartItem({ article, getSubUpdate, userId, removeitem }) {
-  // let { db, user } = useFirebase();
-  let svArticle = "/singleview/" + article.id;
+  let svArticle = "/reviews/" + article.id;
 
-  let cartImgURL = "images/" + article.img;
+  let cartImgURL = article.img;
 
   let cartItem = {
     _id: article.id,
@@ -100,7 +99,7 @@ function CartItem({ article, getSubUpdate, userId, removeitem }) {
                 >
                   <img
                     className="subtitle is-2 is-success is-outlined is-small minus-btn"
-                    src="/images/minus.png"
+                    src="/uploads/minus.png"
                     alt="pic"
                   />
                 </div>
@@ -117,7 +116,7 @@ function CartItem({ article, getSubUpdate, userId, removeitem }) {
                 >
                   <img
                     className="subtitle is-2 is-success is-outlined is-small plus-btn"
-                    src="/images/plus.png"
+                    src="/uploads/plus.png"
                     alt="pic"
                   />
                 </div>

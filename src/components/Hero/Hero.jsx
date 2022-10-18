@@ -8,21 +8,21 @@ export default function Hero() {
       <div className="base-container">
         {/* --- Image fürs Handy --- */}
         <div className="img-container">
-          <img className="img" src="images/1.jpeg" alt="Prince" />
+          <img className="img" src="/uploads/1.jpeg" alt="Prince" />
         </div>
 
         {/* --- Image für Bildschirm --- */}
         <div className="base-images">
           <div className="images up">
-            <img className="img-item" src="images/6.jpeg" alt="firstImg" />
+            <img className="img-item" src="/uploads/6.jpeg" alt="firstImg" />
           </div>
 
           <div className="images middle">
-            <img className="img-item" src="images/2.jpeg" alt="secondImg" />
+            <img className="img-item" src="/uploads/2.jpeg" alt="secondImg" />
           </div>
 
           <div className="images down">
-            <img className="img-item" src="images/1.jpeg" alt="thirdImg" />
+            <img className="img-item" src="/uploads/1.jpeg" alt="thirdImg" />
           </div>
         </div>
 

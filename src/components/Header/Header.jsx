@@ -69,7 +69,7 @@ function Header({ userName, logoutAction, token }) {
                     </Link>
                     <Link to="/bookmark">
                       <p className="imge">
-                        <img src="../images/herz.png" alt="Fav" />
+                        <img src="/uploads/herz.png" alt="Fav" />
                       </p>
                     </Link>
                     <div className="select is-white">

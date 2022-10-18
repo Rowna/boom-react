@@ -15,8 +15,8 @@ function CatalogItem(props) {
   // In Svelte konnte man {interpolation} auch so schreiben:
   // "{interpolation}" -- in React geht das nicht, deshalb
   // brauche ich hier eine Hilfsvariable.
-  let imgURL = "images/" + props.article.img;
-  let singleViewURL = "/singleview/" + props.article._id;
+  // let imgURL = "/uploads/" + props.article.img;
+  // console.log(singleViewURL)
   // let singleItemURL = "/ItemsView/" + props.article._id;
   
 
@@ -34,7 +34,7 @@ function CatalogItem(props) {
     isInCart() ? "shopping-cart-filled.png" : "shopping-cart.png"
   );
 
-  let cartImgURL = "images/" + cartImage;
+  let cartImgURL = "/uploads/" + cartImage;
 
   async function addToCartHandler() {
     let cartItem = {
@@ -42,7 +42,7 @@ function CatalogItem(props) {
       title: props.article.title,
       desc: props.article.desc,
       price: props.article.price,
-      img: props.article.img,
+      img: props.article.images[0],
     };
     // console.log(cartItem);
 
@@ -96,12 +96,12 @@ function CatalogItem(props) {
         <div className="card-image" data-v-catait4312>
           <figure className="image" data-v-catait4312>
             {/* <a className="cartSingle" href="/singleView/{article.id}"> */}
-            <Link to={singleViewURL}>
+            <Link to={"/singleview/" + props.article._id}>
             {/* <Link to="/itemview"> */}
               <p className="cartSingle">
                 <img
                   className="cartSingle img"
-                  src={imgURL}
+                  src={props.article.images[0]}
                   alt="article"
                   data-v-catait4312
                 />
@@ -128,7 +128,7 @@ function CatalogItem(props) {
                 >
                   <img
                     className="fav-img"
-                    src="images/herz-ohne.png"
+                    src="/uploads/herz-ohne.png"
                     alt="fav-img"
                   />
                 </div>
@@ -150,7 +150,7 @@ function CatalogItem(props) {
 
           <div className="content">
             <p className="subtitle is-5 cprice">
-              Price:<strong>{props.article.price}</strong> €
+              Price: <strong>{props.article.price}</strong> €
             </p>
           </div>
         </div>

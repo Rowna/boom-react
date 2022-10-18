@@ -7,7 +7,8 @@ import { connect } from "react-redux";
 
 function Catalog({ userId, token }) {
   let [docs, setDocs] = useState([]);
-  const [userCart, setUserCart] = useState([]);
+  console.log(docs)
+  const [userCart, setUserCart] = useState([]); 
 
   const navigate = useNavigate();
 
@@ -20,7 +21,7 @@ function Catalog({ userId, token }) {
       .then((res) => res.data)
       // die Daten aus dem Server holen
       .then((data) => {
-        navigate("/catalog");
+        //navigate("/catalog");
         setDocs(data.articles);
       })
       .catch((err) => {
@@ -58,11 +59,11 @@ function Catalog({ userId, token }) {
           React benutzt Array.prototype.map, um in JSX eine Liste durchzugehen
           und jedes Element der alten Liste in ein neues JSX-Element zu verwandeln
           */}
-          {docs.map((article) => (
+          {docs.map((article, id) => (
             // article ist das aktuelle Element, das gebe ich an CatalogItem als prop weiter
             <CatalogItem
               userId={userId}
-              key={article.id}
+              key={id}
               article={article}
               userCart={userCart}
             />

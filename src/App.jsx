@@ -2,7 +2,7 @@ import "../src/main.scss";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Route, Routes } from "react-router-dom";
-import  SingleItemGallery from "./components/Item/SingleItemGallery"
+// import  SingleItemGallery from "./components/Item/SingleItemGallery"
 
 import {
   Layout,
@@ -34,7 +34,7 @@ function App() {
           <Route path="singleview/:artID" element={<ProductReviewerRoute />} />
           <Route path="cart" element={<Cart />} />
           <Route path="modal" element={<Modal />} />
-          <Route path="singleitem" element={<SingleItemGallery />} />
+          {/* <Route path="singleitem" element={<SingleItemGallery />} /> */}
 
           
         </Route>
