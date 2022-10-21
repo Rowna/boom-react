@@ -144,9 +144,9 @@ function CatalogItem(props) {
           <div className="media-content ci-media-content">
             <p className="title is-3 mc">{props.article.title}</p>
           </div>
-          <div>
+          {/* <div>
             <p className="subtitle is-5 mc">{props.article.desc}</p>
-          </div>
+          </div> */}
 
           <div className="content">
             <p className="subtitle is-5 cprice">
