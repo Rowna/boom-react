@@ -35,6 +35,7 @@ function CatalogItem(props) {
   );
 
   let cartImgURL = "/uploads/" + cartImage;
+  
 
   async function addToCartHandler() {
     let cartItem = {

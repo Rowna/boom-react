@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
-// import SingleItemGallery from "./SingleItemGallery";
 import { useParams } from "react-router-dom";
 import "./ProductReviewerRoute.scss";
 import { useNavigate } from "react-router-dom";
@@ -11,20 +10,21 @@ import {
   Slide,
   ButtonBack,
   ButtonNext,
+  Dot,
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 
+
 function ProductReviewerRoute() {
+  
   let { artID } = useParams();
 
   const [item, setItem] = useState({});
-  console.log(item.id);
-
+  // console.log(item.id);
 
   function chooseColorHandler() {
     console.log("Color added!");
   }
-
 
   const getArticleById = (id) => {
     axios
@@ -54,49 +54,59 @@ function ProductReviewerRoute() {
           Select favorite colors and sizes for ur Kids
         </p>
       </div>
-      {/* {item.title} */}
-
       {item && (
         <div className="items-container box">
-          {/* Carousel ab hier */}
-          <CarouselProvider
-            naturalSlideWidth={100}
-            naturalSlideHeight={125}
-            totalSlides={4}
-            dragEnabled="true"
-            touchEnabled="true"
-            // visibleSlides={1}
-          >
-            <Slider>
-              <div className="images-container">
-                {item.images &&
-                  item.images.map((image, id) => (
-                    <Slide key={id} className="image">
-                      <img src={image && image} alt="article" />
-                    </Slide>
-                  ))}
+          <div className="carousel-btns_box">
+            <CarouselProvider
+              naturalSlideWidth={100}
+              naturalSlideHeight={125}
+              totalSlides={4}
+              dragEnabled="true"
+              touchEnabled="true"
+            >
+              <Slider>
+                <div className="images-container">
+                  {item.images &&
+                    item.images.map((image, id) => (
+                      <Slide index={4} key={id} className="image">
+                        <img src={image && image} alt="article" />
+                      </Slide>
+                    ))}
+                </div>
+              </Slider>
+
+              <div className="carousel-btns">
+                <ButtonBack className="button carousel-btn_back">
+                  Back
+                </ButtonBack>
+                <ButtonNext className="button carousel-btn_next">
+                  Next
+                </ButtonNext>
               </div>
-            </Slider>
+              {/*  */}
+                <div className="carousel__dot-group" style={{ backgroundColor: "cornflowerblue" }}>
+                  <Dot slide={1} />
+                  <Dot slide={2} />
+                  <Dot slide={3} />
+                  <Dot slide={4} />
+                </div>
+                
+            </CarouselProvider>
+          </div>
 
-            <div className="carousel-btns">
-              <ButtonBack className="button carousel-btn_back">
-                Back
-                {/* <img className="carousel-btn_img" src="/uploads/arrow-left.png" alt="" /> */}
-              </ButtonBack>
-              <ButtonNext className="button carousel-btn_next">
-                Next
-                {/* <img className="carousel-btn_img" src="/uploads/arrow-right.png" alt="" /> */}
-              </ButtonNext>
-            </div>
-          </CarouselProvider>
-
+          {/* <div className="embla-carousel_box">
+            <EmblaCarousel slides={slides} />
+          </div> */}
           <div className="image-infos">
             <div className="card-footer image-color">
               <div className="card-footer-item image-color_title">
                 <h2 className="title is-5">Color </h2>
               </div>
 
-              <div className="colors card-footer-item buttons are-medium" onClick={chooseColorHandler}>
+              <div
+                className="colors card-footer-item buttons are-medium"
+                onClick={chooseColorHandler}
+              >
                 {item.attributes &&
                   item.attributes[0].colors.map((colorName, id) => (
                     <button
