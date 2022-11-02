@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import "./Catalog.css";
 import "./CatalogItem.scss";
+import Stars from "../../containers/Stars/Stars";
 
 import { connect } from "react-redux";
 import axios from "axios";
@@ -11,14 +12,13 @@ import { toast } from "react-toastify";
 // كل شي متعلق بالبروبس لازم عرفه بالتيست
 function CatalogItem(props) {
   let [modalVisible, setModalVisible] = useState(false);
-
+  // console.count("Component rendered! ")
   // In Svelte konnte man {interpolation} auch so schreiben:
   // "{interpolation}" -- in React geht das nicht, deshalb
   // brauche ich hier eine Hilfsvariable.
   // let imgURL = "/uploads/" + props.article.img;
   // console.log(singleViewURL)
   // let singleItemURL = "/ItemsView/" + props.article._id;
-  
 
   function isInCart() {
     for (let el of props.userCart) {
@@ -35,7 +35,6 @@ function CatalogItem(props) {
   );
 
   let cartImgURL = "/uploads/" + cartImage;
-  
 
   async function addToCartHandler() {
     let cartItem = {
@@ -93,24 +92,34 @@ function CatalogItem(props) {
 
   return (
     <>
-      <div className="catalog-items card" data-v-catait4312>
-        <div className="card-image" data-v-catait4312>
-          <figure className="image" data-v-catait4312>
-            {/* <a className="cartSingle" href="/singleView/{article.id}"> */}
+      <div className="catalog-items card">
+        <div className="card-image">
+          <Link className="fav-icon_container" to="/bookmark">
+            <p className="fav-icon">
+              <img src="/uploads/herz-ohne.png" alt="Fav" />
+            </p>
+          </Link>
+
+          <figure className="image">
             <Link to={"/singleview/" + props.article._id}>
-            {/* <Link to="/itemview"> */}
               <p className="cartSingle">
                 <img
                   className="cartSingle img"
                   src={props.article.images[0]}
                   alt="article"
-                  data-v-catait4312
                 />
               </p>
             </Link>
           </figure>
+        </div>
 
-          <footer className="card-footer ci-card-footer">
+        <div className="card-content ci-card-content">
+          <div className="price-cart_container">
+            <p className="subtitle is-6 cprice">
+              <strong>€ {props.article.price}</strong>
+            </p>
+
+            {/* <p className="card-footer ci-card-footer"> */}
             {props.token ? (
               <>
                 <div
@@ -123,6 +132,8 @@ function CatalogItem(props) {
                     alt="shopping-cart"
                   />
                 </div>
+
+                {/*
                 <div
                   className="card-footer-item ci-card-footer-item"
                   onClick={addToFavoritesHandler}
@@ -133,27 +144,28 @@ function CatalogItem(props) {
                     alt="fav-img"
                   />
                 </div>
+                */}
               </>
             ) : (
               <Link to="/login" className="ci-login">
                 <div className="card-foot container">You should log in!</div>
               </Link>
             )}
-          </footer>
-        </div>
-        <div className="card-content ci-card-content">
-          <div className="media-content ci-media-content">
-            <p className="title is-3 mc">{props.article.title}</p>
+            {/* </p> */}
           </div>
+
+          <div className="sterne-container">
+            <Stars stars={4} />
+          </div>
+
+          <div className="ci-media-content">
+            <p className="subtitle  mc">{props.article.title}</p>
+          </div>
+
           {/* <div>
             <p className="subtitle is-5 mc">{props.article.desc}</p>
           </div> */}
-
-          <div className="content">
-            <p className="subtitle is-5 cprice">
-              Price: <strong>{props.article.price}</strong> €
-            </p>
-          </div>
+          {/*   */}
         </div>
       </div>
     </>

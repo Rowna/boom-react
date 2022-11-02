@@ -19,7 +19,7 @@ import {
 function App() {
   return (
     <>
-      <ToastContainer autoClose={1500} />
+      <ToastContainer autoClose={1000} />
       <Routes>
         {/* Interne Links definieren */}
         <Route element={<Layout />}>

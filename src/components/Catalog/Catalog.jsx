@@ -6,8 +6,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 
 function Catalog({ userId, token }) {
-  let [docs, setDocs] = useState([]);
-  // console.log(docs)
+  let [CatalogDocs, setCatalogDocs] = useState([]);
   const [userCart, setUserCart] = useState([]); 
 
   const navigate = useNavigate();
@@ -22,10 +21,10 @@ function Catalog({ userId, token }) {
       // die Daten aus dem Server holen
       .then((data) => {
         //navigate("/catalog");
-        setDocs(data.articles);
+        setCatalogDocs(data.articles);
       })
       .catch((err) => {
-        console.log("The Error is: " + err.response.data.message);
+        console.log("The error is: " + err.response.data.message);
       }); 
     // Shopping-Cart-Icon auf Catalog updaten
     /* 
@@ -47,23 +46,23 @@ function Catalog({ userId, token }) {
 
   return (
     <>
-      <div className="catalog" data-v-catalog4312>
+      <div className="catalog_container">
         <div className="catalog-title">
           <h2>BOOM</h2>
-          <p className="subtitle is-7">Discover Kids Gallery with Pics</p>
+          <p className="subtitle is-6 catalog-subtitle">Discover Kids Gallery with Pics</p>
         </div>
 
-        <div className="catalog-container" data-v-catalog4312>
+        <div className="catalogItems_container">
           {/*
           Listenschleife mit articles.map((article) => { ... } ) in React
           React benutzt Array.prototype.map, um in JSX eine Liste durchzugehen
           und jedes Element der alten Liste in ein neues JSX-Element zu verwandeln
           */}
-          {docs.map((article, id) => (
+          {CatalogDocs && CatalogDocs.map((article, id) => (
             // article ist das aktuelle Element, das gebe ich an CatalogItem als prop weiter
             <CatalogItem
-              userId={userId}
               key={id}
+              userId={userId}
               article={article}
               userCart={userCart}
             />

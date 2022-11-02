@@ -1,30 +1,54 @@
-.cartSingle[data-v-catait4312] {
+.cartSingle {
   background-color: #2faa22;
 }
 .cartSingle:hover {
   cursor: pointer;
 }
-.image[data-v-catait4312] {
+.image {
   position: relative;
 }
 .ci-card-content {
   display: flex;
-  align-items: center;
+  justify-content: left;
+  // align-items: center;
   flex-direction: column;
+  padding: 1rem !important;
+  position: absolute;
+  bottom: 0;
+  background-color: hsl(0deg, 0%, 100%);
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
+    0 0px 0 1px rgba(10, 10, 10, 0.02);
 }
-.mc,
-.cprice {
-  padding-top: 10px;
+// min: ab 320px
+// @media only screen and (min-width: 320px) {
+//   .ci-card-content {
+//     height: 50%;
+//   }
+// }
+// @media only screen and (max-width: 960px) {
+//   .ci-card-content {
+//     height: ;
+//   }
+// }
+
+.catalog-items {
+  background-color: transparent;
+  box-shadow: none;
 }
-.ci-card-footer-item:hover {
-  cursor: pointer;
-  background-color: #f6919e;
-}
+// .mc,
+// .cprice {
+  // padding-top: 10px;
+  // margin-bottom: 0;
+// }
+// .ci-card-footer-item:hover {
+//   cursor: pointer;
+//   background-color: #f6919e;
+// }
 
 .cart-img,
 .fav-img {
   max-width: 40%;
-  margin: auto;
+  width: 20%;
 }
 .cart-img,
 .fav-img:hover {
@@ -36,21 +60,38 @@
   bottom: 0;
   justify-content: center;
   position: absolute;
-  width: 100%;
+  width: 25%;
 }
 .mc {
-  text-align: center;
   width: auto;
   font-family: inherit;
-  font-size: 1.4rem !important;
+  font-size: 1.2rem;
   margin: 0;
 }
-.ci-media-content {
-  width: 100% !important;
+// min : ab 420px
+@media only screen and (min-width: 420px) {
+  .mc {
+    font-size: 1rem;
+  }
+  .cart-img {
+    width: 35%;
+  }
 }
 .cprice {
-  text-align: center;
-  width: auto;
+  width: 50%;
+  margin: auto !important;
+  margin: 0;
+}
+@media only screen and (min-width: 1820px) {
+  .cprice {
+    font-size: 2rem;
+    width: 50%;
+  }
+}
+@media only screen and (max-width: 452px) {
+  .cprice {
+    // width: 100%;
+  }
 }
 .card-foot {
   width: 100%;
@@ -78,4 +119,23 @@
   .is-3 {
     font-size: 1.7rem;
   }
+}
+.price-cart_container {
+  display: flex;
+}
+.ci-card-footer-item {
+  width: 50%;
+  text-align: right;
+  padding: 0;
+  justify-content: end;
+}
+.fav-icon_container {
+  position: absolute;
+  z-index: 10;
+  left: 85%;
+  top: 1%;
+}
+.fav-icon {
+  width: 35px;
+  height: 35px;
 }

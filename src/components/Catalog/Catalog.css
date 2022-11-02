@@ -1,5 +1,10 @@
-.catalog {
+.catalog_container {
   margin: 1.2rem 1.2rem;
+}
+@media only screen and (max-width: 800px) {
+  .catalog_container {
+    margin: 15px 15px;
+  }
 }
 .catalog-title {
   position: relative;
@@ -13,58 +18,66 @@
   grid-template-rows: 1fr 2rem;
 }
 @media only screen and (min-width: 670px) {
-  .catalog-title[data-v-catalog4312] {
+  .catalog-title {
     position: relative;
   }
 }
 
-.subtitle[data-v-catalog4312] {
+.catalog-subtitle {
   color: #9c9898;
   font-family: "Patrick Hand";
   font-size: 1rem;
   position: absolute;
   top: 50%;
-  left: 50%;
+  padding-top: 10px;
+  /* left: 50%; */
 }
 
 /* Diese Einstellungen gelten fuer alle, auch fuer das handy!*/
-.catalog-container[data-v-catalog4312] {
+.catalogItems_container {
   display: grid;
-  /* grid-template-columns: 1fr; */
-  justify-items: center;
-  margin: 1rem 3rem;
-  row-gap: 3rem;
+  /* grid-gap:  */
+  grid-template-columns: 1fr;
+  /* justify-items: center; */
+  margin: 1rem 1rem;
+  row-gap: 1rem;
 }
+
 /* min-width bedeutet: Ab 670px wird es 1fr 1fr gelten */
-@media only screen and (min-width: 670px) {
-  .catalog-container {
+
+/* min: ab 320px */
+@media only screen and (min-width: 420px) {
+  .catalogItems_container {
     grid-template-columns: 1fr 1fr;
-    column-gap: 2.5rem;
+    grid-column-gap: 0.8rem;
+    grid-row-gap: 0.8rem;
   }
 }
-@media only screen and (min-width: 979px) {
-  .catalog-container {
+
+@media only screen and (min-width: 670px) {
+  .catalogItems_container {
     grid-template-columns: 1fr 1fr 1fr;
+    /* column-gap: 2.5rem; */
+  }
+}
+/* min-wid heißt ab 979px */
+@media only screen and (min-width: 979px) {
+  .catalogItems_container {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 1rem;
   }
 }
 @media only screen and (min-width: 1420px) {
-  .catalog-container {
+  .catalogItems_container {
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    row-gap: 2rem;
+    row-gap: 1rem;
     column-gap: 1rem;
   }
 }
 @media only screen and (min-width: 1820px) {
-  .catalog-container {
+  .catalogItems_container {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    row-gap: 2rem;
+    row-gap: 1rem;
     column-gap: 3rem;
-  }
-}
-
-@media only screen and (max-width: 800px) {
-  .catalog {
-    margin: 15px 15px;
   }
 }
