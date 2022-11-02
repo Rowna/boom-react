@@ -32,14 +32,14 @@ export default function Stars({ getRating }) {
         <label htmlFor="stern1" title="1 Stern" onClick={() => getRating(1)}>
           1 Stern
         </label>
-
+        {/*  
         <span id="Bewertung" title="Keine Bewertung">
           <label className="cancel-container" onClick={() => getRating(0)}>
-            {/* <input type="radio" name="bewertung" value="0" checked="checked" /> */}
             <input className="cancel-btn" type="radio" name="bewertung" value="0"/>
             Cancel Rates
           </label>
         </span>
+        */}
       </p>
     </>
   );
