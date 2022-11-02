@@ -1,6 +1,6 @@
 import axios from "axios";
-import React from "react";
-import { useState } from "react";
+// import React from "react";
+import { React, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -8,6 +8,7 @@ import "./CartItem.scss";
 
 function CartItem({ article, getSubUpdate, userId, removeitem }) {
   let svArticle = "/reviews/" + article.id;
+  console.log(article);
 
   let cartImgURL = article.img;
 
@@ -17,6 +18,8 @@ function CartItem({ article, getSubUpdate, userId, removeitem }) {
     desc: article.desc,
     price: article.price,
     img: article.img,
+    // color: article.attributes[0].colors,
+    // size: article.attributes[0].sizes
   };
 
   let [qty, setQty] = useState(1);
@@ -38,27 +41,35 @@ function CartItem({ article, getSubUpdate, userId, removeitem }) {
     getSubUpdate(article.price);
     // }
   }
-  // hier soll ich beim Server cartItem._id überprüfen, 
+  // hier soll ich beim Server cartItem._id überprüfen,
   // weil der Artikel wird im Mongo nicht gelöscht
-  
+
   function removeArticleHandler() {
     console.log("Article Removed!");
     axios
       .get(
-        // abfragen "removeFromCart" where cartId =
-        // zwei Requests/Abfragen zum Server 
-        "http://localhost:4000/removeFromCart?cartId=" + cartItem._id +
-          "&userId=" + userId
+        // abfragen "removeFromCart" where ? cartId = cartIte,._id und &
+        // zwei Requests/Abfragen zum Server
+        "http://localhost:4000/removeFromCart?cartId=" +
+          cartItem._id +
+          "&userId=" +
+          userId
       )
       .then((res) => res.data)
+
       .then((data) => {
-        toast.success(data.message)
-       removeitem(cartItem._id)
+        toast.success(data.message);
+        removeitem(cartItem._id);
+        // console.log(data);
       })
       .catch((error) => {
         console.log("Error:" + error.message);
       });
   }
+  useEffect(() => {
+    // Runs ONCE after initial rendering
+    // and after every rendering ONLY IF `prop` or `state` changes
+  }, [article.price, getSubUpdate, userId, removeitem]);
 
   return (
     <>
@@ -72,10 +83,20 @@ function CartItem({ article, getSubUpdate, userId, removeitem }) {
           </div>
 
           <div className="card-footer-item article-info">
-            <h2 className="article-title title is-4">{article.title}</h2>
             <div>
-              <p className="article-desc subtitle is-6">{article.desc}</p>
+              <h2 className="article-title title is-4">{article.title}</h2>
             </div>
+
+            <div className="article-colSize_container">
+              <p className="article-color subtitle is-6">
+                Color: {article.color}
+              </p>
+              <p className="article-size subtitle is-6">
+                Size: {article.size} Years
+              </p>
+            </div>
+            {/* <div>
+            </div> */}
           </div>
 
           <div className="card-footer-item article-amount">
@@ -133,7 +154,6 @@ function CartItem({ article, getSubUpdate, userId, removeitem }) {
             To Gallery
           </Link>
           <p
-            // to="/catalog"
             className="button card-footer-item delete-btn"
             onClick={removeArticleHandler}
           >

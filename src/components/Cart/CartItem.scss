@@ -37,11 +37,18 @@
   flex-direction: column;
   /* align-items: flex-start; */
   text-align: center;
-  gap: 10px;
+  gap: 8px;
 }
-.ci-article-qty {
+.article-color, .article-size {
   margin-bottom: 0 !important;
 }
+.article-colSize_container {
+  text-align: left;
+}
+.ci-article-qty, .article-title {
+  margin-bottom: 0 !important;
+}
+
 @media only screen and (max-width: 690px) {
   .article-title {
     font-size: 1rem;
