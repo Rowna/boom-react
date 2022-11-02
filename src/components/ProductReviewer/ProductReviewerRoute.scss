@@ -3,22 +3,20 @@
   justify-content: center;
   margin: auto;
   max-width: 1100px;
-  // margin: auto;
   background-color: white;
   gap: 1rem;
-  // margin-top: 1rem;
-  // max: <=
-  // @media only screen and (min-width: 570px) {
-  //   .items-container {
-  //     font-size: 1.7rem;
-  //   }
-  // }
 }
+
 @media only screen and (max-width: 641px) {
   .items-container {
     flex-direction: column;
   }
+  .carousel-btns_box,
+  .image-infos {
+    width: 100% !important;
+  }
 }
+
 .item-container_title {
   margin: 2rem 0 2rem 0;
   position: relative;
@@ -44,13 +42,13 @@
   font-size: 1rem;
   position: absolute;
   top: 50%;
-  left: 50%;
+  padding-top: 10px;
+  // left: 50%;
 }
 .image-color,
 .image-size,
 .image-desc {
   flex-direction: column;
-  margin-bottom: 1.5rem;
 }
 .image-color_title,
 .image-size_title,
@@ -70,22 +68,35 @@
   border-radius: 10px;
   margin-bottom: 0 !important;
 }
-.image-desc_subtitle {
+.image-desc_subtitle,
+.price-container {
   justify-content: left;
+}
+.price-container {
+  background-color: #dad1d2de;
+  border-radius: 0.5rem;
 }
 .card-footer-item:not(:last-child) {
   border-right: 0;
 }
+.buttons {
+  gap: 0.5rem;
+}
 .image-btns {
   display: flex;
   flex-direction: column;
+  position: absolute;
+  width: 90%;
+  bottom: 2%;
+}
+@media only screen and (max-width: 1025px) {
+  .image-btns {
+    position: relative;
+  }
 }
 .carousel {
   width: 100%;
-  // max-width: 500px;
   background-color: #f7f7f7;
-  // padding: 20px;
-  // margin: auto;
 }
 .carousel-btns {
   text-align: center;
@@ -94,19 +105,33 @@
   justify-content: space-between;
 
   width: 100%;
-  // background-color: rgb(226, 224, 228);
   position: absolute;
   bottom: 50%;
-
-  // // padding: 40px;
-  // margin: auto;
+}
+.add-btn,
+.carousel-btn_back,
+.carousel-btn_next {
+  justify-content: center;
+  margin: 0 5px;
+  // border: none;
+  box-shadow: rgba(123, 123, 179, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(87, 132, 177, 0.35) 0px -2px 6px 0px inset;
 }
 .carousel-btn_back,
 .carousel-btn_next {
-  margin: 0 2rem;
-  // border-color: transparent;
-  // border-radius: 10px;
-  width: 10% !important;
+  // background-color: #f2eaea !important;
+  display: flex;
+  padding: 0 !important;
+  width: 12%;
+  border-radius: 45%;
+  // justify-content: center !important;
+  // margin: 0 2rem;
+}
+.carousel-btn_back > img,
+.carousel-btn_next > img {
+  padding: 8px;
+  // color: #df485b;
 }
 .carousel-btn_img {
   width: 50%;
@@ -118,28 +143,22 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  // margin: auto;
+  position: relative;
 }
 @media only screen and (max-width: 641px) {
   .images-info {
     gap: 0rem;
   }
 }
-.add-btn,
-.carousel-btn_back,
-.carousel-btn_next {
+
+.add-btn {
   width: 100%;
-  justify-content: center;
-  margin: 10px;
-  // background-color: transparent !important;
   border: 1px solid rgb(212, 207, 207) !important;
   color: rgb(28, 26, 26) !important;
   text-decoration: none !important;
-  box-shadow: rgba(123, 123, 179, 0.25) 0px 50px 100px -20px,
-    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
-    rgba(87, 132, 177, 0.35) 0px -2px 6px 0px inset;
-  border-radius: 6px;
+  margin: 10px;
 }
+
 .add-toCart_btn {
   background-color: #df485b !important;
   color: #fff !important;
@@ -155,13 +174,26 @@
 .carousel-btns_box {
   width: 50%;
   position: relative;
-  background-color: #f7f7f7;
-  padding: 20px;
+  // background-color: #f7f7f7;
+  // padding: 20px;
 }
 .carousel {
   position: relative;
 }
-// .images-container {
-//   position: absolute;
-//   width: 50%;
-// }
+
+.carousel-group {
+  display: flex;
+  justify-content: center;
+  padding: 1rem 0 5px 0;
+}
+.carousel__dot {
+  background-color: rgb(57, 56, 56);
+  margin-bottom: 0;
+  border-radius: 1.5rem;
+  margin-left: 0.1rem;
+  width: 3rem;
+  font-size: 8px;
+}
+.image-price {
+  margin-top: 1.5rem;
+}
