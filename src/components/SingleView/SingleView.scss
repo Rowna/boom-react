@@ -4,9 +4,9 @@
   box-shadow: none;
   text-align: center;
 }
-.sv-img-container {
-  margin-top: 1rem;
-}
+// .sv-img-container {
+  // margin-top: 1rem;
+// }
 
 /* min heißt ab 1024 px */
 @media only screen and (min-width: 1024px) {
@@ -28,10 +28,15 @@
     margin: 5rem 2rem 0 2rem;
   }
 }
-
+.sv-article-conatiner {
+  flex-direction: row;
+  padding: 1rem 1rem;
+  gap: 1rem;
+}
 @media only screen and (max-width: 690px) {
   .sv-article-conatiner {
     flex-direction: column;
+
   }
   .sv-img {
     width: 300px;
@@ -57,12 +62,13 @@
 .desc-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .sv-img {
   object-position: center;
-  width: 200px;
-  height: 200px;
+  // width: 90%;
+  // height: 90%;
 }
 
 .rate-btn,
@@ -82,4 +88,7 @@
 .edit-btn {
   background-color: rgb(109, 169, 237);
   color: #000;
+}
+.rate-btn-container {
+  padding: 1rem 0;
 }

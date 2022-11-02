@@ -14,11 +14,14 @@ function SingleView({ token, userName, userId }) {
   // vgl. die Erklaerungen in App.jsx zu 'singleview/:artID'
   let { artID } = useParams();
   let [article, setArticle] = useState({});
-  console.log(article)
+  // console.log(article)
+
   let [recAlreadyWritten, setRecAlreadyWritten] = useState(false);
   let [modalVisible, setModalVisible] = useState(false);
   let [platzhalterVisible, setPlatzhalterVisible] = useState(false);
-  let imgURL = "/uploads/" + article.img;
+  // let imgURL = article.img;
+  
+  // let imgURL = "/uploads/" + article.images && article.images[0];
 
   function fnRecAlreadyWritten(pRecommendations) {
     if (pRecommendations && pRecommendations.length > 0) {
@@ -107,7 +110,7 @@ function SingleView({ token, userName, userId }) {
           <div className="card-footer sv-article-conatiner">
             <div className="card-footer-item sv-left-container">
               <div className="sv-img-container">
-                <img className="sv-img" src={imgURL} alt="svImage" />
+                <img className="sv-img" src={article.images && article.images[0]} alt="svImage" />
               </div>
 
               <div className="card-footer-item sv-sterne">
@@ -126,7 +129,7 @@ function SingleView({ token, userName, userId }) {
               <div className="sv-btns card">
                 {recAlreadyWritten ? (
                   // Das Block muss in einem Component
-                  <div className="rate-btn-container card-content">
+                  <div className="rate-btn-container ">
                     <p
                       className="button is-info edit-btn"
                       onClick={EditRatingHandler}
@@ -139,7 +142,7 @@ function SingleView({ token, userName, userId }) {
                     {/* {isLoading ? <></> : <></> ? <></> : <></>} */}
                     {platzhalterVisible && <Platzhalter />}
                     {/* // Das Block muss in einem Component */}
-                    <div className="rate-btn-container card-content">
+                    <div className="rate-btn-container ">
                       <p
                         className="button is-info rate-btn"
                         onClick={ratingHandler}
@@ -151,7 +154,7 @@ function SingleView({ token, userName, userId }) {
                 )}
 
                 <Link to="/catalog">
-                  <p className="card-content">
+                  <p className="">
                     <button className="button gly-btn">Back to Gallery</button>
                   </p>
                 </Link>
